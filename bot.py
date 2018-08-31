@@ -11,7 +11,7 @@ from telepot.namedtuple import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboa
 from bot_add import add_keywords, delete_keywords
 from parse import send
 
-os.environ['DATABASE_URL'] = 'postgres://aszcitgpnlvywd:724a92d4dd1cdb044882cb6f579060b8482e7da45191194cf9b5c7677bc9f210@ec2-54-247-81-88.eu-west-1.compute.amazonaws.com:5432/dfq1utl6uns158'
+os.environ['DATABASE_URL'] = 'postgres://vudojolxpbdbhu:57eaedbba34bb27f944556c177049db7a50068fbc0eca8ffe161f5e7b072d325@ec2-54-217-235-166.eu-west-1.compute.amazonaws.com:5432/dckdtc2c8arian'
 DATABASE_URL = os.environ['DATABASE_URL']
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 
@@ -293,9 +293,11 @@ def echo_all(updates):
                 # send_inline_keyboard([['Обрати цікаві мені теми', '/themes newskit']], chat, 'Тебе вітає NewsKit! \n Я - чат-бот, який надсилатиме тобі підбірку свіжих персоналізованих новин у зручний час з обраних новинних веб-сайтів.')
         elif action == 'viewkeywords':
             curs = conn.cursor()
-            curs.execute("SELECT keywords FROM users WHERE telegram_id ='{}' AND name ='{}'".format(id, name))
+            curs.execute("SELECT keywords FROM users WHERE telegram_id ='{}'".format(id))
             # send_message('Твій список ключових слів: ' + curs.fetchone()[0], chat)
-            send_inline_keyboard([['Отримати останні новини', '/getlastnews'], ['Більше про мої можливості', '/help']], chat, 'Твій список ключових слів: ' + curs.fetchone()[0])
+            words = curs.fetchone()[0]
+            print(words, id, name)
+            send_inline_keyboard([['Отримати останні новини', '/getlastnews'], ['Більше про мої можливості', '/help']], chat, 'Твій список ключових слів: ' + str(words))
         elif action == 'addkeywords':
             curs = conn.cursor()
             curs.execute("SELECT keywords FROM users WHERE telegram_id ='{}' AND name ='{}'".format(id, name))

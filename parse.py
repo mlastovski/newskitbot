@@ -1,7 +1,8 @@
 # -*-coding: utf-8 -*-
 import os
-#import requests
+import requests
 import psycopg2
+import time
 from datetime import datetime
 from apscheduler.schedulers.blocking import BlockingScheduler
 from parsers.two_four_tvua import parse_24tvua
@@ -17,7 +18,7 @@ from parsers.onehundredtwelve import onehundredtwelve
 from parsers.isport import isport
 
 
-os.environ['DATABASE_URL'] = 'postgres://aszcitgpnlvywd:724a92d4dd1cdb044882cb6f579060b8482e7da45191194cf9b5c7677bc9f210@ec2-54-247-81-88.eu-west-1.compute.amazonaws.com:5432/dfq1utl6uns158'
+os.environ['DATABASE_URL'] = 'postgres://vudojolxpbdbhu:57eaedbba34bb27f944556c177049db7a50068fbc0eca8ffe161f5e7b072d325@ec2-54-217-235-166.eu-west-1.compute.amazonaws.com:5432/dckdtc2c8arian'
 
 DATABASE_URL = os.environ['DATABASE_URL']
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
@@ -127,15 +128,19 @@ def parse(media):
             print('keywords in article: ', article_keywords)
 
             article_keywords = ', '.join(article_keywords)
+            print('got an article!')
             try:
                 curs.execute("INSERT INTO articles (website_id, url, keywords, parse_time)  VALUES ('{}','{}','{}', '{}')".format(id, new_article['link'], article_keywords, datetime.now().timestamp()))
                 conn.commit()
                 duplicate = False
+                print('article inserted!')
             except psycopg2.IntegrityError:
                 print('duplicate')
                 duplicate = True
                 curs.execute("ROLLBACK")
                 conn.commit()
+
+            print('i handled an article!')
 
             curs.execute("SELECT telegram_id, status, keywords, telegram_id, parse_mode FROM users")
             users = list(curs.fetchall())
@@ -169,6 +174,7 @@ def parse(media):
                             curs.execute("UPDATE users SET send_time ='{}' WHERE telegram_id ='{}'".format(datetime.now().timestamp(), user[3]))
                             conn.commit()
     else:
+        print("oops, i missed a lot of articles!")
         for new_article_number in range(len(links)-1, -1, -1):
             print(new_article_number)
             new_article = parsed_content[new_article_number]
@@ -205,15 +211,19 @@ def parse(media):
             print('keywords in article: ', article_keywords)
 
             article_keywords = ', '.join(article_keywords)
+            print('got an article!')
             try:
                 curs.execute("INSERT INTO articles (website_id, url, keywords, parse_time)  VALUES ('{}','{}','{}', '{}')".format(id, new_article['link'], article_keywords, datetime.now().timestamp()))
                 conn.commit()
                 duplicate = False
+                print('article inserted!')
             except psycopg2.IntegrityError:
                 print('duplicate')
                 duplicate = True
                 curs.execute("ROLLBACK")
                 conn.commit()
+
+            print('i handled an article!')
 
             curs.execute("SELECT telegram_id, status, keywords, telegram_id, parse_mode FROM users")
             users = list(curs.fetchall())
@@ -245,7 +255,6 @@ def parse(media):
                             get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, 'Нова стаття з ' + web_name + '\n' + new_article['link']), chat_id)
                             curs.execute("UPDATE users SET send_time ='{}' WHERE telegram_id ='{}'".format(datetime.now().timestamp(), user[3]))
                             conn.commit()
-
     print('Finished!')
 
 
@@ -280,48 +289,48 @@ sched = BlockingScheduler()
 @sched.scheduled_job('interval', minutes=5)
 def timed_job():
     print('This job is run every 5 minutes.')
-    #requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('parsing started!'))
+    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('parsing started!'))
     curs.execute("SELECT id FROM websites")
     for website in curs.fetchall():
         parse(website[0])
 
-    #requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('parsing finished!'))
+    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('parsing finished!'))
 
 
 @sched.scheduled_job('cron', hour='6')
 def timed_job2():
-    #requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Розсилка юзерам о 9 годині ранку стартувала!'))
+    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Розсилка юзерам о 9 годині ранку стартувала!'))
     curs.execute("SELECT * FROM users WHERE parse_mode ='9am'")
     users = curs.fetchall()
     send(users)
-    #requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Процес надсилання завершено!'))
+    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Процес надсилання завершено!'))
 
 @sched.scheduled_job('cron', hour='9')
 def timed_job2():
-    #requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Розсилка юзерам о 12 годині стартувала!'))
+    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Розсилка юзерам о 12 годині стартувала!'))
     curs.execute("SELECT * FROM users WHERE parse_mode ='12am'")
     users = curs.fetchall()
     send(users)
-    #requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Процес надсилання завершено!'))
+    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Процес надсилання завершено!'))
 
 @sched.scheduled_job('cron', hour='18')
 def timed_job2():
-    #requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Розсилка юзерам о 9 годині вечора стартувала!'))
+    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Розсилка юзерам о 9 годині вечора стартувала!'))
     curs.execute("SELECT * FROM users WHERE parse_mode ='9pm'")
     users = curs.fetchall()
     send(users)
-    #requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Процес надсилання завершено!'))
+    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Процес надсилання завершено!'))
 
 @sched.scheduled_job('cron', hour='4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20')
 def timed_job3():
-    #requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Розсилка юзерам щогодини стартувала!'))
+    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Розсилка юзерам щогодини стартувала!'))
     curs.execute("SELECT * FROM users WHERE parse_mode ='everyhour'")
     users = curs.fetchall()
     send(users)
 
     curs.execute("DELETE FROM articles WHERE parse_time < '{}'".format(float(datetime.now().timestamp() - 604800)))
     conn.commit()
-    #requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Процес надсилання завершено!'))
+    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Процес надсилання завершено!'))
 
 def send(users, limit=15, immediate=False):
     from bot import get_json_from_url
@@ -367,6 +376,7 @@ def send(users, limit=15, immediate=False):
                     conn.commit()
                     i+=1
                     if_nothing=False
+                    time.sleep(0.5)
                 elif int(status) == 0 and website[3] == '*':
                     print(True)
                     get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, 'Нова стаття з ' + website[2] + '\n' + article[2]), user[1])
@@ -374,6 +384,7 @@ def send(users, limit=15, immediate=False):
                     conn.commit()
                     i+=1
                     if_nothing=False
+                    time.sleep(0.5)
 
         if if_nothing:
             from bot import send_inline_keyboard

@@ -24,7 +24,7 @@ def parse_24tvua():
         link = 'https://24tv.ua/' + title.find('a').get('href')
         author = ' '
         #date = title.find('a').find("div", {"class": "time"}).get_text().split(':')
-        date = datetime.now().replace(hour=int(date[0]), minute=int(date[1]))
+        date = datetime.now().timestamp()
 
         #print('here',title_text, link, date, author)
 
