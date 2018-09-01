@@ -498,18 +498,22 @@ def echo_all(updates):
 
             curs.execute("SELECT news_language FROM users WHERE telegram_id ='{}'".format(id))
             chosen_languages= curs.fetchone()[0].split(', ')
-
+            print('chosen_languages', chosen_languages)
             curs.execute("SELECT * FROM themes WHERE theme ='{}'".format(text[0]))
             keywords_theme = curs.fetchall()[0]
             keywords_final = ''
             if 'ua' in chosen_languages:
-                keywords_final = keywords_final + keywords_theme[2]
-            elif 'ru' in chosen_languages:
-                keywords_final = keywords_final + keywords_theme[3]
-            elif 'en' in chosen_languages:
-                keywords_final = keywords_final + keywords_theme[4]
-            elif 'de' in chosen_languages:
-                keywords_final = keywords_final + keywords_theme[5]
+                print('ua')
+                keywords_final = keywords_final + keywords_theme[2] + ', '
+            if 'ru' in chosen_languages:
+                print('ru')
+                keywords_final = keywords_final + keywords_theme[3] + ', '
+            if 'en' in chosen_languages:
+                print('en')
+                keywords_final = keywords_final + keywords_theme[4] + ', '
+            if 'de' in chosen_languages:
+                print('de')
+                keywords_final = keywords_final + keywords_theme[5] + ', '
 
             print(keywords_final)
 
