@@ -89,6 +89,14 @@ def parse(media):
     else:
         logic=False
 
+    timeofday = round(datetime.now().timestamp() % 86400, 3)
+    if timeofday > 0.875 and timeofday < 0.208:
+        nightsleep = True
+    else:
+        nightsleep = False
+
+    print('nightsleep', nightsleep)
+
     if logic: #last_article[2] in links:
         index = links.index(last_article[2])
         print('Sending content of ', web_name)

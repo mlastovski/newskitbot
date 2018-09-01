@@ -40,16 +40,16 @@ def add_keywords(conn, id, name, text, chat):
 
     if present_words != '':
         present_words = present_words + ', '
-    curs.execute("UPDATE users SET keywords ='{}' WHERE telegram_id ='{}' AND name ='{}'".format(
-        str(present_words_list + text), id, name))
+    curs.execute("UPDATE users SET keywords ='{}' WHERE telegram_id ='{}'".format(
+        str(present_words_list + text), id))
     conn.commit()
     print('done', present_words_list + text)
 
 def delete_keywords(conn, id, name, text, chat):
     from bot import replace, send_message
-
+    print('text', text)
     curs = conn.cursor()
-    curs.execute("SELECT keywords FROM users WHERE telegram_id ='{}' AND name ='{}'".format(id, name))
+    curs.execute("SELECT keywords FROM users WHERE telegram_id ='{}'".format(id))
     present_words = curs.fetchone()[0]
     present_words_list = present_words.split(', ')
 
@@ -64,8 +64,8 @@ def delete_keywords(conn, id, name, text, chat):
         present_words_list = ', '.join(present_words_list)
 
     curs.execute(
-        "UPDATE users SET keywords ='{}' WHERE telegram_id ='{}' AND name ='{}'".format(str(present_words_list),
-                                                                                        id, name))
+        "UPDATE users SET keywords ='{}' WHERE telegram_id ='{}'".format(str(present_words_list),
+                                                                                        id))
     conn.commit()
     print('done', present_words_list)
 
