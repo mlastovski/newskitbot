@@ -16,6 +16,7 @@ from parsers.hromadske import hromadske
 from parsers.korrespondent import korrespondent
 from parsers.onehundredtwelve import onehundredtwelve
 from parsers.isport import isport
+from parsers.spiegelDeutsch import spiegelDeutsch
 
 
 os.environ['DATABASE_URL'] = 'postgres://vudojolxpbdbhu:57eaedbba34bb27f944556c177049db7a50068fbc0eca8ffe161f5e7b072d325@ec2-54-217-235-166.eu-west-1.compute.amazonaws.com:5432/dckdtc2c8arian'
@@ -63,6 +64,9 @@ def parse(media):
     elif media == 11:
         parsed_content = isport()
         web_name = 'isport.ua'
+    elif media == 12:
+        parsed_content = spiegelDeutsch()
+        web_name = 'spiegel'
     else:
         return None
 
