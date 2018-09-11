@@ -970,6 +970,11 @@ def echo_all(updates):
                 requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'Фідбек! \n' + str(chat) + '\n' + str(text[0])))
                 requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=373407132&text={}'.format(TOKEN, 'Фідбек! \n' + str(chat) + '\n' + str(text[0])))
                 send_message('Я надіслав твій фідбек!', chat)
+        elif action == 'feedbackonce':
+            print(text)
+            requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'Фідбек! \n' + str(chat) + '\n' + str(text[0])))
+            requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=373407132&text={}'.format(TOKEN, 'Фідбек! \n' + str(chat) + '\n' + str(text[0])))
+            send_message('Дякую за відповідь! Вона дуже важлива для мене!', chat)
         elif action == '/cancel':
             curs.execute("UPDATE users SET command='' WHERE telegram_id='{}'".format(id))
             conn.commit()

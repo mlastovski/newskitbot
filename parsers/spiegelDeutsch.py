@@ -47,8 +47,10 @@ def spiegelDeutsch():
         # print(title_text)
         link = 'http://www.spiegel.de' + title.find('div').find('h2').find('a').get('href')
         # print(link)
-
-        structure = requests.get(link, headers={"user-agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Mobile Safari/537.36"}).text
+        try:
+            structure = requests.get(link, headers={"user-agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Mobile Safari/537.36"}).text
+        except:
+            print('Pass through error!')
         eachpagesoup = BeautifulSoup(structure, "lxml")
 
         for eachpage in eachpagesoup.find_all('p'):
@@ -57,10 +59,10 @@ def spiegelDeutsch():
             article_text = re.sub('\t', '', article_text)
             article_text = re.sub('\xe4', '', article_text)
             article_text = remove_bad_characters(article_text.split(' '))
-            print(article_text)
+            #print(article_text)
 
         author = ' '
-        date = datetime.now()
+        date = datetime.now().timestamp()
 
         if title_text and article_text and link and author and date:
             article = {
@@ -70,11 +72,11 @@ def spiegelDeutsch():
                 'author': author,
                 'date': date
             }
-            # print(article)
+            print(article)
             articles.append(article)
 
     articles = [i for n, i in enumerate(articles) if i not in articles[n + 1:]] #remove repeating
-
+    print(articles)
     return articles
 
 if __name__ == '__main__':

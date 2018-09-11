@@ -28,44 +28,108 @@ curs = conn.cursor()
 
 
 def parse(media):
+    curs.execute("DELETE FROM articles WHERE parse_time < '{}'".format(float(datetime.now().timestamp() - 259200)))
+    conn.commit()
+    #requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Процес надсилання завершено!'))
+
     print(media)
     from bot import get_json_from_url
 
     if media == 1:
-        parsed_content = wylsa()
+        try:
+            parsed_content = wylsa()
+        except:
+            requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! wylsa'))
+            requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! wylsa'))
+            return None
         web_name = 'wylsa.com'
     elif media == 2:
-        parsed_content = parse_24tvua()
+        try:
+            parsed_content = parse_24tvua()
+        except:
+            requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! parse_24tvua'))
+            requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! parse_24tvua'))
+            return None
         web_name = '24канал'
     elif media == 3:
-        parsed_content = parse_ainua()
+        try:
+            parsed_content = parse_ainua()
+        except:
+            requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! parse_ainua'))
+            requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! parse_ainua'))
+            return None
         web_name = 'ain.ua'
     elif media == 4:
-        parsed_content = appleinsider()
+        try:
+            parsed_content = appleinsider()
+        except:
+            requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! appleinsider'))
+            requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! appleinsider'))
+            return None
         web_name = 'appleinsider.ru'
     elif media == 5:
-        parsed_content = dou()
+        try:
+            parsed_content = dou()
+        except:
+            requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! dou'))
+            requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! dou'))
+            return None
         web_name = 'dou.ua'
-    #elif media == 6:
-    #    parsed_content = pravda()
-    #    web_name = 'українська правда'
+    elif media == 6:
+        try:
+            parsed_content = pravda()
+        except:
+            requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! українська правда'))
+            requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! українська правда'))
+            return None
+        web_name = 'українська правда'
     elif media == 7:
-        parsed_content = faktyictv()
+        try:
+            parsed_content = faktyictv()
+        except:
+            requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! faktyictv'))
+            requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! faktyictv'))
+            return None
         web_name = 'факти ictv'
     elif media == 8:
-        parsed_content = hromadske()
+        try:
+            parsed_content = hromadske()
+        except:
+            requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! hromadske'))
+            requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! hromadske'))
+            return None
         web_name = 'hromadske'
     elif media == 9:
-        parsed_content = korrespondent()
+        try:
+            parsed_content = korrespondent()
+        except:
+            requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! korrespondent'))
+            requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! korrespondent'))
+            return None
         web_name = 'korrespondent'
     elif media == 10:
-        parsed_content = onehundredtwelve()
+        try:
+            parsed_content = onehundredtwelve()
+        except:
+            requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! onehundredtwelve'))
+            requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! onehundredtwelve'))
+            return None
         web_name = '112.ua'
     elif media == 11:
-        parsed_content = isport()
+        try:
+            parsed_content = isport()
+        except:
+            requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! isport'))
+            requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! isport'))
+            return None
         web_name = 'isport.ua'
     elif media == 12:
-        parsed_content = spiegelDeutsch()
+        try:
+            parsed_content = spiegelDeutsch()
+        except:
+            requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! spiegelDeutsch'))
+            requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! spiegelDeutsch'))
+            return None
         web_name = 'spiegel'
     else:
         return None
@@ -73,12 +137,13 @@ def parse(media):
     print('Parsing ', web_name)
 
     id = media
-    print(parsed_content)
+    print('parsed_content',parsed_content)
 
     links = []
     for item in parsed_content:
         link = item['link']
         links.append(link)
+
 
     curs.execute("SELECT * FROM articles WHERE website_id ='{}' ORDER BY ID DESC LIMIT 1".format(id))
     last_article = curs.fetchone()
@@ -340,9 +405,6 @@ def timed_job3():
     users = curs.fetchall()
     send(users)
 
-    curs.execute("DELETE FROM articles WHERE parse_time < '{}'".format(float(datetime.now().timestamp() - 604800)))
-    conn.commit()
-    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Процес надсилання завершено!'))
 
 def send(users, limit=15, immediate=False):
     from bot import get_json_from_url
@@ -351,13 +413,17 @@ def send(users, limit=15, immediate=False):
         chat_id = user[1]
         status = user[5]
         user_keywords = user[3].split(', ')
+
+        if '' in user_keywords:
+            user_keywords.remove('')
+
         print(chat_id, status, user_keywords)
 
         curs.execute("SELECT * FROM user2website WHERE user_id='{}'".format(user[1]))
         websites = curs.fetchall()
 
         if_nothing = True
-
+        i=1
         for website in websites:
             curs.execute("SELECT id FROM websites WHERE name='{}'".format(website[2]))
             try:
@@ -367,10 +433,13 @@ def send(users, limit=15, immediate=False):
             curs.execute("SELECT * FROM articles WHERE parse_time > '{}' and website_id='{}' ORDER BY id DESC".format(float(user[4]), web_id))
             articles = curs.fetchall()
 
-            i=1
+
             limit=user[13]
+            print('number of limit', limit)
             for article in articles:
-                if i > limit:
+                print('limit', i)
+                if i > int(limit):
+                    print('break!')
                     break
 
                 passed_keywords = []
@@ -383,6 +452,8 @@ def send(users, limit=15, immediate=False):
 
                 if int(status) == 0 and passed_keywords != '':
                     print(True)
+                    if i == 1:
+                        get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, 'Твій одноразовий ліміт новин: ' + str(limit)) + '. Щоб змінити, скористайся /limit', user[1])
                     get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, 'Я знайшов такі ключові слова у наступній статті: ' + passed_keywords + '\n' + article[2]), user[1])
                     curs.execute("UPDATE users SET send_time ='{}' WHERE telegram_id ='{}'".format(datetime.now().timestamp(), user[1]))
                     conn.commit()
@@ -390,6 +461,8 @@ def send(users, limit=15, immediate=False):
                     if_nothing=False
                     time.sleep(0.5)
                 elif int(status) == 0 and website[3] == '*':
+                    if i == 1:
+                        get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, 'Твій одноразовий ліміт новин: ' + str(limit)) + '. Щоб змінити, скористайся /limit', user[1])
                     print(True)
                     get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, 'Нова стаття з ' + website[2] + '\n' + article[2]), user[1])
                     curs.execute("UPDATE users SET send_time ='{}' WHERE telegram_id ='{}'".format(datetime.now().timestamp(), user[1]))
@@ -398,13 +471,16 @@ def send(users, limit=15, immediate=False):
                     if_nothing=False
                     time.sleep(0.5)
 
-        if if_nothing:
-            from bot import send_inline_keyboard
 
+        from bot import send_inline_keyboard
+
+        if if_nothing:
             if immediate:
                 send_inline_keyboard([['Обрати інші теми', '/themes'], ['Відібрати інші веб-сайти', '/websites'], ['Переглянути свої ключові слова', '/keywords']], user[1], 'На жаль, останніх новин за твоїми параметрами не знайдено 😔 Зачекай трішки або спробуй наступне:')
             else:
                 send_inline_keyboard([['Обрати більше тем', '/themes'], ['Відібрати більше веб-сайтів', '/websites'], ['Переглянути свої ключові слова', '/keywords']], user[1], 'На даний момент свіжих новин за твоїми вказаними параметрами немає 😔 Зачекай ще трішки або спробуй наступне:')
+        else:
+            send_inline_keyboard([['Так, дуже!', '/feedbackonce так, все супер'], ['Мені сподобались декілька новин!', '/feedbackonce декілька новин'], ['Було мало корисного((', '/feedbackonce було мало корисного']], user[1], 'Чи сподобалась тобі підбірка новин?')
 
 
 
