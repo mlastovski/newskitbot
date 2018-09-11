@@ -11,7 +11,7 @@ from telepot.namedtuple import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboa
 from bot_add import add_keywords, delete_keywords
 from parse import send
 
-os.environ['DATABASE_URL'] = 'postgres://vudojolxpbdbhu:57eaedbba34bb27f944556c177049db7a50068fbc0eca8ffe161f5e7b072d325@ec2-54-217-235-166.eu-west-1.compute.amazonaws.com:5432/dckdtc2c8arian'
+os.environ['DATABASE_URL'] = 'postgres://cgvkxvyosmvmzd:f281ebb6771eaebb9c998d34665c60d917542d6df0ece9fa483da65d62b600e7@ec2-79-125-12-48.eu-west-1.compute.amazonaws.com:5432/dbrvpbkmj63vl8'
 DATABASE_URL = os.environ['DATABASE_URL']
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 
