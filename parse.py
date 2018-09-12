@@ -368,8 +368,12 @@ def timed_job():
     print('This job is run every 5 minutes.')
     requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('parsing started!'))
     curs.execute("SELECT id FROM websites")
-    for website in curs.fetchall():
-        parse(website[0])
+    try:
+        for website in curs.fetchall():
+            parse(website[0])
+    except psycopg2.InternalError:
+        print('psycopg2.InternalError')
+        requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('psycopg2.InternalError'))
 
     requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('parsing finished!'))
 
