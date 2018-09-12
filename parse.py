@@ -470,6 +470,8 @@ def send(users, limit=15, immediate=False):
                     i+=1
                     if_nothing=False
                     time.sleep(0.5)
+                elif int(status) == 1:
+                    if_nothing=False
 
 
         from bot import send_inline_keyboard
