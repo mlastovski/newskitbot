@@ -1002,6 +1002,19 @@ def echo_all(updates):
                 send_message('Повідомлення успішно розіслано всім користувачам!', chat)
             else:
                 send_message('Хмммм! Для розсилки всім юзерам треба мати вищий пропуск! Ти його, на жаль, не маєш(( Проте не засмучуйся)) Напиши /getlastnews і я потішу тебе останніми новинами!', chat)
+        elif action == 'aboutuser':
+            print(text)
+            if id == 138918380 or id == 373407132:
+                if len(text) < 1:
+                    send_message('Неправильно!', chat)
+                else:
+                    print(True)
+                    curs.execute("SELECT * FROM users WHERE telegram_id = '{}'".format(text[0]))
+                    user = curs.fetchone()
+                    send_message(str(user), chat)
+            else:
+                send_message('Хмммм! Для розсилки юзерам треба мати вищий пропуск! Ти його, на жаль, не маєш(( Проте не засмучуйся)) Напиши /getlastnews і я потішу тебе останніми новинами!', chat)
+
         elif action == 'statistic':
             curs.execute("SELECT telegram_id FROM users")
             users = curs.fetchall()
@@ -1210,20 +1223,21 @@ def main():
     last_update_id = None
     while True:
         updates = get_updates(last_update_id)
-        if len(updates["result"]) > 0:
-            last_update_id = get_last_update_id(updates) + 1
-            echo_all(updates)
-        # try:
-        #     if len(updates["result"]) > 0:
-        #         last_update_id = get_last_update_id(updates) + 1
-        #         try:
-        #             echo_all(updates)
-        #         except TypeError:
-        #             print('Error')
-        #             requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'ERROR!!! + TypeError'))
-        # except Exception as e:
-        #     print('Error_' + str(e))
-        #     requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'ERROR!!! ' + str(e)))
+        # if len(updates["result"]) > 0:
+        #     last_update_id = get_last_update_id(updates) + 1
+        #     echo_all(updates)
+        try:
+            if len(updates["result"]) > 0:
+                last_update_id = get_last_update_id(updates) + 1
+                try:
+                    echo_all(updates)
+                except TypeError:
+                    print('Error')
+                    requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'ERROR!!! + TypeError'))
+        except Exception as e:
+            print('Error_' + str(e))
+            requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'ERROR!!! ' + str(e)))
+            requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=373407132&text={}'.format(TOKEN, 'ERROR!!! ' + str(e)))
         time.sleep(0.5)
 
 

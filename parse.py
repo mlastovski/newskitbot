@@ -367,47 +367,74 @@ sched = BlockingScheduler()
 def timed_job():
     print('This job is run every 5 minutes.')
     requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('parsing started!'))
-    curs.execute("SELECT id FROM websites")
+    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('parsing started!'))
     try:
-        for website in curs.fetchall():
-            parse(website[0])
+        curs.execute("SELECT id FROM websites")
     except psycopg2.InternalError:
         print('psycopg2.InternalError')
-        requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('psycopg2.InternalError'))
+        requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('psycopg2.InternalError. Trying to fix it...'))
+        requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('psycopg2.InternalError. Trying to fix it...'))
+        time.sleep(10)
+        curs.execute("Rollback")
+        requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Rollback done! Now I try one more time!'))
+        requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Rollback done! Now I try one more time!'))
+        try:
+            curs.execute("SELECT id FROM websites")
+        except psycopg2.InternalError:
+            print('psycopg2.InternalError')
+            requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('psycopg2.InternalError. Failed!'))
+            requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('psycopg2.InternalError. Failed!'))
+
+
+    for website in curs.fetchall():
+        parse(website[0])
 
     requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('parsing finished!'))
+    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('parsing finished!'))
 
 
 @sched.scheduled_job('cron', hour='6')
 def timed_job2():
     requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Розсилка юзерам о 9 годині ранку стартувала!'))
+    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Розсилка юзерам о 9 годині ранку стартувала!'))
     curs.execute("SELECT * FROM users WHERE parse_mode ='9am'")
     users = curs.fetchall()
     send(users)
-    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Процес надсилання завершено!'))
+    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('parsing finished!'))
+    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('parsing finished!'))
 
 @sched.scheduled_job('cron', hour='9')
 def timed_job2():
     requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Розсилка юзерам о 12 годині стартувала!'))
+    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Розсилка юзерам о 12 годині стартувала!'))
     curs.execute("SELECT * FROM users WHERE parse_mode ='12am'")
     users = curs.fetchall()
     send(users)
     requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Процес надсилання завершено!'))
+    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Процес надсилання завершено!'))
+
 
 @sched.scheduled_job('cron', hour='18')
 def timed_job2():
     requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Розсилка юзерам о 9 годині вечора стартувала!'))
+    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Розсилка юзерам о 9 годині вечора стартувала!'))
     curs.execute("SELECT * FROM users WHERE parse_mode ='9pm'")
     users = curs.fetchall()
     send(users)
     requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Процес надсилання завершено!'))
+    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Процес надсилання завершено!'))
+
 
 @sched.scheduled_job('cron', hour='4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20')
 def timed_job3():
     requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Розсилка юзерам щогодини стартувала!'))
+    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Розсилка юзерам щогодини стартувала!'))
     curs.execute("SELECT * FROM users WHERE parse_mode ='everyhour'")
     users = curs.fetchall()
     send(users)
+    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Процес надсилання завершено!'))
+    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Процес надсилання завершено!'))
+
 
 
 def send(users, limit=15, immediate=False):

@@ -45,7 +45,9 @@ def spiegelDeutsch():
     for title in soup.find('div', {'class': 'column-wide'}).find_all('div', {'class': 'teaser'}):
         title_text = title.find('div').find('h2').find('a').find('span').get_text()
         # print(title_text)
-        link = 'http://www.spiegel.de' + title.find('div').find('h2').find('a').get('href')
+        link = title.find('div').find('h2').find('a').get('href')
+        if not link.startswith('https://') or not link.startswith('http://'):
+            link = 'http://www.spiegel.de' + link
         # print(link)
         try:
             structure = requests.get(link, headers={"user-agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Mobile Safari/537.36"}).text
