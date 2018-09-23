@@ -16,7 +16,7 @@ def parse_24tvua():
     soup = BeautifulSoup(data, "lxml")
 
     articles = []
-
+    print('іщгз', soup)
 
     for title in soup.find("ul", {"class": "news-list"}).find_all('li'):
         title_text = title.find('a').find("div", {"class": "news-title"}).get_text()
