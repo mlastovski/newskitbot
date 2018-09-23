@@ -16,9 +16,12 @@ def pravda():
 
     soup = BeautifulSoup(data, "lxml")
 
-    print('col__inner', soup.find("div", {"class": "col__inner"}))
+    print('main', soup.find("div", {"class": "main-content"}))
+    print('layout_main', soup.find("div", {"class": "layout-main"}))
+    print('clearfix', soup.find("div", {"class": "clearfix"}))
+    print('col__fluid', soup.find("div", {"class": "col__fluid"}))
     print('col__fluid__inner', soup.find("div", {"class": "col__fluid__inner"}))
-    print('col_left', soup.find("div", {"class": "col_left"}))
+    print('col__left', soup.find("div", {"class": "col__left"}))
     print('block_news', soup.find("div", {"class": "block_news"}))
     articles = []
 
