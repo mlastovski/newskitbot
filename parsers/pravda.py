@@ -8,6 +8,7 @@ import re
 
 def pravda():
     data = requests.get("https://pravda.com.ua/", headers={"user-agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Mobile Safari/537.36"}).text
+    print(data)
     data = re.sub("'", "\'", data)
     data = data.replace("\r", "\t")
     data = data.replace("\n", "\t")
