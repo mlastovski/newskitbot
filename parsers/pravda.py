@@ -15,7 +15,7 @@ def pravda():
     # data = data.replace("'", "\'")
 
     soup = BeautifulSoup(data, "lxml")
-
+    print('іщгз', soup)
     print('main', soup.find("div", {"class": "main-content"}))
     print('layout_main', soup.find("div", {"class": "layout-main"}))
     print('clearfix', soup.find("div", {"class": "clearfix"}))
