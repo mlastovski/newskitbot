@@ -7,8 +7,9 @@ import re
 def isport():
     data = requests.get("http://isport.ua/news", headers={"user-agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Mobile Safari/537.36"}).text
     # print(data)
+    encoding = data.encoding if 'charset' in data.headers.get('content-type', '').lower() else None
+    soup = BeautifulSoup(data.content, from_encoding=encoding)
 
-    soup = BeautifulSoup(data, "lxml")
 
     articles = []
 
