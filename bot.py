@@ -10,6 +10,7 @@ import telepot
 from telepot.namedtuple import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, InlineKeyboardButton
 from bot_add import add_keywords, delete_keywords
 from parse import send
+from parse import addnewsheduler
 
 os.environ['DATABASE_URL'] = 'postgres://cgvkxvyosmvmzd:f281ebb6771eaebb9c998d34665c60d917542d6df0ece9fa483da65d62b600e7@ec2-79-125-12-48.eu-west-1.compute.amazonaws.com:5432/dbrvpbkmj63vl8'
 DATABASE_URL = os.environ['DATABASE_URL']
@@ -958,6 +959,27 @@ def echo_all(updates):
                 send([user_current], 7, True)
             else:
                 send([user_current], immediate=True)
+        elif action == 'newstime':
+            if len(text[0]) == 0:
+                curs.execute("UPDATE users SET command='newstime' WHERE telegram_id='{}'".format(id))
+                conn.commit()
+                send_message('Надішли мені час, коли ти хочеш отримувати новини. Дотримуйся такого формату: \n 10:47 \n /cancel, щоб скасувати', id)
+            else:
+                print(text[0])
+
+                try:
+                    hours=int(text[0].split(':')[0])
+                    minutes=int(text[0].split(':')[1])
+                    print(hours, minutes)
+                    if hours < 24 and hours >= 0 and minutes < 60 and minutes >= 0 or hours == 24 and minutes == 0:
+                        addnewsheduler(hours, minutes)
+                        send_message('Час встановлено!', id)
+                    else:
+                        send_message('Час не підходить. Напиши час у форматі ГГ:ХХ. Наприклад, 09:21. Спробуй ще раз! /newstime', id)
+                except ValueError:
+                    send_message('Час не підходить. Напиши час у форматі ГГ:ХХ. Наприклад, 09:21. Спробуй ще раз! /newstime', id)
+                curs.execute("UPDATE users SET command='' WHERE telegram_id='{}'".format(id))
+                conn.commit()
         elif action == 'feedback':
             print(text)
             if len(text[0]) == 0:
@@ -967,13 +989,13 @@ def echo_all(updates):
             else:
                 curs.execute("UPDATE users SET command='' WHERE telegram_id='{}'".format(id))
                 conn.commit()
-                requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'Фідбек! \n' + str(chat) + '\n' + str(text[0])))
-                requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=373407132&text={}'.format(TOKEN, 'Фідбек! \n' + str(chat) + '\n' + str(text[0])))
+                requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'Фідбек! \n' + str(chat) + ' ' + str(name) + ' ' + last_name + '\n' + str(text[0])))
+                requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=373407132&text={}'.format(TOKEN, 'Фідбек! \n' + str(chat) + ' ' + str(name) + ' ' + last_name + '\n' + str(text[0])))
                 send_message('Я надіслав твій фідбек!', chat)
         elif action == 'feedbackonce':
             print(text)
-            requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'Фідбек! \n' + str(chat) + '\n' + str(text[0])))
-            requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=373407132&text={}'.format(TOKEN, 'Фідбек! \n' + str(chat) + '\n' + str(text[0])))
+            requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'Фідбек! \n' + str(chat) + ' ' + str(name) + ' ' + last_name + '\n' + str(text[0])))
+            requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=373407132&text={}'.format(TOKEN, 'Фідбек! \n' + str(chat) + ' ' + str(name) + ' ' + last_name + '\n' + str(text[0])))
             send_message('Дякую за відповідь! Вона дуже важлива для мене!', chat)
         elif action == '/cancel':
             curs.execute("UPDATE users SET command='' WHERE telegram_id='{}'".format(id))
