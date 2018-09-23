@@ -467,19 +467,49 @@ def timed_job4():
     requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('ITTTT WORKSSSS!'))
 
 
-def addnewsheduler(hours, minutes):
+def addnewsheduler(hours, minutes, user_id):
     curs.execute("SELECT value FROM static WHERE id=3")
     customtime = curs.fetchone()[0].split(', ')
     print(customtime)
+
+    curs.execute("SELECT parse_mode FROM users WHERE telegram_id='{}'".format(user_id))
+    previous_time = curs.fetchone()[0]
+    if ':' in previous_time:
+        customtime.remove(str(hours) + ':' + str(minutes))
+
+    print(customtime)
+
     if str(hours) + ':' + str(minutes) not in customtime:
-        pass
-        #sched.add_job(specific_time_send(), 'cron', hour='', minute=minutes)
+        customtime.append(str(hours) + ':' + str(minutes))
+        print('customtime', ', '.join(customtime))
+        curs.execute("UPDATE static SET value = '{}' WHERE id=3".format(', '.join(customtime)))
+        conn.commit()
+
+    curs.execute("UPDATE users SET parse_mode = '{}' WHERE telegram_id='{}'".format(str(hours) + ':' + str(minutes), user_id))
+    conn.commit()
+    hours = ''
+    minutes = ''
+    for time in customtime:
+        if hours=='':
+            hours = hours + time.split(':')[0]
+            minutes = minutes + time.split(':')[1]
+        else:
+            hours = hours + ',' + time.split(':')[0]
+            minutes = minutes + ',' + time.split(':')[1]
+
+    print(hours)
+    print(minutes)
+
+    sched.add_job(specific_time_send, 'cron', hour=str(hours), minute=str(minutes))
 
 
 
 def specific_time_send():
-    #send(users)
-    pass
+    now_hour = datetime.now().time().split(':')[0]
+    now_minute = datetime.now().time().split(':')[1]
+    curs.execute("SELECT * FROM users WHERE parse_mode='{}'".format(now_hour+':'+now_minute))
+    users = curs.fetchall()
+    send(users)
 
 
 

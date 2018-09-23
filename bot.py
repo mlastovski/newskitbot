@@ -972,7 +972,15 @@ def echo_all(updates):
                     minutes=int(text[0].split(':')[1])
                     print(hours, minutes)
                     if hours < 24 and hours >= 0 and minutes < 60 and minutes >= 0 or hours == 24 and minutes == 0:
-                        addnewsheduler(hours, minutes)
+                        if hours > 3:
+                            hours = hours - 3
+                        elif hours == 2:
+                            hours = 23
+                        elif hours == 1:
+                            hours = 22
+                        elif hours == 24:
+                            hours = 21
+                        addnewsheduler(hours, minutes, id)
                         send_message('Час встановлено!', id)
                     else:
                         send_message('Час не підходить. Напиши час у форматі ГГ:ХХ. Наприклад, 09:21. Спробуй ще раз! /newstime', id)
