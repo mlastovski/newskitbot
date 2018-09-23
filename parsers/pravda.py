@@ -4,18 +4,21 @@ import requests
 import lxml
 from datetime import datetime
 import re
+import html5lib
 
 
 def pravda():
-    data = requests.get("https://pravda.com.ua/", headers={"user-agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Mobile Safari/537.36"}).text
+    data = requests.get("https://pravda.com.ua/", headers={"user-agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Mobile Safari/537.36"})
 
-    data = re.sub("'", "\'", data)
-    data = data.replace("\r", "\t")
-    data = data.replace("\n", "\t")
-    data = data.replace("'", "\'")
+    # data = re.sub("'", "\'", data)
+    # data = data.replace("\r", "\t")
+    # data = data.replace("\n", "\t")
+    # data = data.replace("'", "\'")
 
-    soup = BeautifulSoup(data, "lxml")
+    #soup = BeautifulSoup(data, "html5lib")
 
+    encoding = data.encoding if 'charset' in data.headers.get('content-type', '').lower() else None
+    soup = BeautifulSoup(data.content, from_encoding=encoding)
 
 
     print('іщгз', soup)
