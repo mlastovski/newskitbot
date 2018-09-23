@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="89a244cc-e439-4fbe-95f4-3f54ca74d4c1" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/parsers/isport.py" afterPath="$PROJECT_DIR$/parsers/isport.py" />
-      <change beforePath="$PROJECT_DIR$/parsers/pravda.py" afterPath="$PROJECT_DIR$/parsers/pravda.py" />
-      <change beforePath="$PROJECT_DIR$/parsers/two_four_tvua.py" afterPath="$PROJECT_DIR$/parsers/two_four_tvua.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -42,8 +41,8 @@
       <file leaf-file-name="isport.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/parsers/isport.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+            <state relative-caret-position="104">
+              <caret line="16" column="74" lean-forward="false" selection-start-line="16" selection-start-column="74" selection-end-line="16" selection-end-column="74" />
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
               </folding>
@@ -210,20 +209,20 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.pravda">
-    <configuration name="bot" type="PythonConfigurationType" factoryName="Python" temporary="true">
+  <component name="RunManager" selected="Python.isport">
+    <configuration name="isport" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/parsers" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="newskitbot" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/bot.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/parsers/isport.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -305,16 +304,16 @@
       <item index="0" class="java.lang.String" itemvalue="Python.spiegelDeutsch" />
       <item index="1" class="java.lang.String" itemvalue="Python.parse" />
       <item index="2" class="java.lang.String" itemvalue="Python.pravda" />
-      <item index="3" class="java.lang.String" itemvalue="Python.bot" />
-      <item index="4" class="java.lang.String" itemvalue="Python.nytimes" />
+      <item index="3" class="java.lang.String" itemvalue="Python.nytimes" />
+      <item index="4" class="java.lang.String" itemvalue="Python.isport" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.pravda" />
-        <item index="1" class="java.lang.String" itemvalue="Python.parse" />
-        <item index="2" class="java.lang.String" itemvalue="Python.nytimes" />
-        <item index="3" class="java.lang.String" itemvalue="Python.spiegelDeutsch" />
-        <item index="4" class="java.lang.String" itemvalue="Python.bot" />
+        <item index="0" class="java.lang.String" itemvalue="Python.isport" />
+        <item index="1" class="java.lang.String" itemvalue="Python.pravda" />
+        <item index="2" class="java.lang.String" itemvalue="Python.parse" />
+        <item index="3" class="java.lang.String" itemvalue="Python.nytimes" />
+        <item index="4" class="java.lang.String" itemvalue="Python.spiegelDeutsch" />
       </list>
     </recent_temporary>
   </component>
@@ -516,14 +515,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/requirements.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="362">
-          <caret line="47" column="8" lean-forward="false" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/parsers/pravda.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
@@ -544,10 +535,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/requirements.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="362">
+          <caret line="47" column="8" lean-forward="false" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/parsers/isport.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+        <state relative-caret-position="104">
+          <caret line="16" column="74" lean-forward="false" selection-start-line="16" selection-start-column="74" selection-end-line="16" selection-end-column="74" />
           <folding>
             <element signature="e#0#29#0" expanded="true" />
           </folding>

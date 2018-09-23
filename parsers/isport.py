@@ -5,17 +5,16 @@ from datetime import datetime
 import re
 
 def isport():
-    data = requests.get("http://isport.ua/news", headers={"user-agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Mobile Safari/537.36"}).text
+    data = requests.get("https://isport.ua/693219-news", headers={"user-agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Mobile Safari/537.36"}).text
     # print(data)
-    encoding = data.encoding if 'charset' in data.headers.get('content-type', '').lower() else None
-    soup = BeautifulSoup(data.content, from_encoding=encoding)
 
+    soup = BeautifulSoup(data, "lxml")
 
     articles = []
 
-    for title in soup.find("div", {"class": "news"}).find_all("div", {"class": "article"}):
+    for title in soup.find("div", {"class": "block_section_stories"}).find_all("div", {"class": "article_section"}):
         try:
-            title_text = title.find("div", {"class": "article__title"}).find("a").get_text()
+            title_text = title.find("div", {"class": "article__subtitle"}).get_text()
             title_text = re.sub('\n', '', title_text)
             title_text = re.sub('\t', '', title_text)
             # print(title_text)
