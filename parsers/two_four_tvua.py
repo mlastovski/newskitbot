@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 import lxml
 #import scrapy
+import html5lib
 from datetime import datetime
 import re
 from apscheduler.schedulers.blocking import BlockingScheduler
@@ -13,7 +14,7 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 def parse_24tvua():
     data = requests.get("https://24tv.ua/").text
 
-    soup = BeautifulSoup(data, "lxml")
+    soup = BeautifulSoup(data, "html5lib")
 
     articles = []
     print('іщгз', soup)
