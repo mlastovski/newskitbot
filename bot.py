@@ -10,7 +10,7 @@ import telepot
 from telepot.namedtuple import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, InlineKeyboardButton
 from bot_add import add_keywords, delete_keywords
 from parse import send
-from parse import addnewsheduler
+from timesend import addnewsheduler
 
 os.environ['DATABASE_URL'] = 'postgres://cgvkxvyosmvmzd:f281ebb6771eaebb9c998d34665c60d917542d6df0ece9fa483da65d62b600e7@ec2-79-125-12-48.eu-west-1.compute.amazonaws.com:5432/dbrvpbkmj63vl8'
 DATABASE_URL = os.environ['DATABASE_URL']
@@ -972,15 +972,17 @@ def echo_all(updates):
                     minutes=int(text[0].split(':')[1])
                     print(hours, minutes)
                     if hours < 24 and hours >= 0 and minutes < 60 and minutes >= 0 or hours == 24 and minutes == 0:
-                        if hours > 3:
-                            hours = hours - 3
-                        elif hours == 2:
+                        print('here')
+                        if int(hours) > 3:
+                            hours = int(hours) - 3
+                        elif int(hours) == 2:
                             hours = 23
-                        elif hours == 1:
+                        elif int(hours) == 1:
                             hours = 22
-                        elif hours == 24:
+                        elif int(hours) == 24:
                             hours = 21
-                        addnewsheduler(hours, minutes, id)
+                        print(hours)
+                        addnewsheduler(str(hours), minutes, id)
                         send_message('Час встановлено!', id)
                     else:
                         send_message('Час не підходить. Напиши час у форматі ГГ:ХХ. Наприклад, 09:21. Спробуй ще раз! /newstime', id)

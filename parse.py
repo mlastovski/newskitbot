@@ -19,6 +19,9 @@ from parsers.isport import isport
 from parsers.spiegelDeutsch import spiegelDeutsch
 
 
+sched2 = BlockingScheduler()
+
+
 os.environ['DATABASE_URL'] = 'postgres://cgvkxvyosmvmzd:f281ebb6771eaebb9c998d34665c60d917542d6df0ece9fa483da65d62b600e7@ec2-79-125-12-48.eu-west-1.compute.amazonaws.com:5432/dbrvpbkmj63vl8'
 
 DATABASE_URL = os.environ['DATABASE_URL']
@@ -462,9 +465,6 @@ def timed_job3():
     requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Процес надсилання завершено!'))
     requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Процес надсилання завершено!'))
 
-@sched.scheduled_job('cron', hour='19,20,21', minute='40,10,02')
-def timed_job4():
-    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('ITTTT WORKSSSS!'))
 
 
 def addnewsheduler(hours, minutes, user_id):
@@ -474,8 +474,11 @@ def addnewsheduler(hours, minutes, user_id):
 
     curs.execute("SELECT parse_mode FROM users WHERE telegram_id='{}'".format(user_id))
     previous_time = curs.fetchone()[0]
-    if ':' in previous_time:
-        customtime.remove(str(hours) + ':' + str(minutes))
+
+    if ':' in str(previous_time):
+        print('ya')
+        customtime.remove(str(previous_time))
+        print('ya')
 
     print(customtime)
 
@@ -500,16 +503,24 @@ def addnewsheduler(hours, minutes, user_id):
     print(hours)
     print(minutes)
 
-    sched.add_job(specific_time_send, 'cron', hour=str(hours), minute=str(minutes))
+    # sched2.add_job(specific_time_send, 'cron', id='my_cron_job1', hour=str(hours), minute =str(minutes))
+    # sched2.start()
 
+#
+# @sched.scheduled_job('cron', hour='19,20,21', minute='40,10,02')
+def timed_job4():
+    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('From here!'))
 
 
 def specific_time_send():
+    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('SPECIFIC TIME SPEND WORKING!!!!!!'))
     now_hour = datetime.now().time().split(':')[0]
     now_minute = datetime.now().time().split(':')[1]
     curs.execute("SELECT * FROM users WHERE parse_mode='{}'".format(now_hour+':'+now_minute))
     users = curs.fetchall()
     send(users)
+    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('IT FINISHED!!!!!!'))
+
 
 
 
@@ -563,7 +574,7 @@ def send(users, limit=15, immediate=False):
                 if int(status) == 0 and passed_keywords != '':
                     print(True)
                     if i == 1:
-                        get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, 'Твій одноразовий ліміт новин: ' + str(limit)) + '. Щоб змінити, скористайся /limit', user[1])
+                        get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, 'Твій одноразовий ліміт новин: ' + str(limit)) + '. Щоб змінити, скористайся /limit \nЧас отримання новин: '  + str(user[7]) + '. Щоб змінити, скористайся /newstime', user[1])
                     get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, 'Я знайшов такі ключові слова у наступній статті: ' + passed_keywords + '\n' + article[2]), user[1])
                     curs.execute("UPDATE users SET send_time ='{}' WHERE telegram_id ='{}'".format(datetime.now().timestamp(), user[1]))
                     conn.commit()
@@ -572,7 +583,7 @@ def send(users, limit=15, immediate=False):
                     time.sleep(0.5)
                 elif int(status) == 0 and website[3] == '*':
                     if i == 1:
-                        get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, 'Твій одноразовий ліміт новин: ' + str(limit)) + '. Щоб змінити, скористайся /limit', user[1])
+                        get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, 'Твій одноразовий ліміт новин: ' + str(limit)) + '. Щоб змінити, скористайся /limit \nЧас отримання новин: '  + str(user[7]) + '. Щоб змінити, скористайся /newstime', user[1])
                     print(True)
                     get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, 'Нова стаття з ' + website[2] + '\n' + article[2]), user[1])
                     curs.execute("UPDATE users SET send_time ='{}' WHERE telegram_id ='{}'".format(datetime.now().timestamp(), user[1]))
@@ -588,9 +599,9 @@ def send(users, limit=15, immediate=False):
 
         if if_nothing:
             if immediate:
-                send_inline_keyboard([['Обрати інші теми', '/themes'], ['Відібрати інші веб-сайти', '/websites'], ['Переглянути свої ключові слова', '/keywords']], user[1], 'На жаль, останніх новин за твоїми параметрами не знайдено 😔 Зачекай трішки або спробуй наступне:')
+                send_inline_keyboard([['Обрати інші теми', '/themes'], ['Відібрати інші веб-сайти', '/websites'], ['Переглянути свої ключові слова', '/keywords']], user[1], 'На жаль, останніх новин за твоїми параметрами не знайдено 😔 \n Твій одноразовий ліміт новин: ' + str(limit) + '. Щоб змінити, скористайся /limit \nЧас отримання новин: '  + str(user[7]) + '. Щоб змінити, скористайся /newstime \n Зачекай трішки або спробуй наступне:')
             else:
-                send_inline_keyboard([['Обрати більше тем', '/themes'], ['Відібрати більше веб-сайтів', '/websites'], ['Переглянути свої ключові слова', '/keywords']], user[1], 'На даний момент свіжих новин за твоїми вказаними параметрами немає 😔 Зачекай ще трішки або спробуй наступне:')
+                send_inline_keyboard([['Обрати інші теми', '/themes'], ['Відібрати інші веб-сайти', '/websites'], ['Переглянути свої ключові слова', '/keywords']], user[1], 'На жаль, останніх новин за твоїми параметрами не знайдено 😔 \n Твій одноразовий ліміт новин: ' + str(limit) + '. Щоб змінити, скористайся /limit \nЧас отримання новин: '  + str(user[7]) + '. Щоб змінити, скористайся /newstime \n Зачекай трішки або спробуй наступне:')
         else:
             send_inline_keyboard([['Так, дуже!', '/feedbackonce так, все супер'], ['Мені сподобались декілька новин!', '/feedbackonce декілька новин'], ['Було мало корисного((', '/feedbackonce було мало корисного']], user[1], 'Чи сподобалась тобі підбірка новин?')
 
@@ -604,6 +615,7 @@ if __name__ == '__main__':
     for website in curs.fetchall():
         parse(website[0])
 
+    sched2.add_job(timed_job4, 'cron', id='my_cron_job1', hour='22,23,22', minute ='17,18,19')
 
-
+    sched2.start()
     sched.start()
