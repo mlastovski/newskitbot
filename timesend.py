@@ -83,8 +83,10 @@ def timed_job4():
 
 @sched2.scheduled_job('interval', minutes=1)
 def specific_time_send():
+    print('every minute!')
     now_hour = str(datetime.now().time()).split(':')[0]
     now_minute = str(datetime.now().time()).split(':')[1]
+    print(now_hour, now_minute)
     curs.execute("SELECT * FROM users WHERE parse_mode='{}'".format(now_hour+':'+now_minute))
     users = curs.fetchall()
     send(users)

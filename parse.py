@@ -19,7 +19,6 @@ from parsers.isport import isport
 from parsers.spiegelDeutsch import spiegelDeutsch
 
 
-sched2 = BlockingScheduler()
 
 
 os.environ['DATABASE_URL'] = 'postgres://cgvkxvyosmvmzd:f281ebb6771eaebb9c998d34665c60d917542d6df0ece9fa483da65d62b600e7@ec2-79-125-12-48.eu-west-1.compute.amazonaws.com:5432/dbrvpbkmj63vl8'
@@ -609,13 +608,6 @@ def send(users, limit=15, immediate=False):
 
 
 
-
 if __name__ == '__main__':
-    curs.execute("SELECT id FROM websites")
-    for website in curs.fetchall():
-        parse(website[0])
-
-    sched2.add_job(timed_job4, 'cron', id='my_cron_job1', hour='22,23,22', minute ='17,18,19')
-
-    sched2.start()
+    timed_job()
     sched.start()

@@ -981,15 +981,22 @@ def echo_all(updates):
                             hours = 22
                         elif int(hours) == 24:
                             hours = 21
-                        print(hours)
+
+                        if int(hours) < 10:
+                            hours = '0' + str(hours)
+                        if int(minutes) < 10:
+                            minutes = '0' + str(minutes)
+
+                        print(hours, minutes)
                         addnewsheduler(str(hours), minutes, id)
                         send_message('Час встановлено!', id)
                     else:
                         send_message('Час не підходить. Напиши час у форматі ГГ:ХХ. Наприклад, 09:21. Спробуй ще раз! /newstime', id)
+                    curs.execute("UPDATE users SET command='' WHERE telegram_id='{}'".format(id))
+                    conn.commit()
                 except ValueError:
-                    send_message('Час не підходить. Напиши час у форматі ГГ:ХХ. Наприклад, 09:21. Спробуй ще раз! /newstime', id)
-                curs.execute("UPDATE users SET command='' WHERE telegram_id='{}'".format(id))
-                conn.commit()
+                    send_message('Час не підходить. Напиши час у форматі ГГ:ХХ. Наприклад, 09:21. Спробуй ще раз! \nЩоб скасувати, натисни /cancel', id)
+
         elif action == 'feedback':
             print(text)
             if len(text[0]) == 0:
