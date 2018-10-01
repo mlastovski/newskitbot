@@ -8,7 +8,7 @@ import psycopg2
 import os
 import telepot
 from telepot.namedtuple import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, InlineKeyboardButton
-from bot_add import add_keywords, delete_keywords
+from bot_add import add_keywords, delete_keywords, convert_time
 from parse import send
 from timesend import addnewsheduler
 
@@ -664,11 +664,92 @@ def echo_all(updates):
                         new = [btn_name, '/chosentime ' + btn_action + phrase]
                 i+=1
                 markup.append(new)
+            markup.append(['Вказати інший час!', '/newstime'])
+            print(markup)
 
             if text[0] == 'newskit':
                 markup.append(['Далі ➡️', '/endtour'])
 
             send_inline_keyboard(markup, chat, 'Коли ти хочеш отримувати новини?')
+        elif action == 'timemanage':
+            curs.execute("SELECT parse_mode FROM users WHERE telegram_id ='{}'".format(id))
+            parse_mode = curs.fetchone()[0]
+
+            if ':' in parse_mode:
+                if ',' in parse_mode:
+                    times = parse_mode.split(', ')
+                else:
+                    times = [parse_mode]
+            else:
+                break
+
+            markup = []
+            i = 0
+            print('times', times)
+            times = convert_time(times)
+            print(times)
+
+            for time in times:
+                i+=1
+                new = [time, '/deletetime ' + time]
+                if i%3==0 or i%3==2:
+                    new.append('continue')
+
+                markup.append(new)
+
+            print(markup)
+
+
+            send_inline_keyboard(markup, chat, 'Ось години, коли ти отримуєш новини. Клікни, щоб видалити час. /newstime щоб додати')
+        elif action == 'deletetime':
+            text = text[0][:2] + ':' + text[0][2:]
+            print('deleting ', text)
+
+            curs.execute("SELECT parse_mode FROM users WHERE telegram_id='{}'".format(id))
+            previous_time = curs.fetchone()[0]
+
+            print(previous_time)
+
+            if ':' in previous_time:
+                if ',' in previous_time:
+                    times = previous_time.split(', ')
+                else:
+                    times = [previous_time]
+
+            print(times)
+            times = convert_time(times)
+
+            if text in times:
+                times.remove(text)
+
+            print(times)
+            i=0
+            markup=[]
+            for time in times:
+                i+=1
+                new = [time, '/deletetime ' + time]
+                if i%3==0 or i%3==2:
+                    new.append('continue')
+
+                markup.append(new)
+
+            print(markup)
+
+            reply_markup = get_reply_markup(markup)
+
+            if mess_id:
+                try:
+                    TelegramBot.editMessageText(msg_identifier=(id, mess_id), text='Ось години, коли ти отримуєш новини. Клікни, щоб видалити час. Команда /newstime щоб додати', reply_markup=reply_markup)
+                except telepot.exception.TelegramError:
+                    send_inline_keyboard(markup, chat, 'Ось години, коли ти отримуєш новини. Клікни, щоб видалити час. Команда /newstime щоб додати')
+            else:
+                send_inline_keyboard(markup, chat, 'Ось години, коли ти отримуєш новини. Клікни, щоб видалити час. Команда /newstime щоб додати')
+
+
+            times = ', '.join(times)
+
+            curs.execute("UPDATE users SET parse_mode = '{}' WHERE telegram_id='{}'".format(times, id))
+            conn.commit()
         elif action == 'news_language':
             try:
                 mode = text[1]
@@ -966,36 +1047,46 @@ def echo_all(updates):
                 send_message('Надішли мені час, коли ти хочеш отримувати новини. Дотримуйся такого формату: \n 10:47 \n /cancel, щоб скасувати', id)
             else:
                 print(text[0])
+                input = text[0]
+                if ', ' in input:
+                    input = input.split(', ')
+                elif ',' in input:
+                    input = input.split(',')
+                else:
+                    input = [input]
 
-                try:
-                    hours=int(text[0].split(':')[0])
-                    minutes=int(text[0].split(':')[1])
-                    print(hours, minutes)
-                    if hours < 24 and hours >= 0 and minutes < 60 and minutes >= 0 or hours == 24 and minutes == 0:
-                        print('here')
-                        if int(hours) > 3:
-                            hours = int(hours) - 3
-                        elif int(hours) == 2:
-                            hours = 23
-                        elif int(hours) == 1:
-                            hours = 22
-                        elif int(hours) == 24:
-                            hours = 21
-
-                        if int(hours) < 10:
-                            hours = '0' + str(hours)
-                        if int(minutes) < 10:
-                            minutes = '0' + str(minutes)
-
+                count = 0
+                for text in input:
+                    count += 1
+                    try:
+                        hours=int(text.split(':')[0])
+                        minutes=int(text.split(':')[1])
                         print(hours, minutes)
-                        addnewsheduler(str(hours), minutes, id)
-                        send_message('Час встановлено!', id)
-                    else:
-                        send_message('Час не підходить. Напиши час у форматі ГГ:ХХ. Наприклад, 09:21. Спробуй ще раз! /newstime', id)
-                    curs.execute("UPDATE users SET command='' WHERE telegram_id='{}'".format(id))
-                    conn.commit()
-                except ValueError:
-                    send_message('Час не підходить. Напиши час у форматі ГГ:ХХ. Наприклад, 09:21. Спробуй ще раз! \nЩоб скасувати, натисни /cancel', id)
+                        if hours < 24 and hours >= 0 and minutes < 60 and minutes >= 0 or hours == 24 and minutes == 0:
+                            print('here')
+                            if int(hours) > 3:
+                                hours = int(hours) - 3
+                            elif int(hours) == 2:
+                                hours = 23
+                            elif int(hours) == 1:
+                                hours = 22
+                            elif int(hours) == 0 or int(hours) == 24:
+                                hours = 21
+
+                            if int(hours) < 10:
+                                hours = '0' + str(hours)
+                            if int(minutes) < 10:
+                                minutes = '0' + str(minutes)
+
+                            print(hours, minutes)
+                            addnewsheduler(str(hours), minutes, id)
+                            send_message('Час '+str(text)+' встановлено!', id)
+                        else:
+                            send_message('Час '+str(text)+' не підходить. Напиши час у форматі ГГ:ХХ. Наприклад, 09:21. Спробуй ще раз! /newstime', id)
+                        curs.execute("UPDATE users SET command='' WHERE telegram_id='{}'".format(id))
+                        conn.commit()
+                    except:
+                        send_message('Час '+str(text)+' не підходить. Напиши час у форматі ГГ:ХХ. Наприклад, 09:21. Спробуй ще раз! \nЩоб скасувати, натисни /cancel', id)
 
         elif action == 'feedback':
             print(text)

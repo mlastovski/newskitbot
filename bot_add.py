@@ -69,4 +69,26 @@ def delete_keywords(conn, id, name, text, chat):
     conn.commit()
     print('done', present_words_list)
 
+def convert_time(list):
+    new_list=[]
+    for time in list:
+        try:
+            hour = int(time[:2])
+            if int(hour) < 22:
+                hour = int(hour) + 3
+            elif int(hour) == 22:
+                hour = 1
+            elif int(hour) == 23:
+                hour = 2
+            elif int(hour) == 24:
+                hour = 3
+
+            if int(hour) < 10:
+                hour = '0' + str(hour)
+
+            new_list.append(str(hour) + time[2:])
+        except:
+            continue
+
+    return new_list
 

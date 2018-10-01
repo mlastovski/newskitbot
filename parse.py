@@ -527,6 +527,8 @@ def send(users, limit=15, immediate=False):
     from bot import get_json_from_url
 
     for user in users:
+        if user[5] == 1:
+            return
         chat_id = user[1]
         status = user[5]
         user_keywords = user[3].split(', ')
