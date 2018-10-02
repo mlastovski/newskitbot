@@ -246,7 +246,7 @@ def parse(media):
                         print('user2website: ', user2website)
                         if int(status) == 0 and passed_keywords != '' and user[4] == 'immediate':
                             print(True, chat_id)
-                            get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, 'Знайдено такі ключові слова у наступній статті: ' + passed_keywords + '\n' + new_article['link']), chat_id)
+                            get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, passed_keywords + '\n' + new_article['link']), chat_id)
                             curs.execute("UPDATE users SET send_time ='{}' WHERE telegram_id ='{}'".format(datetime.now().timestamp(), user[3]))
                             conn.commit()
                         elif int(status) == 0 and user2website[3] == '*' and user[4] == 'immediate':
@@ -330,7 +330,7 @@ def parse(media):
                         print('user2website: ', user2website)
                         if int(status) == 0 and passed_keywords != '' and user[4] == 'immediate':
                             print(True, chat_id)
-                            get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, 'Знайдено такі ключові слова у наступній статті: ' + passed_keywords + '\n' + new_article['link']), chat_id)
+                            get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, passed_keywords + '\n' + new_article['link']), chat_id)
                             curs.execute("UPDATE users SET send_time ='{}' WHERE telegram_id ='{}'".format(datetime.now().timestamp(), user[3]))
                             conn.commit()
                         elif int(status) == 0 and user2website[3] == '*' and user[4] == 'immediate':
@@ -509,10 +509,6 @@ def addnewsheduler(hours, minutes, user_id):
     # sched2.add_job(specific_time_send, 'cron', id='my_cron_job1', hour=str(hours), minute =str(minutes))
     # sched2.start()
 
-#
-# @sched.scheduled_job('cron', hour='19,20,21', minute='40,10,02')
-def timed_job4():
-    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('From here!'))
 
 
 def specific_time_send():
@@ -568,7 +564,7 @@ def send(users, limit=15, immediate=False):
 
                 passed_keywords = []
                 for word in user_keywords:
-                    if word in article[3]:
+                    if word in article[3].split(', '):
                         passed_keywords.append(word)
 
                 passed_keywords = ', '.join(passed_keywords)
@@ -578,7 +574,7 @@ def send(users, limit=15, immediate=False):
                     print(True)
                     if i == 1:
                         get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, 'Твій одноразовий ліміт новин: ' + str(limit)) + '. Щоб змінити, скористайся /limit \nЧас отримання новин: '  + str(user[7]) + '. Щоб змінити, скористайся /newstime', user[1])
-                    get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, 'Я знайшов такі ключові слова у наступній статті: ' + passed_keywords + '\n' + article[2]), user[1])
+                    get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, passed_keywords + '\n' + article[2]), user[1])
                     curs.execute("UPDATE users SET send_time ='{}' WHERE telegram_id ='{}'".format(datetime.now().timestamp(), user[1]))
                     conn.commit()
                     i+=1
