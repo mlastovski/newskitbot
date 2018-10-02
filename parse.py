@@ -304,7 +304,7 @@ def parse(media):
 
             print('i handled an article!')
 
-            curs.execute("SELECT telegram_id, status, keywords, telegram_id, parse_mode FROM users")
+            curs.execute("SELECT telegram_id, status, keywords, telegram_id, parse_mode FROM users WHERE parse_mode='immediate'")
             users = list(curs.fetchall())
 
             if not duplicate:
@@ -312,6 +312,12 @@ def parse(media):
                     chat_id = user[0]
                     status = user[1]
                     user_keywords = user[2].split(', ')
+                    if '' in user_keywords:
+                        user_keywords.remove('')
+                    if ' ,' in user_keywords:
+                        user_keywords.remove(' ,')
+                    if ' ' in user_keywords:
+                        user_keywords.remove(' ')
                     print(chat_id, status, user_keywords)
                     passed_keywords = []
                     for word in user_keywords:

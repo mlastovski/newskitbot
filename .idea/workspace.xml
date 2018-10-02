@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="89a244cc-e439-4fbe-95f4-3f54ca74d4c1" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/bot.py" afterPath="$PROJECT_DIR$/bot.py" />
-      <change beforePath="$PROJECT_DIR$/bot_add.py" afterPath="$PROJECT_DIR$/bot_add.py" />
       <change beforePath="$PROJECT_DIR$/parse.py" afterPath="$PROJECT_DIR$/parse.py" />
-      <change beforePath="$PROJECT_DIR$/timesend.py" afterPath="$PROJECT_DIR$/timesend.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -21,8 +16,8 @@
       <file leaf-file-name="parse.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/parse.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="462">
-              <caret line="532" column="21" lean-forward="true" selection-start-line="532" selection-start-column="21" selection-end-line="532" selection-end-column="21" />
+            <state relative-caret-position="109">
+              <caret line="323" column="40" lean-forward="false" selection-start-line="319" selection-start-column="47" selection-end-line="323" selection-end-column="40" />
               <folding>
                 <element signature="e#23#32#0" expanded="true" />
               </folding>
@@ -785,8 +780,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/parse.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
-          <caret line="532" column="21" lean-forward="true" selection-start-line="532" selection-start-column="21" selection-end-line="532" selection-end-column="21" />
+        <state relative-caret-position="109">
+          <caret line="323" column="40" lean-forward="false" selection-start-line="319" selection-start-column="47" selection-end-line="323" selection-end-column="40" />
           <folding>
             <element signature="e#23#32#0" expanded="true" />
           </folding>
