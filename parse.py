@@ -206,7 +206,7 @@ def parse(media):
             print('title', title)
             print('keywords in article: ', article_keywords)
 
-            article_keywords = ', '.join(article_keywords)
+            #article_keywords = ', '.join(article_keywords)
             print('got an article!')
             try:
                 curs.execute("INSERT INTO articles (website_id, url, keywords, parse_time)  VALUES ('{}','{}','{}', '{}')".format(id, new_article['link'], article_keywords, datetime.now().timestamp()))
@@ -230,6 +230,8 @@ def parse(media):
                     chat_id = user[0]
                     status = user[1]
                     user_keywords = user[2].split(', ')
+                    if '' in user_keywords:
+                        user_keywords = filter(lambda a: a != '', user_keywords)
                     print(chat_id, status, user_keywords)
                     passed_keywords = []
                     for word in user_keywords:
@@ -540,9 +542,7 @@ def send(users, limit=15, immediate=False):
         user_keywords = user[3].split(', ')
 
         if '' in user_keywords:
-            user_keywords.remove('')
-        if ' ,' in user_keywords:
-            user_keywords.remove(' ,')
+            user_keywords = filter(lambda a: a != '', user_keywords)
 
         print(chat_id, status, user_keywords)
 
