@@ -272,6 +272,29 @@ def echo_all(updates):
                 users_quan = len(curs.fetchall())
                 requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'Новий користувач ' + name + ' ' + last_name + ' (' + str(id) + '). Загальна кількість активних юзерів: ' + str(users_quan)))
                 requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=373407132&text={}'.format(TOKEN, 'Новий користувач ' + name + ' ' + last_name + ' (' + str(id) + '). Загальна кількість активних юзерів: ' + str(users_quan)))
+
+                if RepresentsInt(text[0]):
+                    curs.execute("SELECT * FROM users WHERE telegram_id ='{}'".format(text[0]))
+                    user = curs.fetchone()
+                    invited = user[15]
+                    if invited == '':
+                        invited = str(id)
+                    else:
+                        invited = invited.split(', ')
+                        if str(id) not in invited:
+                            invited = ', '.join(invited) + ', ' + str(id)
+                        else:
+                            invited = ', '.join(invited)
+                    curs.execute("UPDATE users SET invited='{}' WHERE telegram_id='{}'".format(invited, text[0]))
+                    conn.commit()
+                    requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'Запрошено від користувача ' + text[0] + ' '+ user[2] + ' '+ user[9]))
+                    requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=373407132&text={}'.format(TOKEN, 'Запрошено від користувача ' + text[0] + ' '+ user[2] + ' '+ user[9]))
+                    print(user[15].split(', '), len(user[15].split(', ')))
+                    requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id={}&text={}'.format(TOKEN, text[0], 'Користувач ' + name + ' '+ last_name + ' '+ ' доєднався до NewsKit за твоїм посиланням! Дякую за рекомендацію!'))
+                    if len(invited.split(', ')) == 2:
+                        requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id={}&text={}'.format(TOKEN, text[0], 'Функція надсилання новин у повністю зручний ДЛЯ ТЕБЕ час відтепер доступна для тебе!\nСкористайся /newstime'))
+                    elif len(invited.split(', ')) == 1:
+                        requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id={}&text={}'.format(TOKEN, text[0], 'Запроси ще 1 користувача, щоб розблокувати функцію надсилання новин у повністю зручний ДЛЯ ТЕБЕ час!'))
             else:
                 print(text[0])
                 #send_help(text, chat)
@@ -436,35 +459,83 @@ def echo_all(updates):
 
             send_inline_keyboard(markup, chat, "Обери цікаву тобі тематику новин! Ця операція є обов'язковою, адже без жодної обраної теми новини надсилатись не будуть. ")
         elif action == 'chosentheme':
+            curs.execute("SELECT theme FROM themes")
+            all_themes = curs.fetchall()
+            print('all_themes', all_themes)
+            if text[0] == 'everything':
+                print(True)
+                theme_variable = all_themes
+                TelegramBot.editMessageText(msg_identifier=(id, mess_id), text='Твої теми змінюються! Зачекай декілька секунд!')
+            else:
+                theme_variable = [[text[0]]]
+
             try:
                 mode = text[1]
             except IndexError:
                 mode = None
 
-            curs.execute("SELECT theme FROM themes")
-            words=[]
-            for theme in curs.fetchall():
-                words.append(theme[0])
+            for var_theme in theme_variable:
+                text[0] = var_theme[0]
 
-            curs.execute("SELECT themes FROM users WHERE telegram_id ='{}'".format(id))
-            themes = curs.fetchone()[0].split(', ')
-            print(words, themes)
 
-            #filtring from empties
-            if ' ' in themes:
-                themes.remove(' ')
-            elif '' in themes:
-                themes.remove('')
+                print('mode', mode, 'text0', text)
+                curs.execute("SELECT theme FROM themes")
+                words=[]
+                for theme in curs.fetchall():
+                    words.append(theme[0])
 
-            if text[0] in themes:
-                themes.remove(text[0])
-                db_action = 'delete'
-            else:
-                themes.append(text[0])
-                db_action = 'add'
-            print(themes)
-            markup = []
-            i = 1
+                curs.execute("SELECT themes FROM users WHERE telegram_id ='{}'".format(id))
+                themes = curs.fetchone()[0].split(', ')
+                print(words, themes)
+
+                #filtring from empties
+                if ' ' in themes:
+                    themes.remove(' ')
+                elif '' in themes:
+                    themes.remove('')
+
+                if text[0] in themes:
+                    themes.remove(text[0])
+                    db_action = 'delete'
+                else:
+                    themes.append(text[0])
+                    db_action = 'add'
+                print(themes)
+                markup = []
+                i = 1
+                curs.execute("UPDATE users SET themes='{}' WHERE telegram_id = '{}'".format(', '.join(themes)+', ', id))
+                conn.commit()
+
+                print('hererer', text[0])
+
+                curs.execute("SELECT news_language FROM users WHERE telegram_id ='{}'".format(id))
+                chosen_languages= curs.fetchone()[0].split(', ')
+                print('chosen_languages', chosen_languages)
+                curs.execute("SELECT * FROM themes WHERE theme ='{}'".format(text[0]))
+                keywords_theme = curs.fetchall()[0]
+                keywords_final = ''
+                if 'ua' in chosen_languages:
+                    print('ua')
+                    keywords_final = keywords_final + keywords_theme[2] + ', '
+                if 'ru' in chosen_languages:
+                    print('ru')
+                    keywords_final = keywords_final + keywords_theme[3] + ', '
+                if 'en' in chosen_languages:
+                    print('en')
+                    keywords_final = keywords_final + keywords_theme[4] + ', '
+                if 'de' in chosen_languages:
+                    print('de')
+                    keywords_final = keywords_final + keywords_theme[5] + ', '
+
+                print(keywords_final)
+
+                if db_action == 'delete':
+                    text = keywords_final.split(', ')
+                    delete_keywords(conn, id, name, text, chat)
+                else:
+                    text = keywords_final.split(', ')
+                    add_keywords(conn, id, name, text, chat)
+
             for word in words:
                 word_filtered = ''.join(replace(list(word),[("'", '')]))
                 if word_filtered in themes:
@@ -482,6 +553,11 @@ def echo_all(updates):
                     else:
                         markup.append([word_new, '/chosentheme ' + word, 'continue'])
                 i+=1
+
+            if mode:
+                markup.append(['Натиснути на всі кнопки!', '/chosentheme' +  ' everything' + ' і forward'])
+            else:
+                markup.append(['Натиснути на всі кнопки!️', '/chosentheme' + ' everything'])
             print(markup)
             #send_inline_keyboard(markup, chat, 'Обери цікаві тобі теми))')
             reply_markup = get_reply_markup(markup, 'theme', mode)
@@ -492,38 +568,6 @@ def echo_all(updates):
                     send_inline_keyboard(markup, chat, 'Обери цікаву тобі тематику новин! Ця операція є обов\'язковою, адже без жодної обраної теми новини надсилатись не будуть.')
             else:
                 send_inline_keyboard(markup, chat, 'Обери цікаву тобі тематику новин! Ця операція є обов\'язковою, адже без жодної обраної теми новини надсилатись не будуть.')
-            curs.execute("UPDATE users SET themes='{}' WHERE telegram_id = '{}'".format(', '.join(themes)+', ', id))
-            conn.commit()
-
-            print(text[0])
-
-            curs.execute("SELECT news_language FROM users WHERE telegram_id ='{}'".format(id))
-            chosen_languages= curs.fetchone()[0].split(', ')
-            print('chosen_languages', chosen_languages)
-            curs.execute("SELECT * FROM themes WHERE theme ='{}'".format(text[0]))
-            keywords_theme = curs.fetchall()[0]
-            keywords_final = ''
-            if 'ua' in chosen_languages:
-                print('ua')
-                keywords_final = keywords_final + keywords_theme[2] + ', '
-            if 'ru' in chosen_languages:
-                print('ru')
-                keywords_final = keywords_final + keywords_theme[3] + ', '
-            if 'en' in chosen_languages:
-                print('en')
-                keywords_final = keywords_final + keywords_theme[4] + ', '
-            if 'de' in chosen_languages:
-                print('de')
-                keywords_final = keywords_final + keywords_theme[5] + ', '
-
-            print(keywords_final)
-
-            if db_action == 'delete':
-                text = keywords_final.split(', ')
-                delete_keywords(conn, id, name, text, chat)
-            else:
-                text = keywords_final.split(', ')
-                add_keywords(conn, id, name, text, chat)
 
         elif action == 'websites':
             try:
@@ -555,45 +599,66 @@ def echo_all(updates):
 
             send_inline_keyboard(markup, chat, 'Обери цікаві тобі веб-сайти! З них тобі будуть надсилатися персоналізовані новини 😉')
         elif action == 'chosenwebsite':
-            try:
-                mode = text[1]
-            except IndexError:
-                mode = None
-            print('mode', mode)
-
-            curs.execute("SELECT news_language FROM users WHERE telegram_id ='{}'".format(id))
-            chosen_languages= curs.fetchone()[0].split(', ')
-
-            curs.execute("SELECT * FROM websites" )
-            fetchall = curs.fetchall()
-            websites=[]
-            print(fetchall)
-            for website in fetchall:
-                if website[3] in chosen_languages:
-                    websites.append(website[2])
-            print('websites', websites)
-
-            curs.execute("SELECT website FROM user2website WHERE user_id ='{}'".format(id))
-            chosen_websites=[]
-            for website in curs.fetchall():
-                chosen_websites.append(website[0])
-            print(websites, chosen_websites)
-
-            #filtring from empties
-            if ' ' in chosen_websites:
-                chosen_websites.remove(' ')
-            elif '' in chosen_websites:
-                chosen_websites.remove('')
-
-            if text[0] in chosen_websites:
-                chosen_websites.remove(text[0])
-                db_action = 'delete'
+            curs.execute("SELECT name FROM websites")
+            all_web = curs.fetchall()
+            if text[0] == 'everything':
+                print(True)
+                web_variable = all_web
+                TelegramBot.editMessageText(msg_identifier=(id, mess_id), text='Твої веб-сайти змінюються! Зачекай 5 секунд!')
             else:
-                chosen_websites.append(text[0])
-                db_action = 'add'
-            print(chosen_websites)
-            markup = []
-            i = 1
+                web_variable = [[text[0]]]
+
+            for web in web_variable:
+                text[0] = web[0]
+
+                try:
+                    mode = text[1]
+                except IndexError:
+                    mode = None
+                print('mode', mode)
+
+                curs.execute("SELECT news_language FROM users WHERE telegram_id ='{}'".format(id))
+                chosen_languages= curs.fetchone()[0].split(', ')
+
+                curs.execute("SELECT * FROM websites" )
+                fetchall = curs.fetchall()
+                websites=[]
+                print(fetchall)
+                for website in fetchall:
+                    if website[3] in chosen_languages:
+                        websites.append(website[2])
+                print('websites', websites)
+
+                curs.execute("SELECT website FROM user2website WHERE user_id ='{}'".format(id))
+                chosen_websites=[]
+                for website in curs.fetchall():
+                    chosen_websites.append(website[0])
+                print(websites, chosen_websites)
+
+                #filtring from empties
+                if ' ' in chosen_websites:
+                    chosen_websites.remove(' ')
+                elif '' in chosen_websites:
+                    chosen_websites.remove('')
+
+                if text[0] in chosen_websites:
+                    chosen_websites.remove(text[0])
+                    db_action = 'delete'
+                else:
+                    chosen_websites.append(text[0])
+                    db_action = 'add'
+                print(chosen_websites)
+                markup = []
+                i = 1
+
+                print(text[0])
+                if db_action == 'delete':
+                    curs.execute("DELETE FROM user2website WHERE website ='{}' and user_id ='{}'".format(text[0], id))
+                    conn.commit()
+                else:
+                    curs.execute("INSERT INTO user2website (website, user_id) VALUES ('{}', '{}')".format(text[0], id))
+                    conn.commit()
+
             for website in websites:
                 website_filtered = ''.join(replace(list(website),[("'", '')]))
                 if website_filtered in chosen_websites:
@@ -611,6 +676,12 @@ def echo_all(updates):
                     else:
                         markup.append([word_new, '/chosenwebsite ' + website, 'continue'])
                 i+=1
+
+            if mode:
+                markup.append(['Натиснути на всі кнопки!', '/chosenwebsite' +  ' everything' + ' і forward'])
+            else:
+                markup.append(['Натиснути на всі кнопки!️', '/chosenwebsite' + ' everything'])
+
             print(markup)
             #send_inline_keyboard(markup, chat, 'Обери цікаві тобі теми))')
             reply_markup = get_reply_markup(markup, 'website', mode)
@@ -623,13 +694,7 @@ def echo_all(updates):
             else:
                 send_inline_keyboard(markup, chat, 'Обери цікаві тобі веб-сайти! З них тобі будуть надсилатися персоналізовані новини 😉')
 
-            print(text[0])
-            if db_action == 'delete':
-                curs.execute("DELETE FROM user2website WHERE website ='{}' and user_id ='{}'".format(text[0], id))
-                conn.commit()
-            else:
-                curs.execute("INSERT INTO user2website (website, user_id) VALUES ('{}', '{}')".format(text[0], id))
-                conn.commit()
+
         elif action == 'setnewstime':
             if text[0] != '':
                 mode = text[0]
@@ -1041,65 +1106,78 @@ def echo_all(updates):
             else:
                 send([user_current], immediate=True)
         elif action == 'newstime':
-            if len(text[0]) == 0:
-                curs.execute("UPDATE users SET command='newstime' WHERE telegram_id='{}'".format(id))
-                conn.commit()
-                send_message('Надішли мені час, коли ти хочеш отримувати новини. Дотримуйся такого формату: \n 10:47 \n /cancel, щоб скасувати', id)
+            curs.execute("SELECT invited FROM users WHERE telegram_id ='{}'".format(id))
+            invited = curs.fetchone()[0]
+            print(invited)
+            if invited == '':
+                send_message('Для того, щоб використовувати суперкруту функцію надсилання новин у повністю зручний ДЛЯ ТЕБЕ час (з точністю до 1 хвилини!), потрібно запросити 2 друзів до NewsKit! \n\nТи вже запросив '+ str(len(invited.split(', '))) + ' друга\n\nПоділися з друзями посиланням нижче: \n\nhttps://t.me/newskit_bot?start=' + str(id), id)
+            elif len(invited.split(', ')) < 2:
+                send_message('Для того, щоб використовувати суперкруту функцію надсилання новин у повністю зручний ДЛЯ ТЕБЕ час (з точністю до 1 хвилини!), потрібно запросити 2 друзів до NewsKit! \n\nТи вже запросив '+ str(len(invited.split(', '))) + ' друга\n\nПоділися з друзями посиланням нижче: \n\nhttps://t.me/newskit_bot?start=' + str(id), id)
             else:
-                print(text[0])
-                input = text[0]
-                if ', ' in input:
-                    input = input.split(', ')
-                elif ',' in input:
-                    input = input.split(',')
+                if len(text[0]) == 0:
+                    curs.execute("UPDATE users SET command='newstime' WHERE telegram_id='{}'".format(id))
+                    conn.commit()
+                    send_message('Надішли мені час, коли ти хочеш отримувати новини. Дотримуйся такого формату: \n 10:47 \n /cancel, щоб скасувати', id)
                 else:
-                    input = [input]
+                    print(text[0])
+                    input = text[0]
+                    if ', ' in input:
+                        input = input.split(', ')
+                    elif ',' in input:
+                        input = input.split(',')
+                    else:
+                        input = [input]
 
-                count = 0
-                for text in input:
-                    count += 1
-                    try:
-                        hours=int(text.split(':')[0])
-                        minutes=int(text.split(':')[1])
-                        print(hours, minutes)
-                        if hours < 24 and hours >= 0 and minutes < 60 and minutes >= 0 or hours == 24 and minutes == 0:
-                            print('here')
-                            if int(hours) > 3:
-                                hours = int(hours) - 3
-                            elif int(hours) == 2:
-                                hours = 23
-                            elif int(hours) == 1:
-                                hours = 22
-                            elif int(hours) == 0 or int(hours) == 24:
-                                hours = 21
-
-                            if int(hours) < 10:
-                                hours = '0' + str(hours)
-                            if int(minutes) < 10:
-                                minutes = '0' + str(minutes)
-
+                    count = 0
+                    for text in input:
+                        count += 1
+                        try:
+                            hours=int(text.split(':')[0])
+                            minutes=int(text.split(':')[1])
                             print(hours, minutes)
-                            addnewsheduler(str(hours), minutes, id)
-                            send_message('Час '+str(text)+' встановлено!', id)
-                        else:
-                            send_message('Час '+str(text)+' не підходить. Напиши час у форматі ГГ:ХХ. Наприклад, 09:21. Спробуй ще раз! /newstime', id)
-                        curs.execute("UPDATE users SET command='' WHERE telegram_id='{}'".format(id))
-                        conn.commit()
-                    except:
-                        send_message('Час '+str(text)+' не підходить. Напиши час у форматі ГГ:ХХ. Наприклад, 09:21. Спробуй ще раз! \nЩоб скасувати, натисни /cancel', id)
+                            if hours < 24 and hours >= 0 and minutes < 60 and minutes >= 0 or hours == 24 and minutes == 0:
+                                print('here')
+                                if int(hours) > 3:
+                                    hours = int(hours) - 3
+                                elif int(hours) == 2:
+                                    hours = 23
+                                elif int(hours) == 1:
+                                    hours = 22
+                                elif int(hours) == 0 or int(hours) == 24:
+                                    hours = 21
+
+                                if int(hours) < 10:
+                                    hours = '0' + str(hours)
+                                if int(minutes) < 10:
+                                    minutes = '0' + str(minutes)
+
+                                print(hours, minutes)
+                                addnewsheduler(str(hours), minutes, id)
+                                send_message('Час '+str(text)+' встановлено!', id)
+                            else:
+                                send_message('Час '+str(text)+' не підходить. Напиши час у форматі ГГ:ХХ. Наприклад, 09:21. Спробуй ще раз! /newstime', id)
+                            curs.execute("UPDATE users SET command='' WHERE telegram_id='{}'".format(id))
+                            conn.commit()
+                        except:
+                            send_message('Час '+str(text)+' не підходить. Напиши час у форматі ГГ:ХХ. Наприклад, 09:21. Спробуй ще раз! \nЩоб скасувати, натисни /cancel', id)
 
         elif action == 'feedback':
             print(text)
             if len(text[0]) == 0:
                 curs.execute("UPDATE users SET command='feedback' WHERE telegram_id='{}'".format(id))
                 conn.commit()
-                send_message('Надішли мені фідбек наступним повідомленням! /cancel, щоб скасувати', id)
+                send_message('Надішли мені фідбек наступним повідомленням! \n/cancel, щоб скасувати', id)
             else:
-                curs.execute("UPDATE users SET command='' WHERE telegram_id='{}'".format(id))
-                conn.commit()
-                requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'Фідбек! \n' + str(chat) + ' ' + str(name) + ' ' + last_name + '\n' + str(text[0])))
-                requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=373407132&text={}'.format(TOKEN, 'Фідбек! \n' + str(chat) + ' ' + str(name) + ' ' + last_name + '\n' + str(text[0])))
-                send_message('Я надіслав твій фідбек!', chat)
+                if text[0] == 'offer':
+                    curs.execute("UPDATE users SET command='feedback' WHERE telegram_id='{}'".format(id))
+                    conn.commit()
+                    send_message('Надішли мені твою пропозицію наступним повідомленням! /cancel, щоб скасувати', id)
+                else:
+                    curs.execute("UPDATE users SET command='' WHERE telegram_id='{}'".format(id))
+                    conn.commit()
+                    requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'Фідбек! \n' + str(chat) + ' ' + str(name) + ' ' + last_name + '\n' + str(text[0])))
+                    requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=373407132&text={}'.format(TOKEN, 'Фідбек! \n' + str(chat) + ' ' + str(name) + ' ' + last_name + '\n' + str(text[0])))
+                    send_message('Я надіслав твій фідбек!', chat)
         elif action == 'feedbackonce':
             print(text)
             requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'Фідбек! \n' + str(chat) + ' ' + str(name) + ' ' + last_name + '\n' + str(text[0])))
@@ -1330,6 +1408,11 @@ def send_choose(list, chosen_list, text, type, forward=None):
                 markup.append([word_new, '/chosen' + type + ' ' + list_item, 'continue'])
         i+=1
 
+    if forward and type != '_news_language' :
+        markup.append(['Натиснути на всі кнопки!', '/chosen' + type +  ' everything' + ' і forward'])
+    elif type != '_news_language':
+        markup.append(['Натиснути на всі кнопки!️', '/chosen' + type + ' everything'])
+
     if type == 'theme' and forward:
         markup.append(['Далі ➡️', '/news_language newskit'])
     elif type == 'website' and forward:
@@ -1339,6 +1422,13 @@ def send_choose(list, chosen_list, text, type, forward=None):
 
     print(markup)
     return markup
+
+def RepresentsInt(s):
+    try:
+        int(s)
+        return True
+    except ValueError:
+        return False
 
 def send_btn_keyboard(chat_id):
     pass
