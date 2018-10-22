@@ -257,7 +257,7 @@ def echo_all(updates):
         if action == 'start':
             # text = str([update['message']['chat']['id'], update['message']['chat']['first_name']])
             curs = conn.cursor()
-            curs.execute("SELECT * FROM users WHERE telegram_id ='{}' AND name ='{}'".format(id, name))
+            curs.execute("SELECT * FROM users WHERE telegram_id ='{}'".format(id, name))
             user = curs.fetchone()
             if not user:
                 curs.execute(
@@ -746,6 +746,7 @@ def echo_all(updates):
                 else:
                     times = [parse_mode]
             else:
+                send_message('Ця команда буде доступна, якщо ти почнеш використовувати функцію /newstime', id)
                 break
 
             markup = []
@@ -1108,9 +1109,9 @@ def echo_all(updates):
         elif action == 'newstime':
             curs.execute("SELECT invited FROM users WHERE telegram_id ='{}'".format(id))
             invited = curs.fetchone()[0]
-            print(invited)
+            print(invited, len(invited.split(', ')))
             if invited == '':
-                send_message('Для того, щоб використовувати суперкруту функцію надсилання новин у повністю зручний ДЛЯ ТЕБЕ час (з точністю до 1 хвилини!), потрібно запросити 2 друзів до NewsKit! \n\nТи вже запросив '+ str(len(invited.split(', '))) + ' друга\n\nПоділися з друзями посиланням нижче: \n\nhttps://t.me/newskit_bot?start=' + str(id), id)
+                send_message('Для того, щоб використовувати суперкруту функцію надсилання новин у повністю зручний ДЛЯ ТЕБЕ час (з точністю до 1 хвилини!), потрібно запросити 2 друзів до NewsKit! \n\nТи вже запросив 0 друзів\n\nПоділися з друзями посиланням нижче: \n\nhttps://t.me/newskit_bot?start=' + str(id), id)
             elif len(invited.split(', ')) < 2:
                 send_message('Для того, щоб використовувати суперкруту функцію надсилання новин у повністю зручний ДЛЯ ТЕБЕ час (з точністю до 1 хвилини!), потрібно запросити 2 друзів до NewsKit! \n\nТи вже запросив '+ str(len(invited.split(', '))) + ' друга\n\nПоділися з друзями посиланням нижче: \n\nhttps://t.me/newskit_bot?start=' + str(id), id)
             else:
