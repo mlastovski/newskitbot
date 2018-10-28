@@ -46,3 +46,5 @@ zope.interface==4.4.3
 apiai==1.2.3
 gunicorn==19.7.1
 html5lib==1.0.1
+pytz==2018.3
+timezonefinder==3.2.0
