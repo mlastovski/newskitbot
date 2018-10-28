@@ -11,6 +11,9 @@ from telepot.namedtuple import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboa
 from bot_add import add_keywords, delete_keywords, convert_time
 from parse import send
 from timesend import addnewsheduler
+from timezonefinder import TimezoneFinder
+from pytz import timezone
+import pytz
 
 os.environ['DATABASE_URL'] = 'postgres://cgvkxvyosmvmzd:f281ebb6771eaebb9c998d34665c60d917542d6df0ece9fa483da65d62b600e7@ec2-79-125-12-48.eu-west-1.compute.amazonaws.com:5432/dbrvpbkmj63vl8'
 DATABASE_URL = os.environ['DATABASE_URL']
@@ -213,19 +216,70 @@ def echo_all(updates):
     print(updates)
     for update in updates["result"]:
         try:
-            chat = update["message"]["chat"]["id"]
-            id = update["message"]['chat']['id']
-            name = update["message"]['chat']['first_name']
-            try:
-                last_name = update["message"]['chat']['last_name']
-            except KeyError:
-                last_name = ''
-            try:
-                username = update["message"]['chat']['username']
-            except KeyError:
-                username = ''
-            text = update["message"]["text"]
-            mess_id=None
+            try: #if its group
+                try:
+                    text = update['data']
+                    mess_type = update["message"]["chat"]["type"]
+                    print(mess_type)
+                    chat = update["message"]["chat"]["id"]
+                    print('here5')
+                    id = update["message"]['chat']['id']
+                    print('here5')
+                    name = update["message"]['chat']['title']
+                    last_name = 'group'
+                    username = ''
+
+                    mess_id=None
+                except KeyError:
+                    try:
+                        text = update['callback_query']['data']
+                        mess_type = update['callback_query']["message"]["chat"]["type"]
+                        print(mess_type)
+                        chat = update['callback_query']["message"]["chat"]["id"]
+                        print('here5')
+                        id = update['callback_query']["message"]['chat']['id']
+                        print('here5')
+                        name = update['callback_query']["message"]['chat']['title']
+                        last_name = 'group'
+                        username = ''
+
+                        mess_id=update['callback_query']["message"]['message_id']
+                    except KeyError:
+                        text = update["message"]["text"]
+                        mess_type = update["message"]["chat"]["type"]
+                        print(mess_type)
+                        chat = update["message"]["chat"]["id"]
+                        print('here5')
+                        id = update["message"]['chat']['id']
+                        print('here5')
+                        name = update["message"]['chat']['title']
+                        last_name = 'group'
+                        username = ''
+
+                        mess_id=None
+
+            except: #if its not
+                print('here3')
+                chat = update["message"]["chat"]["id"]
+                id = update["message"]['chat']['id']
+                name = update["message"]['chat']['first_name']
+                try:
+                    last_name = update["message"]['chat']['last_name']
+                except KeyError:
+                    last_name = ''
+                try:
+                    username = update["message"]['chat']['username']
+                except KeyError:
+                    username = ''
+                try:
+                    text = update["message"]["text"]
+                except:
+                    location = update["message"]["location"]
+                    latitude=location['latitude']
+                    longitude=location['longitude']
+                    text='/changetimezone'
+                    print(location)
+                mess_id=None
         except KeyError:
             try:
                 text = update["callback_query"]["data"]
@@ -254,10 +308,15 @@ def echo_all(updates):
 
         curs = conn.cursor()
 
+        curs.execute("SELECT * FROM users WHERE telegram_id ='{}'".format(id))
+        user = curs.fetchone()
+        if user == None:
+            action = 'start'
+
         if action == 'start':
             # text = str([update['message']['chat']['id'], update['message']['chat']['first_name']])
             curs = conn.cursor()
-            curs.execute("SELECT * FROM users WHERE telegram_id ='{}'".format(id, name))
+            curs.execute("SELECT * FROM users WHERE telegram_id ='{}'".format(id))
             user = curs.fetchone()
             if not user:
                 curs.execute(
@@ -324,7 +383,7 @@ def echo_all(updates):
             send_inline_keyboard([['Отримати останні новини', '/getlastnews'], ['Більше про мої можливості', '/help']], chat, 'Твій список ключових слів: ' + str(words))
         elif action == 'addkeywords':
             curs = conn.cursor()
-            curs.execute("SELECT keywords FROM users WHERE telegram_id ='{}' AND name ='{}'".format(id, name))
+            curs.execute("SELECT keywords FROM users WHERE telegram_id ='{}'".format(id))
             try:
                 print('user', id, name)
                 present_words = curs.fetchone()[0]
@@ -370,7 +429,7 @@ def echo_all(updates):
 
             if present_words != '':
                 present_words = present_words + ', '
-            curs.execute("UPDATE users SET keywords ='{}' WHERE telegram_id ='{}' AND name ='{}'".format(
+            curs.execute("UPDATE users SET keywords ='{}' WHERE telegram_id ='{}'".format(
                 str(present_words_list + text), id, name))
             conn.commit()
             send_message('Ваш список ключових слів: ' + str(present_words_list + text), chat)
@@ -381,7 +440,7 @@ def echo_all(updates):
                             (")", ''), ("*", '')])
             print('text', text)
             curs = conn.cursor()
-            curs.execute("SELECT keywords FROM users WHERE telegram_id ='{}' AND name ='{}'".format(id, name))
+            curs.execute("SELECT keywords FROM users WHERE telegram_id ='{}'".format(id))
             present_words = curs.fetchone()[0]
             present_words_list = present_words.split(', ')
             present_words_list = replace(present_words_list,
@@ -403,24 +462,24 @@ def echo_all(updates):
                 present_words_list = ', '.join(present_words_list)
 
             curs.execute(
-                "UPDATE users SET keywords ='{}' WHERE telegram_id ='{}' AND name ='{}'".format(str(present_words_list),
+                "UPDATE users SET keywords ='{}' WHERE telegram_id ='{}'".format(str(present_words_list),
                                                                                                 id, name))
             conn.commit()
             send_message('Ваш список ключових слів: ' + str(present_words_list), chat)
 
-        elif action == 'deleteaccount':
-            curs = conn.cursor()
-            curs.execute("DELETE FROM users WHERE telegram_id ='{}' AND name ='{}'".format(id, name))
-            conn.commit()
-
-            text = 'Ти більше не отримуватимеш щоденних розсилок(( Щоб відновити цю можливість напиши мені /start'
+        # elif action == 'deleteaccount':
+        #     curs = conn.cursor()
+        #     curs.execute("DELETE FROM users WHERE telegram_id ='{}'".format(id))
+        #     conn.commit()
+        #
+        #     text = 'Ти більше не отримуватимеш щоденних розсилок(( Щоб відновити цю можливість напиши мені /start'
             send_message(text, chat)
         elif action == 'stop':
             curs = conn.cursor()
-            curs.execute("SELECT status FROM users WHERE telegram_id ='{}' AND name ='{}'".format(id, name))
+            curs.execute("SELECT status FROM users WHERE telegram_id ='{}'".format(id))
             status = int(curs.fetchone()[0])
             if status != 1:
-                curs.execute("UPDATE users SET status = 1 WHERE telegram_id ='{}' AND name ='{}'".format(id, name))
+                curs.execute("UPDATE users SET status = 1 WHERE telegram_id ='{}'".format(id))
                 conn.commit()
                 text = 'Ти більше не отримуватимеш щоденних розсилок(( Щоб відновити цю можливість напиши мені /renew'
             else:
@@ -430,10 +489,10 @@ def echo_all(updates):
 
         elif action == 'renew':
             curs = conn.cursor()
-            curs.execute("SELECT status FROM users WHERE telegram_id ='{}' AND name ='{}'".format(id, name))
+            curs.execute("SELECT status FROM users WHERE telegram_id ='{}'".format(id))
             status = int(curs.fetchone()[0])
             if status != 0:
-                curs.execute("UPDATE users SET status = 0 WHERE telegram_id ='{}' AND name ='{}'".format(id, name))
+                curs.execute("UPDATE users SET status = 0 WHERE telegram_id ='{}'".format(id))
                 conn.commit()
                 text = 'Ти знову зі мною! Тепер ти отримуватимеш щоденну підбірку персоналізованих новин!'
             else:
@@ -729,13 +788,14 @@ def echo_all(updates):
                         new = [btn_name, '/chosentime ' + btn_action + phrase]
                 i+=1
                 markup.append(new)
-            markup.append(['Вказати інший час!', '/newstime'])
+            markup.append(['ВКАЗАТИ СВІЙ ЧАС!', '/newstime'])
+            markup.append(['Змінити часовий пояс!', '/changetimezone newskit'])
             print(markup)
 
             if text[0] == 'newskit':
                 markup.append(['Далі ➡️', '/endtour'])
 
-            send_inline_keyboard(markup, chat, 'Коли ти хочеш отримувати новини?')
+            send_inline_keyboard(markup, chat, 'Коли ти хочеш отримувати новини?\nТвій часовий пояс: GMT '+ user[16]+', '+user[17])
         elif action == 'timemanage':
             curs.execute("SELECT parse_mode FROM users WHERE telegram_id ='{}'".format(id))
             parse_mode = curs.fetchone()[0]
@@ -1028,6 +1088,8 @@ def echo_all(updates):
                         new = [btn_name, '/chosentime ' + btn_action + phrase]
                 i+=1
                 markup.append(new)
+            markup.append(['ВКАЗАТИ СВІЙ ЧАС!', '/newstime'])
+            markup.append(['Змінити часовий пояс!', '/changetimezone newskit'])
 
             reply_markup = get_reply_markup(markup, 'time', mode)
             print('hereherehere')
@@ -1247,15 +1309,45 @@ def echo_all(updates):
                 try:
                     text=int(text[0])
                     print(True)
-                    if text < 1000:
+                    if text < 1000 and text > 0:
                         curs.execute("UPDATE users SET news_limit={} WHERE telegram_id='{}'".format(text, id))
                         send_message('Ліміт встановлено!', id)
+                        curs.execute("UPDATE users SET command='' WHERE telegram_id='{}'".format(id))
+                        conn.commit()
                     else:
-                        send_message('Число не підходить. Спробуй ще раз! /limit', id)
+                        send_message('Число не підходить. Спробуй ще раз! /cancel, щоб скасувати', id)
                 except ValueError:
-                    send_message('Число не підходить. Спробуй ще раз! /limit', id)
-                curs.execute("UPDATE users SET command='' WHERE telegram_id='{}'".format(id))
-                conn.commit()
+                    send_message('Число не підходить. Спробуй ще раз! /cancel, щоб скасувати', id)
+        elif action == 'changetimezone':
+            try:
+                print(longitude, latitude)
+                tf = TimezoneFinder()
+                country = tf.timezone_at(lng=longitude, lat=latitude)
+                print(country)
+                utc = pytz.utc
+
+                def offset(target):
+                    """
+                    returns a location's time zone offset from UTC in minutes.
+                    """
+                    today = datetime.now()
+                    tz_target = timezone(tf.certain_timezone_at(lat=target['lat'], lng=target['lng']))
+                    # ATTENTION: tz_target could be None! handle error case
+                    today_target = tz_target.localize(today)
+                    today_utc = utc.localize(today)
+                    return int((today_utc - today_target).total_seconds() / 3600)
+
+                bergamo = dict({'lat':latitude, 'lng':longitude})
+                result = offset(bergamo)
+                send_message('Ця функція ще розробляється, зміни будуть доступні пізніше!\nТвоя часова зона: ' + country + '.Різниця в часі з GMT London: '+ str(result) + 'години', id)
+            except:
+                TelegramBot.sendMessage(id, 'Щоб встановити новий час, надішли мені своє місцерозташування',
+                                reply_markup=ReplyKeyboardMarkup(
+                                    keyboard=[
+                                        [KeyboardButton(text="Send my location", request_location=True), KeyboardButton(text="Cancel")]
+                                    ],
+                                    one_time_keyboard=True
+                                ))
 
         elif action == 'help':
 
@@ -1456,7 +1548,9 @@ def main():
                     print('Error')
                     requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'ERROR!!! + TypeError'))
         except Exception as e:
-            print('Error_' + str(e))
+            print('Error: ' + str(e))
+            curs.execute("Rollback")
+            conn.commit()
             requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'ERROR!!! ' + str(e)))
             requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=373407132&text={}'.format(TOKEN, 'ERROR!!! ' + str(e)))
         time.sleep(0.5)

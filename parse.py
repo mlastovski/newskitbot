@@ -458,7 +458,7 @@ def timed_job2():
     requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Процес надсилання завершено!'))
 
 
-@sched.scheduled_job('cron', hour='5,7,8,10,11,12,13,14,15,16,17,19,20, 21')
+@sched.scheduled_job('cron', hour='5,7,8,10,11,12,13,14,15,16,17,19,20,21')
 def timed_job3():
     requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Розсилка юзерам щогодини стартувала!'))
     requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Розсилка юзерам щогодини стартувала!'))
@@ -527,84 +527,92 @@ def send(users, limit=15, immediate=False):
     from bot import get_json_from_url
 
     for user in users:
-        if user[5] == 1:
-            return
-        chat_id = user[1]
-        status = user[5]
-        user_keywords = user[3].split(', ')
+        try:
+            if user[5] == 1:
+                return
+            chat_id = user[1]
+            status = user[5]
+            user_keywords = user[3].split(', ')
 
-        if '' in user_keywords:
-            user_keywords = list(filter(lambda a: a != '', user_keywords))
+            if '' in user_keywords:
+                user_keywords = list(filter(lambda a: a != '', user_keywords))
 
-        print(chat_id, status, user_keywords)
+            print(chat_id, status, user_keywords)
 
-        curs.execute("SELECT * FROM user2website WHERE user_id='{}'".format(user[1]))
-        websites = curs.fetchall()
-        print(websites)
-        if_nothing = True
-        i=1
-        for website in websites:
-            curs.execute("SELECT id FROM websites WHERE name='{}'".format(website[2]))
-            try:
-                web_id = curs.fetchone()[0]
-            except TypeError:
-                break
-            curs.execute("SELECT * FROM articles WHERE parse_time > '{}' and website_id='{}' ORDER BY id DESC".format(float(user[4]), web_id))
-            articles = curs.fetchall()
-
-
-            limit=user[13]
-            print('number of limit', limit)
-            for article in articles:
-                print(article)
-                print('limit', i)
-                if i > int(limit):
-                    print('break!')
+            curs.execute("SELECT * FROM user2website WHERE user_id='{}'".format(user[1]))
+            websites = curs.fetchall()
+            print(websites)
+            if_nothing = True
+            i=1
+            for website in websites:
+                curs.execute("SELECT id FROM websites WHERE name='{}'".format(website[2]))
+                try:
+                    web_id = curs.fetchone()[0]
+                except TypeError:
                     break
-
-                passed_keywords = []
-                for word in user_keywords:
-                    if word in article[3].split(', '):
-                        passed_keywords.append(word)
-
-                passed_keywords = ', '.join(passed_keywords)
-                print('passed_keywords: ', passed_keywords)
-
-                if int(status) == 0 and passed_keywords != '':
-                    print(True)
-                    if i == 1:
-                        get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, 'Твій одноразовий ліміт новин: ' + str(limit)) + '. Щоб змінити, скористайся /limit \nЧас отримання новин: '  + str(user[7]) + '. Щоб змінити, скористайся /newstime', user[1])
-                    get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, passed_keywords + '\n' + article[2]), user[1])
-                    curs.execute("UPDATE users SET send_time ='{}' WHERE telegram_id ='{}'".format(datetime.now().timestamp(), user[1]))
-                    conn.commit()
-                    i+=1
-                    if_nothing=False
-                    time.sleep(0.5)
-                elif int(status) == 0 and website[3] == '*':
-                    if i == 1:
-                        get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, 'Твій одноразовий ліміт новин: ' + str(limit)) + '. Щоб змінити, скористайся /limit \nЧас отримання новин: '  + str(user[7]) + '. Щоб змінити, скористайся /newstime', user[1])
-                    print(True)
-                    get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, 'Нова стаття з ' + website[2] + '\n' + article[2]), user[1])
-                    curs.execute("UPDATE users SET send_time ='{}' WHERE telegram_id ='{}'".format(datetime.now().timestamp(), user[1]))
-                    conn.commit()
-                    i+=1
-                    if_nothing=False
-                    time.sleep(0.5)
-                elif int(status) == 1:
-                    if_nothing=False
+                curs.execute("SELECT * FROM articles WHERE parse_time > '{}' and website_id='{}' ORDER BY id DESC".format(float(user[4]), web_id))
+                articles = curs.fetchall()
 
 
-        from bot import send_inline_keyboard
+                limit=user[13]
+                print('number of limit', limit)
+                for article in articles:
+                    print(article)
+                    print('limit', i)
+                    if i > int(limit):
+                        print('break!')
+                        break
 
-        if int(status) == 0:
-            if if_nothing:
-                if immediate:
-                    send_inline_keyboard([['Обрати інші теми', '/themes'], ['Відібрати інші веб-сайти', '/websites'], ['Переглянути свої ключові слова', '/keywords']], user[1], 'На жаль, останніх новин за твоїми параметрами не знайдено 😔 \nЗачекай трішки або спробуй наступне:')
+                    passed_keywords = []
+                    for word in user_keywords:
+                        if word in article[3].split(', '):
+                            passed_keywords.append(word)
+
+                    passed_keywords = ', '.join(passed_keywords)
+                    print('passed_keywords: ', passed_keywords)
+
+                    if int(status) == 0 and passed_keywords != '':
+                        print(True)
+                        if i == 1:
+                            get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, 'Твій одноразовий ліміт новин: ' + str(limit)) + '. Щоб змінити, скористайся /limit \nЧас отримання новин: '  + str(user[7]) + '. Щоб змінити, скористайся /newstime', user[1])
+                        get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, passed_keywords + '\n' + article[2]), user[1])
+                        curs.execute("UPDATE users SET send_time ='{}' WHERE telegram_id ='{}'".format(datetime.now().timestamp(), user[1]))
+                        conn.commit()
+                        i+=1
+                        if_nothing=False
+                        time.sleep(0.5)
+                    elif int(status) == 0 and website[3] == '*':
+                        if i == 1:
+                            get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, 'Твій одноразовий ліміт новин: ' + str(limit)) + '. Щоб змінити, скористайся /limit \nЧас отримання новин: '  + str(user[7]) + '. Щоб змінити, скористайся /newstime', user[1])
+                        print(True)
+                        get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, 'Нова стаття з ' + website[2] + '\n' + article[2]), user[1])
+                        curs.execute("UPDATE users SET send_time ='{}' WHERE telegram_id ='{}'".format(datetime.now().timestamp(), user[1]))
+                        conn.commit()
+                        i+=1
+                        if_nothing=False
+                        time.sleep(0.5)
+                    elif int(status) == 1:
+                        if_nothing=False
+
+
+            from bot import send_inline_keyboard
+
+            if int(status) == 0:
+                if if_nothing:
+                    if immediate:
+                        send_inline_keyboard([['Обрати інші теми', '/themes'], ['Відібрати інші веб-сайти', '/websites'], ['Переглянути свої ключові слова', '/keywords']], user[1], 'На жаль, останніх новин за твоїми параметрами не знайдено 😔 \nЗачекай трішки або спробуй наступне:')
+                    else:
+                        pass
+                        #send_inline_keyboard([['Обрати інші теми', '/themes'], ['Відібрати інші веб-сайти', '/websites'], ['Переглянути свої ключові слова', '/keywords']], user[1], 'На жаль, останніх новин за твоїми параметрами не знайдено 😔 \nЗачекай трішки або спробуй наступне:')
                 else:
-                    pass
-                    #send_inline_keyboard([['Обрати інші теми', '/themes'], ['Відібрати інші веб-сайти', '/websites'], ['Переглянути свої ключові слова', '/keywords']], user[1], 'На жаль, останніх новин за твоїми параметрами не знайдено 😔 \nЗачекай трішки або спробуй наступне:')
-            else:
-                send_inline_keyboard([['Так, дуже!', '/feedbackonce так, все супер'], ['Мені сподобались декілька новин!', '/feedbackonce декілька новин'], ['Було мало корисного((', '/feedbackonce було мало корисного'], ['Маю пропозицію щодо покращення', '/feedback offer']], user[1], 'Чи сподобалась тобі підбірка новин?')
+                    send_inline_keyboard([['Так, дуже!', '/feedbackonce так, все супер'], ['Мені сподобались декілька новин!', '/feedbackonce декілька новин'], ['Було мало корисного((', '/feedbackonce було мало корисного'], ['Маю пропозицію щодо покращення', '/feedback offer']], user[1], 'Чи сподобалась тобі підбірка новин?')
+        except Exception as e:
+            print('Error_' + str(e))
+            curs.execute("Rollback")
+            conn.commit()
+            from bot import TOKEN
+            requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'ERROR!!! ' + str(e)))
+            requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=373407132&text={}'.format(TOKEN, 'ERROR!!! ' + str(e)))
 
 
 

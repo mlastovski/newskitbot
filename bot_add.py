@@ -5,7 +5,7 @@ def add_keywords(conn, id, name, text, chat):
     from bot import replace, send_message
 
     curs = conn.cursor()
-    curs.execute("SELECT keywords FROM users WHERE telegram_id ='{}' AND name ='{}'".format(id, name))
+    curs.execute("SELECT keywords FROM users WHERE telegram_id ='{}'".format(id, name))
     try:
         print('user', id, name)
         present_words = curs.fetchone()[0]
