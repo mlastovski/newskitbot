@@ -399,7 +399,7 @@ def timed_job():
     requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('parsing finished!'))
 
 
-@sched.scheduled_job('cron', hour='6')
+@sched.scheduled_job('cron', hour='7')
 def timed_job2():
     requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Розсилка юзерам щогодини стартувала!'))
     requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Розсилка юзерам щогодини стартувала!'))
@@ -418,7 +418,7 @@ def timed_job2():
     requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('parsing finished!'))
     requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('parsing finished!'))
 
-@sched.scheduled_job('cron', hour='9')
+@sched.scheduled_job('cron', hour='10')
 def timed_job2():
     requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Розсилка юзерам щогодини стартувала!'))
     requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Розсилка юзерам щогодини стартувала!'))
@@ -438,7 +438,7 @@ def timed_job2():
     requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Процес надсилання завершено!'))
 
 
-@sched.scheduled_job('cron', hour='18')
+@sched.scheduled_job('cron', hour='19')
 def timed_job2():
     requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Розсилка юзерам щогодини стартувала!'))
     requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Розсилка юзерам щогодини стартувала!'))
@@ -458,7 +458,7 @@ def timed_job2():
     requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Процес надсилання завершено!'))
 
 
-@sched.scheduled_job('cron', hour='4,5,7,8,10,11,12,13,14,15,16,17,19,20')
+@sched.scheduled_job('cron', hour='5,7,8,10,11,12,13,14,15,16,17,19,20, 21')
 def timed_job3():
     requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Розсилка юзерам щогодини стартувала!'))
     requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Розсилка юзерам щогодини стартувала!'))
