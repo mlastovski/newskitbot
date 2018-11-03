@@ -7,7 +7,7 @@ import urllib
 import psycopg2
 import os
 import telepot
-from telepot.namedtuple import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, InlineKeyboardButton
+from telepot.namedtuple import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, InlineKeyboardButton, ReplyKeyboardRemove
 from bot_add import add_keywords, delete_keywords, convert_time
 from parse import send
 from timesend import addnewsheduler
@@ -170,7 +170,8 @@ def define(text, id):
                                           ("ключові слова", '')])
                     text = text.split()
                     print('text before', text)
-                    del text[:len(expression.split(' '))]
+                    if text != ['скасувати']:
+                        del text[:len(expression.split(' '))]
                     text = ' '.join(text)
                     text = replace(text, [(' і ', ';'), (' й ', ';'), (' та ', ';'), (';;', ';')])
                     text = text.split(';')
@@ -279,7 +280,7 @@ def echo_all(updates):
                     longitude=location['longitude']
                     text='/changetimezone'
                     print(location)
-                mess_id=None
+                mess_id=update["message"]['message_id']
         except KeyError:
             try:
                 text = update["callback_query"]["data"]
@@ -1319,6 +1320,10 @@ def echo_all(updates):
                 except ValueError:
                     send_message('Число не підходить. Спробуй ще раз! /cancel, щоб скасувати', id)
         elif action == 'changetimezone':
+            print(text)
+            if text == ['скасувати']:
+                TelegramBot.sendMessage(id, 'Скасовано!', reply_markup=ReplyKeyboardRemove(remove_keyboard=True))
+                break
             try:
                 print(longitude, latitude)
                 tf = TimezoneFinder()
@@ -1339,14 +1344,21 @@ def echo_all(updates):
 
                 bergamo = dict({'lat':latitude, 'lng':longitude})
                 result = offset(bergamo)
-                send_message('Ця функція ще розробляється, зміни будуть доступні пізніше!\nТвоя часова зона: ' + country + '.Різниця в часі з GMT London: '+ str(result) + 'години', id)
+                print(mess_id)
+                TelegramBot.sendMessage(id, 'Ця функція ще розробляється, зміни будуть доступні пізніше!\nТвоя часова зона: ' + country + '.Різниця в часі з GMT London: '+ str(result) + 'години',
+                                reply_markup=ReplyKeyboardRemove(
+                                    remove_keyboard=True
+                                ))
+
             except:
                 TelegramBot.sendMessage(id, 'Щоб встановити новий час, надішли мені своє місцерозташування',
                                 reply_markup=ReplyKeyboardMarkup(
                                     keyboard=[
-                                        [KeyboardButton(text="Send my location", request_location=True), KeyboardButton(text="Cancel")]
+                                        [KeyboardButton(text="Надіслати моє місцезнаходження", request_location=True), KeyboardButton(text="Скасувати")]
                                     ],
-                                    one_time_keyboard=True
+                                    one_time_keyboard=True,
+                                    resize_keyboard=True,
+                                    selective=True
                                 ))
 
         elif action == 'help':

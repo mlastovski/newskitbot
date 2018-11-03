@@ -458,7 +458,7 @@ def timed_job2():
     requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Процес надсилання завершено!'))
 
 
-@sched.scheduled_job('cron', hour='5,7,8,10,11,12,13,14,15,16,17,19,20,21')
+@sched.scheduled_job('cron', hour='5,6,8,9,11,12,13,14,15,16,17,18,20,21')
 def timed_job3():
     requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Розсилка юзерам щогодини стартувала!'))
     requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Розсилка юзерам щогодини стартувала!'))
