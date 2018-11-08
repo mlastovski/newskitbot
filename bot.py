@@ -163,7 +163,7 @@ def define(text, id):
 
                     # let`s extract command from the text
                     text = replace(text, [(',', ' і '), (':', ''), (";", ''), ('!', ''), ("'", ''), ("[", ''), ("]", ''),
-                                          ("{", ''), ("}", ''), ("-", ''), ("_", ''), ("=", ''), ("+", ''), ("|", ''),
+                                          ("{", ''), ("}", ''), ("_", ''), ("=", ''), ("+", ''), ("|", ''),
                                           ("(", ''), (")", ''), ("*", ''), ("з моїх ключових слів", ''),
                                           ("до моїх ключових слів", ''), ("до списку новин", ''), ("в мою базу даних", ''),
                                           ("мені", ''), ("пліз слова", ''), ("пліз слово", ''), ("пліз", ''),
@@ -177,7 +177,7 @@ def define(text, id):
                     text = text.split(';')
                     text = replace(text,
                                    [(',', ''), (':', ''), (";", ''), ('!', ''), ("'", ''), ("[", ''), ("]", ''),
-                                    ("{", ''), ("}", ''), ("-", ''), ("_", ''), ("=", ''), ("+", ''), ("|", ''), ("(", ''),
+                                    ("{", ''), ("}", ''), ("_", ''), ("=", ''), ("+", ''), ("|", ''), ("(", ''),
                                     (")", ''), ("*", '')])
                     print('text', text)
 
@@ -1201,14 +1201,14 @@ def echo_all(updates):
                             print(hours, minutes)
                             if hours < 24 and hours >= 0 and minutes < 60 and minutes >= 0 or hours == 24 and minutes == 0:
                                 print('here')
-                                if int(hours) > 3:
-                                    hours = int(hours) - 3
+                                if int(hours) > 2 and int(hours) < 23:
+                                    hours = int(hours) - 2
                                 elif int(hours) == 2:
-                                    hours = 23
+                                    hours = 24
                                 elif int(hours) == 1:
-                                    hours = 22
+                                    hours = 23
                                 elif int(hours) == 0 or int(hours) == 24:
-                                    hours = 21
+                                    hours = 22
 
                                 if int(hours) < 10:
                                     hours = '0' + str(hours)
@@ -1224,6 +1224,25 @@ def echo_all(updates):
                             conn.commit()
                         except:
                             send_message('Час '+str(text)+' не підходить. Напиши час у форматі ГГ:ХХ. Наприклад, 09:21. Спробуй ще раз! \nЩоб скасувати, натисни /cancel', id)
+        elif action == 'invite':
+            curs.execute("SELECT invited FROM users WHERE telegram_id ='{}'".format(id))
+            invited = curs.fetchone()[0]
+            print(invited, len(invited.split(', ')))
+            friends=[]
+            if invited != '':
+                quantity = str(len(invited.split(', ')))
+                for i in invited.split(', '):
+                    curs.execute("SELECT * FROM users WHERE telegram_id ='{}'".format(i))
+                    friend = curs.fetchone()
+                    print(friend)
+                    friends.append(friend[2] + ' ' + friend[9])
+            else:
+                quantity = '0'
+
+            friends = ', '.join(friends)
+            print(friends)
+
+            send_message('Ти вже запросив '+ quantity +' друзів: '+ friends +'\n\nЩоб запросити більше, поділися з друзями посиланням нижче: \n\nhttps://t.me/newskit_bot?start=' + str(id), id)
 
         elif action == 'feedback':
             print(text)
@@ -1246,7 +1265,10 @@ def echo_all(updates):
             print(text)
             requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'Фідбек! \n' + str(chat) + ' ' + str(name) + ' ' + last_name + '\n' + str(text[0])))
             requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=373407132&text={}'.format(TOKEN, 'Фідбек! \n' + str(chat) + ' ' + str(name) + ' ' + last_name + '\n' + str(text[0])))
-            send_message('Дякую за відповідь! Вона дуже важлива для мене!', chat)
+            try:
+                TelegramBot.editMessageText(msg_identifier=(id, mess_id), text='Дякую за відповідь! Вона дуже важлива для мене!')
+            except telepot.exception.TelegramError:
+                send_message('Дякую за відповідь! Вона дуже важлива для мене!', chat)
         elif action == '/cancel':
             curs.execute("UPDATE users SET command='' WHERE telegram_id='{}'".format(id))
             conn.commit()
@@ -1351,7 +1373,11 @@ def echo_all(updates):
                                 ))
 
             except:
-                TelegramBot.sendMessage(id, 'Щоб встановити новий час, надішли мені своє місцерозташування',
+                print(id)
+                if int(id)< 0:
+                    send_message("Надсилання локації у груповому чаті, на жаль, неможливе! Цей розділ буде скоро допрацьовано!", id)
+                else:
+                    TelegramBot.sendMessage(id, 'Щоб встановити новий час, надішли мені своє місцерозташування',
                                 reply_markup=ReplyKeyboardMarkup(
                                     keyboard=[
                                         [KeyboardButton(text="Надіслати моє місцезнаходження", request_location=True), KeyboardButton(text="Скасувати")]
