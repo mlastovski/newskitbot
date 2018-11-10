@@ -526,6 +526,9 @@ def specific_time_send():
 def send(users, limit=15, immediate=False):
     from bot import get_json_from_url
 
+    now_hour = str(datetime.now().time()).split(':')[0]
+    print('now_hour', now_hour)
+
     for user in users:
         try:
             if user[5] == 1:
@@ -571,7 +574,6 @@ def send(users, limit=15, immediate=False):
                     passed_keywords = ', '.join(passed_keywords)
                     print('passed_keywords: ', passed_keywords)
 
-                    now_hour = str(datetime.now().time()).split(':')[0]
 
                     if int(status) == 0 and passed_keywords != '':
                         print(True)
