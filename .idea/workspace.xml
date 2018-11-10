@@ -16,8 +16,8 @@
       <file leaf-file-name="parse.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/parse.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="280">
-              <caret line="532" column="12" lean-forward="true" selection-start-line="532" selection-start-column="12" selection-end-line="532" selection-end-column="12" />
+            <state relative-caret-position="549">
+              <caret line="588" column="118" lean-forward="false" selection-start-line="588" selection-start-column="118" selection-end-line="588" selection-end-column="118" />
               <folding>
                 <element signature="e#23#32#0" expanded="true" />
               </folding>
@@ -28,8 +28,8 @@
       <file leaf-file-name="bot.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bot.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4571">
-              <caret line="1216" column="0" lean-forward="false" selection-start-line="1216" selection-start-column="0" selection-end-line="1216" selection-end-column="0" />
+            <state relative-caret-position="311">
+              <caret line="932" column="29" lean-forward="false" selection-start-line="932" selection-start-column="29" selection-end-line="932" selection-end-column="29" />
               <folding>
                 <element signature="e#18#29#0" expanded="true" />
               </folding>
@@ -208,7 +208,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.parse">
+  <component name="RunManager" selected="Python.bot">
     <configuration name="appleinsider" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -308,8 +308,8 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.parse" />
-        <item index="1" class="java.lang.String" itemvalue="Python.bot" />
+        <item index="0" class="java.lang.String" itemvalue="Python.bot" />
+        <item index="1" class="java.lang.String" itemvalue="Python.parse" />
         <item index="2" class="java.lang.String" itemvalue="Python.appleinsider" />
         <item index="3" class="java.lang.String" itemvalue="Python.isport" />
         <item index="4" class="java.lang.String" itemvalue="Python.timesend" />
@@ -739,16 +739,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bot.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4571">
-          <caret line="1216" column="0" lean-forward="false" selection-start-line="1216" selection-start-column="0" selection-end-line="1216" selection-end-column="0" />
-          <folding>
-            <element signature="e#18#29#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/timesend.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="346">
@@ -759,10 +749,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/bot.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="311">
+          <caret line="932" column="29" lean-forward="false" selection-start-line="932" selection-start-column="29" selection-end-line="932" selection-end-column="29" />
+          <folding>
+            <element signature="e#18#29#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/parse.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="532" column="12" lean-forward="true" selection-start-line="532" selection-start-column="12" selection-end-line="532" selection-end-column="12" />
+        <state relative-caret-position="549">
+          <caret line="588" column="118" lean-forward="false" selection-start-line="588" selection-start-column="118" selection-end-line="588" selection-end-column="118" />
           <folding>
             <element signature="e#23#32#0" expanded="true" />
           </folding>

@@ -577,7 +577,7 @@ def send(users, limit=15, immediate=False):
 
                     if int(status) == 0 and passed_keywords != '':
                         print(True)
-                        if i == 1 and user[7] != 'everyhour' or i == 1 and user[7] == 'everyhour' and now_hour == 5:
+                        if i == 1 and user[7] != 'everyhour' or i == 1 and user[7] == 'everyhour' and now_hour == '05':
                             passed_keywords = 'Твій одноразовий ліміт новин: ' + str(limit) + '. Щоб змінити, скористайся /limit \nЧас отримання новин: '  + str(user[7]) + '. Щоб змінити, скористайся /newstime\n' + passed_keywords
                         get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, passed_keywords + '\n' + article[2]), user[1])
                         curs.execute("UPDATE users SET send_time ='{}' WHERE telegram_id ='{}'".format(datetime.now().timestamp(), user[1]))
@@ -586,7 +586,7 @@ def send(users, limit=15, immediate=False):
                         if_nothing=False
                         time.sleep(0.5)
                     elif int(status) == 0 and website[3] == '*':
-                        if i == 1 and user[7] != 'everyhour' or i == 1 and user[7] == 'everyhour' and now_hour == 5:
+                        if i == 1 and user[7] != 'everyhour' or i == 1 and user[7] == 'everyhour' and now_hour == '05':
                             passed_keywords = 'Твій одноразовий ліміт новин: ' + str(limit) + '. Щоб змінити, скористайся /limit \nЧас отримання новин: '  + str(user[7]) + '. Щоб змінити, скористайся /newstime\n' + passed_keywords
                         print(True)
                         get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, 'Нова стаття з ' + website[2] + '\n' + article[2]), user[1])
