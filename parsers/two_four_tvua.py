@@ -21,6 +21,8 @@ def parse_24tvua():
         title_text = title.find('a').find("div", {"class": "news-title"}).get_text()
         title_text = re.sub('\n', '', title_text)
         link = 'https://24tv.ua/' + title.find('a').get('href')
+        if '/ru/' in link:
+            return
         author = ' '
         #date = title.find('a').find("div", {"class": "time"}).get_text().split(':')
         date = datetime.now().timestamp()
