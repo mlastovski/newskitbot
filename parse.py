@@ -17,6 +17,8 @@ from parsers.korrespondent import korrespondent
 from parsers.onehundredtwelve import onehundredtwelve
 from parsers.isport import isport
 from parsers.spiegelDeutsch import spiegelDeutsch
+from parsers.bbc import bbc
+from parsers.verge import verge
 
 
 
@@ -141,6 +143,14 @@ def parse(media):
             requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! bbc'))
             return None
         web_name = 'bbc'
+    elif media == 14:
+        try:
+            parsed_content = verge()
+        except:
+            requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! The Verge'))
+            requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! The Verge'))
+            return None
+        web_name = 'The Verge'
     else:
         return None
 
