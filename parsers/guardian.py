@@ -17,8 +17,8 @@ def list_duplicates(seq):
   # turn the set into a list (as requested)
   return list( seen_twice )
 
-
-def verge():
+def guardian():
+    # print('1')
     # importing stopwords and converting them to the list
     with open('stopwords.txt', 'r') as myfile:
         stopwords = myfile.read().replace('\n', ' ')
@@ -27,20 +27,20 @@ def verge():
         # print(stopwords)
 
     # getting data
-    data = requests.get("https://www.theverge.com/", headers={
+    data = requests.get("https://www.theguardian.com/international", headers={
         "user-agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Mobile Safari/537.36"}).text
     # print(data)
     soup = BeautifulSoup(data, "lxml")
     articles = []
 
-    for title in soup.find('div', {'class': 'l-main-content'}).find('div', {'class': 'l-col__main'}).find('div').find_all('div'):
-        print('1')
+    for title in soup.find('ul', {'class': 'headline-list'}).find_all('li'):
         try:
             # print('1')
-            title_text = title.find('div', {'class': 'c-entry-box--compact'}).find('div', {'class': 'c-entry-box--compact__body'}).find('h2').find('a').get_text()
-            print(title_text)
-            link = title.find('div', {'class': 'c-entry-box--compact'}).find('a').get('href')
-            print(link)
+            title_text = title.find('div').find('div').find('h3').find('a').find('span').find('span').get_text()
+            # print(title_text)
+            link = title.find('div').find('div').find('h3').find('a').get('href')
+            # print(link)
+
             try:
                 structure = requests.get(link, headers={
                     "user-agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Mobile Safari/537.36"}).text
@@ -63,17 +63,8 @@ def verge():
 
             # comparing stopwords and article_text
             filtered_words = list(set(stopwords) ^ set(article_text))
-            # counter = collections.Counter(filtered_words)
-            # # print(counter)
-            # if counter > 1:
-            #     print('1')
-            #     # print(filtered_words)
-            # else:
-            #     print("Nema bilsche 1")
-            # print(counter.most_common(20))
-            print(filtered_words)
             # filtered_words = list_duplicates(filtered_words)
-            # print(list_duplicates(filtered_words))
+            print(filtered_words)
 
             author = ''
             date = ''
@@ -89,10 +80,6 @@ def verge():
                 # print(article)
                 articles.append(article)
 
-
-
-
-
         except AttributeError:
             try:
                 from bot import TOKEN
@@ -106,4 +93,4 @@ def verge():
     return articles
 
 if __name__ == '__main__':
-    verge()
+    guardian()
