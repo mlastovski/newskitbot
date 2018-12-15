@@ -1256,11 +1256,29 @@ def echo_all(updates):
                     conn.commit()
                     send_message('Надішли мені твою пропозицію наступним повідомленням! /cancel, щоб скасувати', id)
                 else:
-                    curs.execute("UPDATE users SET command='' WHERE telegram_id='{}'".format(id))
-                    conn.commit()
-                    requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'Фідбек! \n' + str(chat) + ' ' + str(name) + ' ' + last_name + '\n' + str(text[0])))
-                    requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=373407132&text={}'.format(TOKEN, 'Фідбек! \n' + str(chat) + ' ' + str(name) + ' ' + last_name + '\n' + str(text[0])))
-                    send_message('Я надіслав твій фідбек!', chat)
+                    curs.execute("SELECT last_feedback_send FROM users WHERE telegram_id ='{}'".format(id))
+                    try:
+                        last_feedback_send = float(curs.fetchone()[0])
+                    except TypeError:
+                        last_feedback_send = 0
+                    print(last_feedback_send)
+                    if datetime.now().timestamp() - int(last_feedback_send) < 2:
+                        break
+                        curs.execute("UPDATE users SET command='' WHERE telegram_id='{}'".format(id))
+                        conn.commit()
+                    elif datetime.now().timestamp() - int(last_feedback_send) < 60:
+                        send_message('Фідбек не надіслано(( Спрацював захист від спаму! Спробуй через хвилину!', chat)
+                        curs.execute("UPDATE users SET command='' WHERE telegram_id='{}'".format(id))
+                        conn.commit()
+                    else:
+                        print('blabla')
+                        curs.execute("UPDATE users SET command='' WHERE telegram_id='{}'".format(id))
+                        conn.commit()
+                        requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'Фідбек! \n' + str(chat) + ' ' + str(name) + ' ' + last_name + '\n' + str(text[0])))
+                        requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=373407132&text={}'.format(TOKEN, 'Фідбек! \n' + str(chat) + ' ' + str(name) + ' ' + last_name + '\n' + str(text[0])))
+                        send_message('Я надіслав твій фідбек!', chat)
+                        curs.execute("UPDATE users SET last_feedback_send='{}' WHERE telegram_id='{}'".format(str(datetime.now().timestamp()), id))
+                        conn.commit()
         elif action == 'feedbackonce':
             print(text)
             requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'Фідбек! \n' + str(chat) + ' ' + str(name) + ' ' + last_name + '\n' + str(text[0])))
