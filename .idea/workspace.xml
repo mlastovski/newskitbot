@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="89a244cc-e439-4fbe-95f4-3f54ca74d4c1" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
-      <change beforePath="$PROJECT_DIR$/bot.py" afterPath="$PROJECT_DIR$/bot.py" />
+      <change beforePath="$PROJECT_DIR$/parsers/bbc.py" beforeDir="false" afterPath="$PROJECT_DIR$/parsers/bbc.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parsers/stopwords.txt" beforeDir="false" afterPath="$PROJECT_DIR$/parsers/stopwords.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -17,19 +17,17 @@
       <file leaf-file-name="parse.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/parse.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="228">
-              <caret line="238" column="199" lean-forward="false" selection-start-line="238" selection-start-column="173" selection-end-line="238" selection-end-column="199" />
-              <folding />
+            <state relative-caret-position="3270">
+              <caret line="238" column="199" selection-start-line="238" selection-start-column="173" selection-end-line="238" selection-end-column="199" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="bot.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="bot.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bot.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="222">
-              <caret line="1268" column="43" lean-forward="true" selection-start-line="1268" selection-start-column="43" selection-end-line="1268" selection-end-column="43" />
-              <folding />
+            <state relative-caret-position="-4418">
+              <caret line="1268" column="43" selection-start-line="1268" selection-start-column="43" selection-end-line="1268" selection-end-column="43" />
             </state>
           </provider>
         </entry>
@@ -38,8 +36,7 @@
         <entry file="file://$PROJECT_DIR$/timesend.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="795">
-              <caret line="71" column="11" lean-forward="false" selection-start-line="71" selection-start-column="11" selection-end-line="71" selection-end-column="11" />
-              <folding />
+              <caret line="71" column="11" selection-start-line="71" selection-start-column="11" selection-end-line="71" selection-end-column="11" />
             </state>
           </provider>
         </entry>
@@ -48,7 +45,7 @@
         <entry file="file://$PROJECT_DIR$/parsers/guardian.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="990">
-              <caret line="71" column="41" lean-forward="false" selection-start-line="71" selection-start-column="41" selection-end-line="71" selection-end-column="41" />
+              <caret line="71" column="41" selection-start-line="71" selection-start-column="41" selection-end-line="71" selection-end-column="41" />
               <folding>
                 <element signature="e#15#44#0" expanded="true" />
               </folding>
@@ -59,8 +56,8 @@
       <file leaf-file-name="verge.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/parsers/verge.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="684">
-              <caret line="102" column="24" lean-forward="false" selection-start-line="102" selection-start-column="24" selection-end-line="102" selection-end-column="24" />
+            <state relative-caret-position="1455">
+              <caret line="102" column="24" selection-start-line="102" selection-start-column="24" selection-end-line="102" selection-end-column="24" />
               <folding>
                 <element signature="e#15#44#0" expanded="true" />
               </folding>
@@ -72,20 +69,28 @@
         <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/psycopg2/__init__.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1665">
-              <caret line="129" column="0" lean-forward="false" selection-start-line="129" selection-start-column="0" selection-end-line="129" selection-end-column="0" />
-              <folding />
+              <caret line="129" selection-start-line="129" selection-end-line="129" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="bbc.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="bbc.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/parsers/bbc.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="690">
-              <caret line="51" column="20" lean-forward="false" selection-start-line="51" selection-start-column="20" selection-end-line="51" selection-end-column="20" />
+            <state relative-caret-position="450">
+              <caret line="85" column="25" selection-start-line="85" selection-start-column="25" selection-end-line="85" selection-end-column="25" />
               <folding>
                 <element signature="e#15#44#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="stopwords.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/parsers/stopwords.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="748">
+              <caret line="579" column="9" selection-start-line="579" selection-start-column="9" selection-end-line="579" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -98,6 +103,11 @@
         <option value="Python Script" />
       </list>
     </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>stopwords</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -114,35 +124,25 @@
         <option value="$PROJECT_DIR$/parsers/isport.py" />
         <option value="$PROJECT_DIR$/timesend.py" />
         <option value="$PROJECT_DIR$/bot_add.py" />
-        <option value="$PROJECT_DIR$/parsers/bbc.py" />
         <option value="$PROJECT_DIR$/parsers/verge.py" />
         <option value="$PROJECT_DIR$/parsers/guardian.py" />
         <option value="$PROJECT_DIR$/parse.py" />
         <option value="$PROJECT_DIR$/bot.py" />
+        <option value="$PROJECT_DIR$/parsers/stopwords.txt" />
+        <option value="$PROJECT_DIR$/parsers/bbc.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6" fullScreen="true">
+  <component name="ProjectFrameBounds">
     <option name="y" value="23" />
     <option name="width" value="1440" />
     <option name="height" value="877" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1">
-      <flattenPackages />
-      <showMembers />
-      <showModules />
-      <showLibraryContents />
-      <hideEmptyPackages />
-      <abbreviatePackageNames />
-      <autoscrollToSource />
-      <autoscrollFromSource />
-      <sortByType />
-      <manualOrder />
+    <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -180,6 +180,7 @@
   </component>
   <component name="RunManager" selected="Python.bot">
     <configuration name="appleinsider" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="newskitbot" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -190,7 +191,6 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="newskitbot" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/parsers/appleinsider.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
@@ -198,6 +198,7 @@
       <option name="MODULE_MODE" value="false" />
     </configuration>
     <configuration name="bot" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="newskitbot" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -208,7 +209,6 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="newskitbot" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/bot.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
@@ -216,6 +216,7 @@
       <option name="MODULE_MODE" value="false" />
     </configuration>
     <configuration name="isport" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="newskitbot" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -226,7 +227,6 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="newskitbot" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/parsers/isport.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
@@ -234,6 +234,7 @@
       <option name="MODULE_MODE" value="false" />
     </configuration>
     <configuration name="parse" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="newskitbot" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -244,7 +245,6 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="newskitbot" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/parse.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
@@ -252,6 +252,7 @@
       <option name="MODULE_MODE" value="false" />
     </configuration>
     <configuration name="verge" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="newskitbot" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -262,32 +263,28 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="newskitbot" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/parsers/verge.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="Python.isport" />
-      <item index="1" class="java.lang.String" itemvalue="Python.verge" />
-      <item index="2" class="java.lang.String" itemvalue="Python.bot" />
-      <item index="3" class="java.lang.String" itemvalue="Python.parse" />
-      <item index="4" class="java.lang.String" itemvalue="Python.appleinsider" />
+    <list>
+      <item itemvalue="Python.isport" />
+      <item itemvalue="Python.verge" />
+      <item itemvalue="Python.bot" />
+      <item itemvalue="Python.parse" />
+      <item itemvalue="Python.appleinsider" />
     </list>
     <recent_temporary>
-      <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.bot" />
-        <item index="1" class="java.lang.String" itemvalue="Python.appleinsider" />
-        <item index="2" class="java.lang.String" itemvalue="Python.parse" />
-        <item index="3" class="java.lang.String" itemvalue="Python.verge" />
-        <item index="4" class="java.lang.String" itemvalue="Python.isport" />
+      <list>
+        <item itemvalue="Python.bot" />
+        <item itemvalue="Python.appleinsider" />
+        <item itemvalue="Python.parse" />
+        <item itemvalue="Python.verge" />
+        <item itemvalue="Python.isport" />
       </list>
     </recent_temporary>
-  </component>
-  <component name="ShelveChangesManager" show_recycled="false">
-    <option name="remove_strategy" value="false" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -303,82 +300,71 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1280" height="800" extended-state="6" />
+    <frame x="0" y="23" width="1440" height="877" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2494043" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24670185" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24930556" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.24670185" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="bottom" id="Python Console" order="7" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Terminal" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info id="Favorites" side_tool="true" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager />
-    <watches-manager />
-  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/parsers/bbc.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="690">
-          <caret line="51" column="20" lean-forward="false" selection-start-line="51" selection-start-column="20" selection-end-line="51" selection-end-column="20" />
-          <folding>
-            <element signature="e#15#44#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bot.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="14685">
-          <caret line="990" column="35" lean-forward="false" selection-start-line="990" selection-start-column="35" selection-end-line="990" selection-end-column="35" />
+          <caret line="990" column="35" selection-start-line="990" selection-start-column="35" selection-end-line="990" selection-end-column="35" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/parsers/isport.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
-          <caret line="16" column="74" lean-forward="false" selection-start-line="16" selection-start-column="74" selection-end-line="16" selection-end-column="74" />
+          <caret line="16" column="74" selection-start-line="16" selection-start-column="74" selection-end-line="16" selection-end-column="74" />
         </state>
       </provider>
     </entry>
     <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/bs4/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1005">
-          <caret line="86" column="8" lean-forward="false" selection-start-line="86" selection-start-column="8" selection-end-line="86" selection-end-column="8" />
+          <caret line="86" column="8" selection-start-line="86" selection-start-column="8" selection-end-line="86" selection-end-column="8" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/parsers/two_four_tvua.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
-          <caret line="17" column="17" lean-forward="false" selection-start-line="17" selection-start-column="17" selection-end-line="17" selection-end-column="17" />
+          <caret line="17" column="17" selection-start-line="17" selection-start-column="17" selection-end-line="17" selection-end-column="17" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/requirements.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="705">
-          <caret line="47" column="8" lean-forward="false" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="8" />
+          <caret line="47" column="8" selection-start-line="47" selection-end-line="47" selection-end-column="8" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/parsers/nytimes.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="930">
-          <caret line="67" column="65" lean-forward="false" selection-start-line="67" selection-start-column="65" selection-end-line="67" selection-end-column="65" />
+          <caret line="67" column="65" selection-start-line="67" selection-start-column="65" selection-end-line="67" selection-end-column="65" />
         </state>
       </provider>
     </entry>
@@ -390,117 +376,106 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/parse.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/apscheduler/schedulers/base.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="5310">
-          <caret line="354" column="8" lean-forward="false" selection-start-line="354" selection-start-column="8" selection-end-line="354" selection-end-column="8" />
+          <caret line="354" column="8" selection-start-line="354" selection-start-column="8" selection-end-line="354" selection-end-column="8" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/parsers/pravda.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
-          <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/bot.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17775">
-          <caret line="1196" column="32" lean-forward="false" selection-start-line="1196" selection-start-column="32" selection-end-line="1196" selection-end-column="32" />
+          <caret line="1196" column="32" selection-start-line="1196" selection-start-column="32" selection-end-line="1196" selection-end-column="32" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/parsers/isport.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
-          <caret line="16" column="74" lean-forward="false" selection-start-line="16" selection-start-column="74" selection-end-line="16" selection-end-column="74" />
+          <caret line="16" column="74" selection-start-line="16" selection-start-column="74" selection-end-line="16" selection-end-column="74" />
         </state>
       </provider>
     </entry>
     <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/bs4/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1005">
-          <caret line="86" column="8" lean-forward="false" selection-start-line="86" selection-start-column="8" selection-end-line="86" selection-end-column="8" />
+          <caret line="86" column="8" selection-start-line="86" selection-start-column="8" selection-end-line="86" selection-end-column="8" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/parsers/two_four_tvua.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
-          <caret line="17" column="17" lean-forward="false" selection-start-line="17" selection-start-column="17" selection-end-line="17" selection-end-column="17" />
+          <caret line="17" column="17" selection-start-line="17" selection-start-column="17" selection-end-line="17" selection-end-column="17" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/requirements.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="705">
-          <caret line="47" column="8" lean-forward="false" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="8" />
+          <caret line="47" column="8" selection-start-line="47" selection-end-line="47" selection-end-column="8" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/parsers/nytimes.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="930">
-          <caret line="67" column="65" lean-forward="false" selection-start-line="67" selection-start-column="65" selection-end-line="67" selection-end-column="65" />
+          <caret line="67" column="65" selection-start-line="67" selection-start-column="65" selection-end-line="67" selection-end-column="65" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/parsers/spiegelDeutsch.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="645">
-          <caret line="48" column="71" lean-forward="false" selection-start-line="48" selection-start-column="71" selection-end-line="48" selection-end-column="71" />
+          <caret line="48" column="71" selection-start-line="48" selection-start-column="71" selection-end-line="48" selection-end-column="71" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/parse.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/bot.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
-          <caret line="14" column="0" lean-forward="true" selection-start-line="13" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <caret line="14" lean-forward="true" selection-start-line="13" selection-end-line="14" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/parsers/pravda.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="540">
-          <caret line="40" column="13" lean-forward="false" selection-start-line="40" selection-start-column="13" selection-end-line="40" selection-end-column="13" />
+          <caret line="40" column="13" selection-start-line="40" selection-start-column="13" selection-end-line="40" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/parsers/spiegelDeutsch.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1110">
-          <caret line="79" column="10" lean-forward="false" selection-start-line="79" selection-start-column="10" selection-end-line="79" selection-end-column="10" />
+          <caret line="79" column="10" selection-start-line="79" selection-start-column="10" selection-end-line="79" selection-end-column="10" />
         </state>
       </provider>
     </entry>
     <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/requests/api.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1020">
-          <caret line="68" column="0" lean-forward="false" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
+          <caret line="68" selection-start-line="68" selection-end-line="68" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/parse.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="7290">
-          <caret line="503" column="0" lean-forward="true" selection-start-line="375" selection-start-column="165" selection-end-line="503" selection-end-column="0" />
-          <folding />
+          <caret line="503" lean-forward="true" selection-start-line="375" selection-start-column="165" selection-end-line="503" />
         </state>
       </provider>
     </entry>
@@ -514,28 +489,28 @@
     <entry file="file://$PROJECT_DIR$/bot.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
-          <caret line="14" column="0" lean-forward="true" selection-start-line="13" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <caret line="14" lean-forward="true" selection-start-line="13" selection-end-line="14" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/parsers/spiegelDeutsch.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1110">
-          <caret line="79" column="10" lean-forward="false" selection-start-line="79" selection-start-column="10" selection-end-line="79" selection-end-column="10" />
+          <caret line="79" column="10" selection-start-line="79" selection-start-column="10" selection-end-line="79" selection-end-column="10" />
         </state>
       </provider>
     </entry>
     <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/requests/api.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1020">
-          <caret line="68" column="0" lean-forward="false" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
+          <caret line="68" selection-start-line="68" selection-end-line="68" />
         </state>
       </provider>
     </entry>
     <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/requests/api.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1020">
-          <caret line="68" column="0" lean-forward="false" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
+          <caret line="68" selection-start-line="68" selection-end-line="68" />
         </state>
       </provider>
     </entry>
@@ -550,116 +525,105 @@
     <entry file="file://$PROJECT_DIR$/parsers/wylsacom.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="127">
-          <caret line="22" column="42" lean-forward="false" selection-start-line="22" selection-start-column="42" selection-end-line="22" selection-end-column="42" />
+          <caret line="22" column="42" selection-start-line="22" selection-start-column="42" selection-end-line="22" selection-end-column="42" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/parsers/spiegelDeutsch.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="645">
-          <caret line="48" column="71" lean-forward="false" selection-start-line="48" selection-start-column="71" selection-end-line="48" selection-end-column="71" />
+          <caret line="48" column="71" selection-start-line="48" selection-start-column="71" selection-end-line="48" selection-end-column="71" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/parsers/nytimes.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="930">
-          <caret line="67" column="65" lean-forward="false" selection-start-line="67" selection-start-column="65" selection-end-line="67" selection-end-column="65" />
+          <caret line="67" column="65" selection-start-line="67" selection-start-column="65" selection-end-line="67" selection-end-column="65" />
         </state>
       </provider>
     </entry>
     <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/bs4/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1005">
-          <caret line="86" column="8" lean-forward="false" selection-start-line="86" selection-start-column="8" selection-end-line="86" selection-end-column="8" />
+          <caret line="86" column="8" selection-start-line="86" selection-start-column="8" selection-end-line="86" selection-end-column="8" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/parsers/pravda.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
-          <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <caret line="14" selection-start-line="14" selection-end-line="14" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/parsers/appleinsider.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
-          <caret line="14" column="17" lean-forward="false" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
+          <caret line="14" column="17" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
         </state>
       </provider>
     </entry>
     <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/apscheduler/schedulers/blocking.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
-          <caret line="6" column="6" lean-forward="false" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
+          <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
         </state>
       </provider>
     </entry>
     <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/apscheduler/schedulers/base.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4905">
-          <caret line="354" column="8" lean-forward="false" selection-start-line="354" selection-start-column="8" selection-end-line="354" selection-end-column="8" />
+          <caret line="354" column="8" selection-start-line="354" selection-start-column="8" selection-end-line="354" selection-end-column="8" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/parsers/isport.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
-          <caret line="17" column="40" lean-forward="false" selection-start-line="17" selection-start-column="40" selection-end-line="17" selection-end-column="40" />
+          <caret line="17" column="40" selection-start-line="17" selection-start-column="40" selection-end-line="17" selection-end-column="40" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/parsers/two_four_tvua.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
-          <caret line="17" column="17" lean-forward="false" selection-start-line="17" selection-start-column="17" selection-end-line="17" selection-end-column="17" />
+          <caret line="17" column="17" selection-start-line="17" selection-start-column="17" selection-end-line="17" selection-end-column="17" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/requirements.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="705">
-          <caret line="47" column="8" lean-forward="false" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="8" />
+          <caret line="47" column="8" selection-start-line="47" selection-end-line="47" selection-end-column="8" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/bot_add.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
-          <caret line="7" column="68" lean-forward="false" selection-start-line="7" selection-start-column="68" selection-end-line="7" selection-end-column="68" />
+          <caret line="7" column="68" selection-start-line="7" selection-start-column="68" selection-end-line="7" selection-end-column="68" />
         </state>
       </provider>
     </entry>
     <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/telepot/namedtuple.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4485">
-          <caret line="301" column="19" lean-forward="false" selection-start-line="301" selection-start-column="0" selection-end-line="301" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/parsers/bbc.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="690">
-          <caret line="51" column="20" lean-forward="false" selection-start-line="51" selection-start-column="20" selection-end-line="51" selection-end-column="20" />
-          <folding>
-            <element signature="e#15#44#0" expanded="true" />
-          </folding>
+          <caret line="301" column="19" selection-start-line="301" selection-end-line="301" selection-end-column="19" />
         </state>
       </provider>
     </entry>
     <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/psycopg2/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1665">
-          <caret line="129" column="0" lean-forward="false" selection-start-line="129" selection-start-column="0" selection-end-line="129" selection-end-column="0" />
-          <folding />
+          <caret line="129" selection-start-line="129" selection-end-line="129" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/parsers/guardian.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="990">
-          <caret line="71" column="41" lean-forward="false" selection-start-line="71" selection-start-column="41" selection-end-line="71" selection-end-column="41" />
+          <caret line="71" column="41" selection-start-line="71" selection-start-column="41" selection-end-line="71" selection-end-column="41" />
           <folding>
             <element signature="e#15#44#0" expanded="true" />
           </folding>
@@ -669,15 +633,14 @@
     <entry file="file://$PROJECT_DIR$/timesend.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="795">
-          <caret line="71" column="11" lean-forward="false" selection-start-line="71" selection-start-column="11" selection-end-line="71" selection-end-column="11" />
-          <folding />
+          <caret line="71" column="11" selection-start-line="71" selection-start-column="11" selection-end-line="71" selection-end-column="11" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/parsers/verge.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="684">
-          <caret line="102" column="24" lean-forward="false" selection-start-line="102" selection-start-column="24" selection-end-line="102" selection-end-column="24" />
+        <state relative-caret-position="1455">
+          <caret line="102" column="24" selection-start-line="102" selection-start-column="24" selection-end-line="102" selection-end-column="24" />
           <folding>
             <element signature="e#15#44#0" expanded="true" />
           </folding>
@@ -686,17 +649,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/parse.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="238" column="199" lean-forward="false" selection-start-line="238" selection-start-column="173" selection-end-line="238" selection-end-column="199" />
-          <folding />
+        <state relative-caret-position="3270">
+          <caret line="238" column="199" selection-start-line="238" selection-start-column="173" selection-end-line="238" selection-end-column="199" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/bot.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="222">
-          <caret line="1268" column="43" lean-forward="true" selection-start-line="1268" selection-start-column="43" selection-end-line="1268" selection-end-column="43" />
-          <folding />
+        <state relative-caret-position="-4418">
+          <caret line="1268" column="43" selection-start-line="1268" selection-start-column="43" selection-end-line="1268" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/parsers/stopwords.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="748">
+          <caret line="579" column="9" selection-start-line="579" selection-start-column="9" selection-end-line="579" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/parsers/bbc.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="85" column="25" selection-start-line="85" selection-start-column="25" selection-end-line="85" selection-end-column="25" />
+          <folding>
+            <element signature="e#15#44#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

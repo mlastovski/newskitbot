@@ -569,3 +569,12 @@ yourself
 yourselves
 z
 zero
+email
+facebook
+instagram
+pinterest
+whatsapp
+mr
+ms
+linkedin
+messenger

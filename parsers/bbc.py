@@ -48,6 +48,8 @@ def bbc():
                 print('Pass through error!')
             eachpagesoup = BeautifulSoup(structure, "lxml")
 
+            final_words = []
+
             for eachpage in eachpagesoup.find_all('p'):
                 try:
                     article_text = eachpage.get_text()
@@ -57,23 +59,32 @@ def bbc():
                     article_text = article_text.lower()
                     article_text = article_text.split(' ')
                     article_text = [str(i) for i in article_text]
+                    final_words += article_text
                     # print(article_text)
                 except UnicodeEncodeError:
                     print("FIGNYA")
 
-            # comparing stopwords and article_text
-            filtered_words = list(set(stopwords) ^ set(article_text))
-            counter = collections.Counter(filtered_words)
-            # print(counter)
-            if counter > 1:
-                print('1')
-                print(filtered_words)
-            else:
-                print("Nema bilsche 1")
-            # print(counter.most_common(20))
-            # print(filtered_words)
-            # filtered_words = list_duplicates(filtered_words)
-            # print(list_duplicates(filtered_words))
+            for eachpage in eachpagesoup.find('div', {'class': 'story-body__inner'}).find_all('a'):
+                try:
+                    article_text = eachpage.get_text()
+                    article_text.encode('ascii', 'ignore')
+                    article_text = re.sub('\W+',' ', article_text )
+                    article_text = article_text.lower()
+                    article_text = article_text.split(' ')
+                    article_text = [str(i) for i in article_text]
+                    final_words += article_text
+                    # print(article_text)
+                except UnicodeEncodeError:
+                    print("FIGNYA")
+
+            for word in stopwords:
+                while word in final_words: final_words.remove(word)
+            finaltext = [item for item in final_words if not item.isdigit()]
+            filter(lambda a: a != ' ', finaltext)
+            while '' in finaltext:
+                finaltext.remove('')
+            print(finaltext)
+
 
             author = ''
             date = ''
@@ -81,7 +92,7 @@ def bbc():
             if title_text and link and author and date:
                 article = {
                     'title': title_text,
-                    'words': filtered_words,
+                    'words': finaltext,
                     'link': link,
                     'author': author,
                     'date': date
