@@ -33,7 +33,7 @@ conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 curs = conn.cursor()
 
 
-def parse(media):
+def parse(media, web_name):
     curs.execute("DELETE FROM articles WHERE parse_time < '{}'".format(float(datetime.now().timestamp() - 259200)))
     conn.commit()
     #requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Процес надсилання завершено!'))
@@ -48,7 +48,6 @@ def parse(media):
             requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! wylsa'))
             requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! wylsa'))
             return None
-        web_name = 'wylsa.com'
     elif media == 2:
         try:
             parsed_content = parse_24tvua()
@@ -56,7 +55,6 @@ def parse(media):
             requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! parse_24tvua'))
             requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! parse_24tvua'))
             return None
-        web_name = '24канал'
     elif media == 3:
         try:
             parsed_content = parse_ainua()
@@ -64,7 +62,6 @@ def parse(media):
             requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! parse_ainua'))
             requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! parse_ainua'))
             return None
-        web_name = 'ain.ua'
     elif media == 4:
         try:
             parsed_content = appleinsider()
@@ -72,7 +69,6 @@ def parse(media):
             requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! appleinsider'))
             requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! appleinsider'))
             return None
-        web_name = 'appleinsider.ru'
     elif media == 5:
         try:
             parsed_content = dou()
@@ -80,7 +76,6 @@ def parse(media):
             requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! dou'))
             requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! dou'))
             return None
-        web_name = 'dou.ua'
     elif media == 6:
         try:
             parsed_content = pravda()
@@ -88,7 +83,6 @@ def parse(media):
             requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! українська правда' + str(e)))
             requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! українська правда' + str(e)))
             return None
-        web_name = 'українська правда'
     elif media == 7:
         try:
             parsed_content = faktyictv()
@@ -96,7 +90,6 @@ def parse(media):
             requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! faktyictv'))
             requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! faktyictv'))
             return None
-        web_name = 'факти ictv'
     elif media == 8:
         try:
             parsed_content = hromadske()
@@ -104,7 +97,6 @@ def parse(media):
             requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! hromadske'))
             requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! hromadske'))
             return None
-        web_name = 'hromadske'
     elif media == 9:
         try:
             parsed_content = korrespondent()
@@ -112,7 +104,6 @@ def parse(media):
             requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! korrespondent'))
             requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! korrespondent'))
             return None
-        web_name = 'korrespondent'
     elif media == 10:
         try:
             parsed_content = onehundredtwelve()
@@ -120,7 +111,6 @@ def parse(media):
             requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! onehundredtwelve'))
             requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! onehundredtwelve'))
             return None
-        web_name = '112.ua'
     elif media == 11:
         try:
             parsed_content = isport()
@@ -128,7 +118,6 @@ def parse(media):
             requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! isport' + str(e)))
             requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! isport' + str(e)))
             return None
-        web_name = 'isport.ua'
     elif media == 12:
         try:
             parsed_content = spiegelDeutsch()
@@ -136,7 +125,6 @@ def parse(media):
             requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! spiegelDeutsch'))
             requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! spiegelDeutsch'))
             return None
-        web_name = 'spiegel'
     elif media == 13:
         try:
             parsed_content = bbc()
@@ -144,7 +132,6 @@ def parse(media):
             requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! bbc'))
             requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! bbc'))
             return None
-        web_name = 'bbc'
     elif media == 14:
         try:
             parsed_content = verge()
@@ -152,7 +139,6 @@ def parse(media):
             requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! The Verge'))
             requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! The Verge'))
             return None
-        web_name = 'The Verge'
     elif media == 15:
         try:
             parsed_content = guardian()
@@ -160,7 +146,6 @@ def parse(media):
             requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! The Guardian'))
             requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! The Guardian'))
             return None
-        web_name = 'The Guardian'
     elif media == 16:
         try:
             parsed_content = nytimes()
@@ -168,7 +153,6 @@ def parse(media):
             requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! The Guardian'))
             requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! The Guardian'))
             return None
-        web_name = 'The New York Times'
     else:
         return None
 
@@ -274,7 +258,7 @@ def parse(media):
                         if word in article_keywords:
                             passed_keywords.append(word)
                     print(user[3], web_name)
-                    curs.execute("SELECT * FROM user2website WHERE user_id ='{}' and website='{}'".format(user[3], web_name))
+                    curs.execute("SELECT * FROM user2website WHERE user_id ='{}' and website='{}'".format(user[3], media))
                     user2website = curs.fetchone()
                     if user2website:
                         passed_keywords = ', '.join(passed_keywords)
@@ -358,7 +342,7 @@ def parse(media):
                         if word in article_keywords:
                             passed_keywords.append(word)
                     print(user[3], web_name)
-                    curs.execute("SELECT * FROM user2website WHERE user_id ='{}' and website='{}'".format(user[3], web_name))
+                    curs.execute("SELECT * FROM user2website WHERE user_id ='{}' and website='{}'".format(user[3], media))
                     user2website = curs.fetchone()
                     if user2website:
                         passed_keywords = ', '.join(passed_keywords)
@@ -429,7 +413,7 @@ def timed_job():
 
 
     for website in curs.fetchall():
-        parse(website[0])
+        parse(website[0], website[1])
 
     requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('parsing finished!'))
     requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('parsing finished!'))
@@ -584,14 +568,11 @@ def send(users, limit=15, immediate=False):
             if_nothing = True
             i=1
             for website in websites:
-                curs.execute("SELECT id FROM websites WHERE name='{}'".format(website[2]))
-                try:
-                    web_id = curs.fetchone()[0]
-                except TypeError:
-                    break
+                web_id = website[2]
+                print('web_id', web_id)
                 curs.execute("SELECT * FROM articles WHERE parse_time > '{}' and website_id='{}' ORDER BY id DESC".format(float(user[4]), web_id))
                 articles = curs.fetchall()
-
+                print('articles', articles, web_id)
 
                 limit=user[13]
                 print('number of limit', limit)

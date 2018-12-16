@@ -649,7 +649,8 @@ def echo_all(updates):
             curs.execute("SELECT website FROM user2website WHERE user_id ='{}'".format(id))
             chosen_websites=[]
             for website in curs.fetchall():
-                chosen_websites.append(website[0])
+                curs.execute("SELECT name FROM websites WHERE id ='{}'".format(website[0]))
+                chosen_websites.append(curs.fetchone()[0])
             print(websites, chosen_websites)
             # now we have 2 vars: websites - list of all supported websites and chosen_websites - list of chosen websites
             if text[0] == 'newskit':
@@ -692,7 +693,8 @@ def echo_all(updates):
                 curs.execute("SELECT website FROM user2website WHERE user_id ='{}'".format(id))
                 chosen_websites=[]
                 for website in curs.fetchall():
-                    chosen_websites.append(website[0])
+                    curs.execute("SELECT name FROM websites WHERE id ='{}'".format(website[0]))
+                    chosen_websites.append(curs.fetchone()[0].lower())
                 print(websites, chosen_websites)
 
                 #filtring from empties
@@ -701,27 +703,29 @@ def echo_all(updates):
                 elif '' in chosen_websites:
                     chosen_websites.remove('')
 
-                if text[0] in chosen_websites:
-                    chosen_websites.remove(text[0])
+                if text[0].lower() in chosen_websites:
+                    chosen_websites.remove(text[0].lower())
                     db_action = 'delete'
                 else:
-                    chosen_websites.append(text[0])
+                    chosen_websites.append(text[0].lower())
                     db_action = 'add'
                 print(chosen_websites)
                 markup = []
                 i = 1
 
                 print(text[0])
+                curs.execute("SELECT id FROM websites WHERE lower(name) ='{}'".format(text[0].lower()))
+                website_id = curs.fetchone()[0]
                 if db_action == 'delete':
-                    curs.execute("DELETE FROM user2website WHERE website ='{}' and user_id ='{}'".format(text[0], id))
+                    curs.execute("DELETE FROM user2website WHERE website ='{}' and user_id ='{}'".format(website_id, id))
                     conn.commit()
                 else:
-                    curs.execute("INSERT INTO user2website (website, user_id) VALUES ('{}', '{}')".format(text[0], id))
+                    curs.execute("INSERT INTO user2website (website, user_id) VALUES ('{}', '{}')".format(website_id, id))
                     conn.commit()
 
             for website in websites:
                 website_filtered = ''.join(replace(list(website),[("'", '')]))
-                if website_filtered in chosen_websites:
+                if website_filtered.lower() in chosen_websites:
                     word_new = '✅' + website
                 else:
                     word_new = website
