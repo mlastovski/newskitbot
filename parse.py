@@ -395,7 +395,7 @@ def timed_job():
     requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('parsing started!'))
     requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('parsing started!'))
     try:
-        curs.execute("SELECT id FROM websites")
+        curs.execute("SELECT * FROM websites")
     except psycopg2.InternalError:
         print('psycopg2.InternalError')
         requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('psycopg2.InternalError. Trying to fix it...'))
@@ -413,7 +413,7 @@ def timed_job():
 
 
     for website in curs.fetchall():
-        parse(website[0], website[1])
+        parse(website[0], website[2])
 
     requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('parsing finished!'))
     requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('parsing finished!'))
