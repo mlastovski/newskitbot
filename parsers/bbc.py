@@ -5,6 +5,8 @@ import lxml
 from datetime import datetime
 import re
 import collections
+from parsers.parse_tool import extract_keywords
+
 
 debug = False
 test = True
@@ -19,13 +21,6 @@ def list_duplicates(seq):
 
 
 def bbc():
-
-    # importing stopwords and converting them to the list
-    with open('stopwords.txt', 'r') as myfile:
-        stopwords = myfile.read().replace('\n', ' ')
-        stopwords = re.sub('\W+',' ', stopwords )
-        stopwords = stopwords.split(' ')
-        # print(stopwords)
 
     # getting data
     data = requests.get("https://www.bbc.com/news", headers={
@@ -77,30 +72,21 @@ def bbc():
                 except UnicodeEncodeError:
                     print("FIGNYA")
 
-            for word in stopwords:
-                while word in final_words: final_words.remove(word)
-            finaltext = [item for item in final_words if not item.isdigit()]
-            filter(lambda a: a != ' ', finaltext)
-            while '' in finaltext:
-                finaltext.remove('')
-            print(finaltext)
-
+            final_text = extract_keywords(final_words)
 
             author = ''
             date = ''
 
-            if title_text and link and author and date:
+            if title_text and link:
                 article = {
                     'title': title_text,
-                    'words': finaltext,
+                    'words': final_text,
                     'link': link,
                     'author': author,
                     'date': date
                 }
-                # print(article)
+                print(article)
                 articles.append(article)
-
-
 
 
 

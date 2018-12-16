@@ -236,7 +236,7 @@ def parse(media):
             article_keywords = ', '.join(article_keywords)
             print('got an article!')
             try:
-                curs.execute("INSERT INTO articles (website_id, url, keywords, parse_time)  VALUES ('{}','{}','{}', '{}')".format(id, new_article['link'], article_keywords, datetime.now().timestamp()))
+                curs.execute("INSERT INTO articles (website_id, url, keywords, parse_time, words)  VALUES ('{}','{}','{}', '{}', '{}')".format(id, new_article['link'], article_keywords, datetime.now().timestamp(), new_article['words']))
                 conn.commit()
                 duplicate = False
                 print('article inserted!')
@@ -321,7 +321,7 @@ def parse(media):
             article_keywords = ', '.join(article_keywords)
             print('got an article!')
             try:
-                curs.execute("INSERT INTO articles (website_id, url, keywords, parse_time)  VALUES ('{}','{}','{}', '{}')".format(id, new_article['link'], article_keywords, datetime.now().timestamp()))
+                curs.execute("INSERT INTO articles (website_id, url, keywords, parse_time, words)  VALUES ('{}','{}','{}', '{}', '{}')".format(id, new_article['link'], article_keywords, datetime.now().timestamp(), new_article['words']))
                 conn.commit()
                 duplicate = False
                 print('article inserted!')
@@ -595,7 +595,7 @@ def send(users, limit=15, immediate=False):
 
                     passed_keywords = []
                     for word in user_keywords:
-                        if word in article[3].split(', '):
+                        if word in article[3].split(', ') or word in article[5].split(' '):
                             passed_keywords.append(word)
 
                     passed_keywords = ', '.join(passed_keywords)

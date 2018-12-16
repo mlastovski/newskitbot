@@ -5,6 +5,7 @@ import lxml
 from datetime import datetime
 import re
 import collections
+from parsers.parse_tool import extract_keywords
 
 debug = False
 test = True
@@ -48,6 +49,8 @@ def guardian():
                 print('Pass through error!')
             eachpagesoup = BeautifulSoup(structure, "lxml")
 
+            whole_article_text = []
+
             for eachpage in eachpagesoup.find_all('p'):
                 try:
                     article_text = eachpage.get_text()
@@ -57,27 +60,26 @@ def guardian():
                     article_text = article_text.lower()
                     article_text = article_text.split(' ')
                     article_text = [str(i) for i in article_text]
+                    whole_article_text+=article_text
                     # print(article_text)
                 except UnicodeEncodeError:
                     print("FIGNYA")
 
-            # comparing stopwords and article_text
-            filtered_words = list(set(stopwords) ^ set(article_text))
-            # filtered_words = list_duplicates(filtered_words)
-            print(filtered_words)
+            final_text = extract_keywords(whole_article_text)
+            #print(final_text)
 
             author = ''
             date = ''
 
-            if title_text and link and author and date:
+            if title_text and link:
                 article = {
                     'title': title_text,
-                    'words': filtered_words,
+                    'words': final_text,
                     'link': link,
                     'author': author,
                     'date': date
                 }
-                # print(article)
+                print(article)
                 articles.append(article)
 
         except AttributeError:

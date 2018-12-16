@@ -577,4 +577,6 @@ whatsapp
 mr
 ms
 linkedin
+twitter
 messenger
+share

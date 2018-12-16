@@ -69,6 +69,7 @@ def spiegelDeutsch():
         if title_text and article_text and link and author and date:
             article = {
                 'title': title_text,
+                'words': '',
                 'words': article_text,
                 'link': link,
                 'author': author,

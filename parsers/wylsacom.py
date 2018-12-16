@@ -31,6 +31,7 @@ def wylsa():
             if title_text and link and author and date:
                 article = {
                     'title': title_text,
+                    'words': '',
                     'link': link,
                     'author': author,
                     'date': date
