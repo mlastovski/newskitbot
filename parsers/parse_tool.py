@@ -1,13 +1,22 @@
 import re
 
 # importing stopwords and converting them to the list
-with open('stopwords.txt', 'r') as myfile:
-    stopwords = myfile.read().replace('\n', ' ')
-    stopwords = re.sub('\W+',' ', stopwords )
-    stopwords = stopwords.split(' ')
-    # print(stopwords)
 
-def extract_keywords(article_text):
+
+def extract_keywords(article_text, language):
+    if language == 'en':
+        file_name = 'stopwords.txt'
+    elif language == 'de':
+        file_name = 'stopwords_de.txt'
+    elif language == 'ru':
+        file_name = 'stopwords_ru.txt'
+    else:
+        file_name = 'stopwords_ua.txt'
+
+    with open(file_name, 'r') as myfile:
+        stopwords = myfile.read().replace('\n', ' ')
+        stopwords = re.sub('\W+',' ', stopwords )
+        stopwords = stopwords.split(' ')
 
     for word in stopwords:
         while word in article_text: article_text.remove(word)

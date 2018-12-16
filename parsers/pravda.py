@@ -11,7 +11,7 @@ def pravda():
 
 
     encoding = data.encoding if 'charset' in data.headers.get('content-type', '').lower() else None
-    soup = BeautifulSoup(data.content, from_encoding=encoding)
+    soup = BeautifulSoup(data.content, "lxml", from_encoding=encoding)
 
     articles = []
 

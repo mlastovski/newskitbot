@@ -65,7 +65,7 @@ def guardian():
                 except UnicodeEncodeError:
                     print("FIGNYA")
 
-            final_text = extract_keywords(whole_article_text)
+            final_text = extract_keywords(whole_article_text, 'en')
             #print(final_text)
 
             author = ''

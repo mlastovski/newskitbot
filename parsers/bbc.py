@@ -72,7 +72,7 @@ def bbc():
                 except UnicodeEncodeError:
                     print("FIGNYA")
 
-            final_text = extract_keywords(final_words)
+            final_text = extract_keywords(final_words, 'en')
 
             author = ''
             date = ''

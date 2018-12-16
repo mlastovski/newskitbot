@@ -11,7 +11,7 @@ def isport():
     soup = BeautifulSoup(data, "lxml")
 
     articles = []
-
+    i=0
     for title in soup.find("div", {"class": "block_section_stories"}).find_all("div", {"class": "article_section"}):
         try:
             title_text = title.find("div", {"class": "article__subtitle"}).get_text()
@@ -34,8 +34,10 @@ def isport():
                 print(article)
                 articles.append(article)
         except AttributeError:
-            from bot import TOKEN
-            requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'Проблема з парсингом isport.ua'))
+            i+=1
+            if i > 1:
+                from bot import TOKEN
+                requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'Проблема з парсингом isport.ua'))
 
 
     articles = [i for n, i in enumerate(articles) if i not in articles[n + 1:]] #remove repeating

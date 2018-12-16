@@ -57,7 +57,7 @@ def verge():
 
             #print(whole_article_text)
 
-            final_text = extract_keywords(whole_article_text)
+            final_text = extract_keywords(whole_article_text, 'en')
 
             #print(final_text)
 

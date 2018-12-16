@@ -5,6 +5,7 @@ import lxml
 #import scrapy
 from datetime import datetime
 import re
+from parsers.parse_tool import extract_keywords
 # from ... import bot
 
 # removing symbols for better understanding words
@@ -60,6 +61,7 @@ def nytimes():
                 print('Pass through error!')
             eachpagesoup = BeautifulSoup(structure, "lxml")
 
+            whole_article_text = []
             for eachpage in eachpagesoup.find_all('p'):
                 article_text = eachpage.get_text()
                 article_text = re.sub('\n', '', article_text)
@@ -67,15 +69,18 @@ def nytimes():
                 article_text = re.sub('\xe4', '', article_text)
                 article_text = re.sub('\u201d', '', article_text)
                 article_text = remove_bad_characters(article_text.split(' '))
-                print('article_text',article_text)
+                whole_article_text += article_text
+                #print('article_text',article_text)
+
+            final_text = extract_keywords(whole_article_text, 'en')
             
             author = ' '
             date = datetime.now().timestamp()
 
-            if title_text and article_text and link and author and date:
+            if title_text and link:
                 article = {
                     'title': title_text,
-                    'words': '',
+                    'words': final_text,
                     'link': link,
                     'author': author,
                     'date': date
