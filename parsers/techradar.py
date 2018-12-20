@@ -1,35 +1,35 @@
-# coding: utf8
+# coding: utf-8
 from bs4 import BeautifulSoup
 import requests
 import lxml
 import re
-from parsers.parse_tool import extract_keywords
-
+from parse_tool import extract_keywords
 
 debug = False
 test = True
 
-def bbc():
-
+def techradar():
     # getting data
-    data = requests.get("https://www.bbc.com/news", headers={
+    data = requests.get("https://www.techradar.com/news", headers={
         "user-agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Mobile Safari/537.36"}).text
     # print(data)
     soup = BeautifulSoup(data, "lxml")
     articles = []
 
-    for title in soup.find('ol', {'class': 'gel-layout__item'}).find_all('li'):
+    for title in soup.find('div', {'class': 'news'}).find_all('div', {'class': 'small'}):
+        # print('success')
         try:
-            # print('1')
-            title_text = title.find('span').find('div').find('a').find('span').get_text()
+            title_text = title.find('a').find('article').find('div', {'class': 'content'}).find('header').find('h3').get_text()
             # print(title_text)
-            link = 'https://www.bbc.com' + title.find('span').find('div').find('a').get('href')
+            link = title.find('a').get('href')
             # print(link)
+
             try:
                 structure = requests.get(link, headers={
                     "user-agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Mobile Safari/537.36"}).text
             except:
                 print('Pass through error!')
+            
             eachpagesoup = BeautifulSoup(structure, "lxml")
 
             final_words = []
@@ -48,20 +48,8 @@ def bbc():
                 except UnicodeEncodeError:
                     print("FIGNYA")
 
-            for eachpage in eachpagesoup.find('div', {'class': 'story-body__inner'}).find_all('a'):
-                try:
-                    article_text = eachpage.get_text()
-                    article_text.encode('ascii', 'ignore')
-                    article_text = re.sub('\W+',' ', article_text )
-                    article_text = article_text.lower()
-                    article_text = article_text.split(' ')
-                    article_text = [str(i) for i in article_text]
-                    final_words += article_text
-                    # print(article_text)
-                except UnicodeEncodeError:
-                    print("FIGNYA")
-
             final_text = extract_keywords(final_words, 'en')
+            # print(final_text)
 
             author = ''
             date = ''
@@ -93,6 +81,5 @@ def bbc():
 
 
 
-
-if __name__ == "__main__":
-    bbc()
+if __name__ == '__main__':
+    techradar()

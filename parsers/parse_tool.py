@@ -26,7 +26,7 @@ def extract_keywords(article_text, language):
         final_words.remove('')
 
     final_words = {i:final_words.count(i) for i in final_words}
-    search_num = 3 #minimum numbeer of times that the word should appear in the article
+    search_num = 3 #minimum number of times that the word should appear in the article
     final_text = []
     for word, num in final_words.items():
         if num >= search_num:
