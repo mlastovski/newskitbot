@@ -22,6 +22,7 @@ from parsers.verge import verge
 from parsers.guardian import guardian
 from parsers.nytimes import nytimes
 from parsers.techradar import techradar
+from parsers.androidpolice import androidpolice
 
 
 
@@ -160,6 +161,13 @@ def parse(media, web_name):
         except:
             requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! Tech Radar'))
             requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! Tech Radar'))
+            return None
+    elif media == 18:
+        try:
+            parsed_content = androidpolice()
+        except:
+            requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! Android Police'))
+            requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! Android Police'))
             return None
     else:
         return None
