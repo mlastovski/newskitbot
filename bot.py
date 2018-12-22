@@ -1267,9 +1267,7 @@ def echo_all(updates):
                         last_feedback_send = 0
                     print(last_feedback_send)
                     if datetime.now().timestamp() - int(last_feedback_send) < 2:
-                        break
-                        curs.execute("UPDATE users SET command='' WHERE telegram_id='{}'".format(id))
-                        conn.commit()
+                        return
                     elif datetime.now().timestamp() - int(last_feedback_send) < 60:
                         send_message('Фідбек не надіслано(( Спрацював захист від спаму! Спробуй через хвилину!', chat)
                         curs.execute("UPDATE users SET command='' WHERE telegram_id='{}'".format(id))
@@ -1295,42 +1293,192 @@ def echo_all(updates):
             curs.execute("UPDATE users SET command='' WHERE telegram_id='{}'".format(id))
             conn.commit()
             send_message('Скасовано!', id)
-        elif action == 'touser':
+        elif action == 'admin':
             if id == 138918380 or id == 373407132:
-                if len(text) < 2:
-                    send_message('Неправильно!', chat)
-                else:
-                    print(True)
-                    get_json_from_url('https://api.telegram.org/bot{}/sendMessage?chat_id={}&text={}'.format(TOKEN, text[0], 'Відповідь на твій фідбек: \n' + str(text[1])), text[0])
-                    send_message('Надіслано!', chat)
-            else:
-                send_message('Хмммм! Для розсилки юзерам треба мати вищий пропуск! Ти його, на жаль, не маєш(( Проте не засмучуйся)) Напиши /getlastnews і я потішу тебе останніми новинами!', chat)
-        elif action == 'toallusers':
-            if id == 138918380 or id == 373407132:
-                print(True)
-                curs.execute("SELECT telegram_id FROM users")
-                users = curs.fetchall()
-                print(len(users))
-                send_message('Масову розсилку розпочато!', chat)
-                for i in users:
-                    print(i[0], text[0])
-                    get_json_from_url('https://api.telegram.org/bot{}/sendMessage?chat_id={}&text={}'.format(TOKEN, i[0], str(text[0])), i[0])
-                send_message('Повідомлення успішно розіслано всім користувачам!', chat)
-            else:
-                send_message('Хмммм! Для розсилки всім юзерам треба мати вищий пропуск! Ти його, на жаль, не маєш(( Проте не засмучуйся)) Напиши /getlastnews і я потішу тебе останніми новинами!', chat)
-        elif action == 'aboutuser':
-            print(text)
-            if id == 138918380 or id == 373407132:
-                if len(text) < 1:
-                    send_message('Неправильно!', chat)
-                else:
-                    print(True)
-                    curs.execute("SELECT * FROM users WHERE telegram_id = '{}'".format(text[0]))
-                    user = curs.fetchone()
-                    send_message(str(user), chat)
-            else:
-                send_message('Хмммм! Для розсилки юзерам треба мати вищий пропуск! Ти його, на жаль, не маєш(( Проте не засмучуйся)) Напиши /getlastnews і я потішу тебе останніми новинами!', chat)
+                try:
+                    curs.execute("SELECT command FROM users WHERE telegram_id='{}'".format(id))
+                    command = curs.fetchone()[0]
+                    print('comm', command, text)
+                    admin_command = text[0]
+                    print(admin_command)
 
+                    if text[0].split()[1] == 'yes':
+                        print('yes')
+                        curs.execute("SELECT value FROM static WHERE id='4'")
+
+                        text[0] = curs.fetchone()[0]
+                        if not text[0]:
+                            return
+                        send_status = True
+
+                        command = '/admin'
+
+                        curs.execute("UPDATE static SET value='' WHERE id='4'")
+                        conn.commit()
+                    elif text[0].split()[1] == 'no':
+                        print('no')
+                        send_message('Надсилання скасовано!', chat)
+
+                        curs.execute("UPDATE static SET value='' WHERE id='4'")
+                        conn.commit()
+                        return
+                    else:
+                        send_status = False
+
+                    if command:
+                        text = text[0].split()
+                        admin_action = text[0]
+                        print('admin_action', admin_action, admin_command)
+
+                        onemoretime=True
+
+                        if text[0].startswith('touser') or text[0].startswith('keyboard'):
+                            user_to_send_id = text[1]
+                            del text[:2]
+                            text = [user_to_send_id, ' '.join(text)]
+                            print(text)
+
+                        if admin_action == 'touser':
+                            if send_status == False:
+                                curs.execute("SELECT * FROM users WHERE telegram_id = '{}'".format(text[0]))
+                                user = curs.fetchone()
+                                if user:
+                                    send_message('Передогляд твого повідомлення до користувача ' + user[2] + ' ' + user[9] + ' (' + user[10] + '):', chat)
+                                    get_json_from_url('https://api.telegram.org/bot{}/sendMessage?chat_id={}&text={}'.format(TOKEN, id, str(text[1])), text[0])
+                                    send_inline_keyboard([['Так!', '/admin yes'], ['Ні!', '/admin no', 'continue']], chat, 'Надіслати?')
+                                    curs.execute("UPDATE static SET value='{}' WHERE id='4'".format(admin_command))
+                                    conn.commit()
+                                else:
+                                    send_message('Користувача з айді ' + text[0] + ' не існує. Спробуй ще раз!', chat)
+                            if send_status == True:
+                                get_json_from_url('https://api.telegram.org/bot{}/sendMessage?chat_id={}&text={}'.format(TOKEN, text[0], str(text[1])), text[0])
+                                send_message('Повідомлення успішно надіслано!', chat)
+
+                        elif admin_action == 'keyboard':
+                            buttons = text[1].split(' / ')
+                            touser_text = buttons[0] # header text for keyboard
+                            del buttons[:1]
+                            print(buttons)
+
+                            markup = []
+                            for single_button_info in buttons:
+                                single_button_info = single_button_info.split(', ')
+                                markup.append(single_button_info)
+
+                            if send_status == False:
+                                curs.execute("SELECT * FROM users WHERE telegram_id = '{}'".format(text[0]))
+                                user = curs.fetchone()
+                                if user:
+                                    send_message('Передогляд твого повідомлення до користувача ' + user[2] + ' ' + user[9] + ' (' + user[10] + '):', chat)
+                                    send_inline_keyboard(markup, id, touser_text)
+                                    send_inline_keyboard([['Так!', '/admin yes'], ['Ні!', '/admin no', 'continue']], chat, 'Надіслати?')
+                                    curs.execute("UPDATE static SET value='{}' WHERE id='4'".format(admin_command))
+                                    conn.commit()
+                                else:
+                                    send_message('Користувача з айді ' + text[0] + ' не існує. Спробуй ще раз!', chat)
+                            if send_status == True:
+                                send_inline_keyboard(markup, user_to_send_id, touser_text)
+                                send_message('Повідомлення успішно надіслано!', chat)
+
+
+                        elif admin_action == 'search':
+                            category = admin_command.split(':')[0].split()[1]
+                            value = admin_command.split(':')[1]
+
+                            if category == 'user':
+                                if value.isnumeric():
+                                    curs.execute("SELECT * FROM users WHERE id ='{0}'".format(value.lower()))
+                                else:
+                                    curs.execute("SELECT * FROM users WHERE lower(name) = '{0}' or lower(last_name) = '{0}' or lower(username) = '{0}'".format(value.lower()))
+
+                                user = curs.fetchall()
+                                if user:
+                                    print(user)
+                                    if len(user) > 1:
+                                        send_message(str(user), chat)
+                                    else:
+                                        user = user[0]
+                                        curs.execute("SELECT website FROM user2website WHERE user_id='{}'".format(user[1]))
+                                        websites = ''
+                                        for i in curs.fetchall():
+                                            curs.execute("SELECT name FROM websites WHERE id='{}'".format(i[0]))
+                                            websites = websites + curs.fetchone()[0] + ', '
+
+                                        send_message(str(user) + '\n\nWebsites: ' + websites, chat)
+                                else:
+                                    send_message('Користувача не знайдено!', chat)
+                            elif category == 'web':
+                                curs.execute("SELECT id FROM websites WHERE lower(name)='{}'".format(value.lower()))
+                                website = curs.fetchone()[0]
+                                print(website)
+                                if website:
+                                    curs.execute("SELECT * FROM user2website WHERE website='{}'".format(website))
+                                    all_users = curs.fetchall()
+                                    print(all_users)
+                                    users = ''
+                                    for i in all_users:
+                                        print(i[1])
+                                        try:
+                                            curs.execute("SELECT name, last_name, username FROM users WHERE telegram_id='{}'".format(i[1]))
+                                            users+=str(curs.fetchone()) + ', '
+                                        except:
+                                            print('Error with ', i)
+                                    print(users)
+
+                                    send_message('Всі підписники сайту '+ text[1]+ '('+str(len(users))+') : '+users, id)
+
+                        elif admin_action == 'toallusers':
+                            curs.execute("SELECT telegram_id FROM users")
+                            users = curs.fetchall()
+                            print(len(users))
+                            print(text)
+                            del text[:1]
+                            send_text = ' '.join(text)
+                            print('Send to all users: ',send_text)
+                            if send_status == False:
+                                send_message('Передогляд твого повідомлення УСІМ користувачам:', chat)
+                                get_json_from_url('https://api.telegram.org/bot{}/sendMessage?chat_id={}&text={}'.format(TOKEN, id, send_text), id)
+                                send_inline_keyboard([['Так!', '/admin yes'], ['Ні!', '/admin no', 'continue']], chat, 'Надіслати?')
+                                curs.execute("UPDATE static SET value='{}' WHERE id='4'".format(admin_command))
+                                conn.commit()
+                            if send_status == True:
+                                send_message('Масову розсилку розпочато!', chat)
+                                print(True)
+                                for i in users:
+                                    print(i[0], send_text)
+                                    get_json_from_url('https://api.telegram.org/bot{}/sendMessage?chat_id={}&text={}'.format(TOKEN, i[0], send_text), i[0])
+                                send_message('Повідомлення успішно розіслано всім користувачам!', chat)
+
+                        elif admin_action == 'aboutuser':
+                            curs.execute("SELECT * FROM users WHERE telegram_id = '{}'".format(text[1]))
+                            user = curs.fetchone()
+                            print(user)
+                            curs.execute("SELECT website FROM user2website WHERE user_id='{}'".format(user[1]))
+                            websites = ''
+                            for i in curs.fetchall():
+                                curs.execute("SELECT name FROM websites WHERE id='{}'".format(i[0]))
+                                websites = websites + curs.fetchone()[0] + ', '
+
+                            send_message(str(user) + '\n\nWebsites: ' + websites, chat)
+                        else:
+                            send_message('Такої команди в адмін-панелі не існує(( Спробуй ще раз. Або /cancel щоб вийти', chat)
+                            onemoretime=True
+
+                        if not onemoretime:
+                            curs.execute("UPDATE users SET command='' WHERE telegram_id='{}'".format(id))
+                            conn.commit()
+                    else:
+                        curs.execute("UPDATE users SET command='admin' WHERE telegram_id='{}'".format(id))
+                        conn.commit()
+                        send_message('Доступ дозволено! Що мені зробити? \n/cancel, щоб скасувати', id)
+                except Exception as e:
+                    send_message('Поганий синтаксис запиту!', chat)
+                    print('Error: ' + str(e))
+                    requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'ERROR!!! ' + str(e)))
+                    requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=373407132&text={}'.format(TOKEN, 'ERROR!!! ' + str(e)))
+                    return
+            else:
+                send_message('Хмммм! Для цієї команди треба мати вищий пропуск! Ти його, на жаль, не маєш(( Проте не засмучуйся)) Напиши /getlastnews і я потішу тебе останніми новинами!', chat)
         elif action == 'statistic':
             curs.execute("SELECT telegram_id FROM users")
             users = curs.fetchall()
@@ -1613,7 +1761,7 @@ def main():
             conn.commit()
             requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'ERROR!!! ' + str(e)))
             requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=373407132&text={}'.format(TOKEN, 'ERROR!!! ' + str(e)))
-        time.sleep(0.5)
+        #time.sleep(0.5)
 
 
 if __name__ == '__main__':

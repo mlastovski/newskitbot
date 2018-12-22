@@ -50,7 +50,7 @@ def androidpolice():
                     print("FIGNYA")
 
             final_text = extract_keywords(final_words, 'en')
-            print(final_text)
+            #print(final_text)
 
             author = ''
             date = ''
@@ -63,7 +63,7 @@ def androidpolice():
                     'author': author,
                     'date': date
                 }
-                # print(article)
+                #print(article)
                 articles.append(article)
 
 

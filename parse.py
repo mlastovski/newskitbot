@@ -583,6 +583,7 @@ def send(users, limit=15, immediate=False):
             print(websites)
             if_nothing = True
             i=1
+            url_send_list=[]
             for website in websites:
                 web_id = website[2]
                 print('web_id', web_id)
@@ -604,11 +605,12 @@ def send(users, limit=15, immediate=False):
                         if word in article[3].split(', ') or word in article[5].split(' '):
                             passed_keywords.append(word)
 
+                    passed_keywords = [i for n, i in enumerate(passed_keywords) if i not in passed_keywords[n + 1:]]  # remove repeating
                     passed_keywords = ', '.join(passed_keywords)
                     print('passed_keywords: ', passed_keywords)
 
 
-                    if int(status) == 0 and passed_keywords != '':
+                    if int(status) == 0 and passed_keywords != '' and article[2] not in url_send_list:
                         print(True)
                         if i == 1 and user[7] != 'everyhour' or i == 1 and user[7] == 'everyhour' and now_hour == '05':
                             passed_keywords = 'Твій одноразовий ліміт новин: ' + str(limit) + '. Щоб змінити, скористайся /limit \nЧас отримання новин: '  + str(user[7]) + '. Щоб змінити, скористайся /newstime\n' + passed_keywords
@@ -617,8 +619,9 @@ def send(users, limit=15, immediate=False):
                         conn.commit()
                         i+=1
                         if_nothing=False
-                        time.sleep(0.5)
-                    elif int(status) == 0 and website[3] == '*':
+                        url_send_list.append(article[2])
+                        time.sleep(0.8)
+                    elif int(status) == 0 and website[3] == '*' and article[2] not in url_send_list:
                         if i == 1 and user[7] != 'everyhour' or i == 1 and user[7] == 'everyhour' and now_hour == '05':
                             passed_keywords = 'Твій одноразовий ліміт новин: ' + str(limit) + '. Щоб змінити, скористайся /limit \nЧас отримання новин: '  + str(user[7]) + '. Щоб змінити, скористайся /newstime\n' + passed_keywords
                         print(True)
@@ -627,10 +630,12 @@ def send(users, limit=15, immediate=False):
                         conn.commit()
                         i+=1
                         if_nothing=False
-                        time.sleep(0.5)
+                        url_send_list.append(article[2])
+                        time.sleep(0.8)
                     elif int(status) == 1:
                         if_nothing=False
 
+            print('Новин надіслано: ', len(url_send_list), '\nСтатті: ',url_send_list)
 
             from bot import send_inline_keyboard
 
