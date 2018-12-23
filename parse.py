@@ -41,7 +41,7 @@ def parse(media, web_name):
     conn.commit()
     #requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Процес надсилання завершено!'))
 
-    print(media)
+    print('media',media)
     from bot import get_json_from_url
 
     if media == 1:
@@ -110,9 +110,9 @@ def parse(media, web_name):
     elif media == 10:
         try:
             parsed_content = onehundredtwelve()
-        except:
-            requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! onehundredtwelve'))
-            requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! onehundredtwelve'))
+        except Exception as e:
+            requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! onehundredtwelve'+ str(e)))
+            requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! onehundredtwelve'+ str(e)))
             return None
     elif media == 11:
         try:
@@ -152,9 +152,9 @@ def parse(media, web_name):
     elif media == 16:
         try:
             parsed_content = nytimes()
-        except:
-            requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! The NYtimes'))
-            requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! The NYtimes'))
+        except Exception as e:
+            requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! The NYtimes' + str(e)))
+            requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! The NYtimes' + str(e)))
             return None
     elif media == 17:
         try:
@@ -185,6 +185,11 @@ def parse(media, web_name):
 
     id = media
     print('parsed_content',parsed_content)
+
+    if not parsed_content:
+        #requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Парсинг сайту ' + str(media) + ' абсолютно не працює'))
+        #requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Парсинг сайту ' + str(media) + ' абсолютно не працює'))
+        return None
 
     links = []
     for item in parsed_content:

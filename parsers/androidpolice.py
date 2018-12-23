@@ -69,15 +69,19 @@ def androidpolice():
 
 
         except AttributeError:
-            try:
-                from bot import TOKEN
-                requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'Проблема з парсингом AndroidPolice'))
-            except ImportError:
-                print("Import error (token), can't send message to bot")
-                continue
+            print('AttributeError')
 
+    articles = [i for n, i in enumerate(articles) if i not in articles[n + 1:]] #remove repeating
+    if len(articles) < 10:
+        try:
+            from bot import TOKEN
+            requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'Проблема з парсингом androidpolice'))
+            requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=373407132&text={}'.format(TOKEN, 'Проблема з парсингом androidpolice'))
+        except ImportError:
+            print("Import error (token), can't send message to bot")
 
-    articles = [i for n, i in enumerate(articles) if i not in articles[n + 1:]]  # remove repeating
+    print(len(articles),articles)
+
     return articles
 
 
