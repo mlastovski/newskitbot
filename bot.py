@@ -23,7 +23,7 @@ curs = conn.cursor()
 curs.execute("SELECT value FROM static WHERE id=1")
 TOKEN = curs.fetchone()[0]
 
-URL = "https://api.telegram.org/bot{}/".format(TOKEN)
+URL = "https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/".format(TOKEN)
 
 PORT = int(os.environ.get('PORT', '8443'))
 
@@ -50,7 +50,7 @@ def get_json_from_url(url, user_id=None):
                 print(user)
                 if user:
                     print('trying to remove user2 '+ str(user_id))
-                    requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'Користувач '+ str(user_id)+' видалив NewsKit, намагаюсь його видалити'))
+                    requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'Користувач '+ str(user_id)+' видалив NewsKit, намагаюсь його видалити'))
                     curs.execute("SELECT * FROM users WHERE telegram_id='{}'".format(user_id))
                     user = curs.fetchone()
                     print(user)
@@ -67,8 +67,8 @@ def get_json_from_url(url, user_id=None):
                     print('bot blocked!' + str(user_id))
                     curs.execute("SELECT id FROM users")
                     users_quan = len(curs.fetchall())
-                    requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'Користувач ' + user[2] + ' (' + str(user[1]) + ') видалив NewsKit. Загальна кількість активних юзерів: ' + str(users_quan) + str(user)))
-                    requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=373407132&text={}'.format(TOKEN, 'Користувач ' + user[2] + ' (' + str(user[1]) + ') видалив NewsKit. Загальна кількість активних юзерів: ' + str(users_quan)))
+                    requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'Користувач ' + user[2] + ' (' + str(user[1]) + ') видалив NewsKit. Загальна кількість активних юзерів: ' + str(users_quan) + str(user)))
+                    requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format(TOKEN, 'Користувач ' + user[2] + ' (' + str(user[1]) + ') видалив NewsKit. Загальна кількість активних юзерів: ' + str(users_quan)))
 
                     chat_info = TelegramBot.getChat(user_id)
                     try:
@@ -87,7 +87,7 @@ def get_json_from_url(url, user_id=None):
                     curs.execute("UPDATE users SET last_name='{}', username='{}' WHERE telegram_id='{}'".format(last_name, username, user_id))
                     conn.commit()
 
-                    requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'надіслано з сенд кіборд'))
+                    requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'надіслано з сенд кіборд'))
                 else:
                     print('bot was blocked by user! user already deleted!')
             except:
@@ -330,8 +330,8 @@ def echo_all(updates):
 
                 curs.execute("SELECT id FROM users")
                 users_quan = len(curs.fetchall())
-                requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'Новий користувач ' + name + ' ' + last_name + ' (' + str(id) + '). Загальна кількість активних юзерів: ' + str(users_quan)))
-                requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=373407132&text={}'.format(TOKEN, 'Новий користувач ' + name + ' ' + last_name + ' (' + str(id) + '). Загальна кількість активних юзерів: ' + str(users_quan)))
+                requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'Новий користувач ' + name + ' ' + last_name + ' (' + str(id) + '). Загальна кількість активних юзерів: ' + str(users_quan)))
+                requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format(TOKEN, 'Новий користувач ' + name + ' ' + last_name + ' (' + str(id) + '). Загальна кількість активних юзерів: ' + str(users_quan)))
 
                 if RepresentsInt(text[0]):
                     curs.execute("SELECT * FROM users WHERE telegram_id ='{}'".format(text[0]))
@@ -347,14 +347,14 @@ def echo_all(updates):
                             invited = ', '.join(invited)
                     curs.execute("UPDATE users SET invited='{}' WHERE telegram_id='{}'".format(invited, text[0]))
                     conn.commit()
-                    requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'Запрошено від користувача ' + text[0] + ' '+ user[2] + ' '+ user[9]))
-                    requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=373407132&text={}'.format(TOKEN, 'Запрошено від користувача ' + text[0] + ' '+ user[2] + ' '+ user[9]))
+                    requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'Запрошено від користувача ' + text[0] + ' '+ user[2] + ' '+ user[9]))
+                    requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format(TOKEN, 'Запрошено від користувача ' + text[0] + ' '+ user[2] + ' '+ user[9]))
                     print(user[15].split(', '), len(user[15].split(', ')))
-                    requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id={}&text={}'.format(TOKEN, text[0], 'Користувач ' + name + ' '+ last_name + ' '+ ' доєднався до NewsKit за твоїм посиланням! Дякую за рекомендацію!'))
+                    requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id={}&text={}'.format(TOKEN, text[0], 'Користувач ' + name + ' '+ last_name + ' '+ ' доєднався до NewsKit за твоїм посиланням! Дякую за рекомендацію!'))
                     if len(invited.split(', ')) == 2:
-                        requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id={}&text={}'.format(TOKEN, text[0], 'Функція надсилання новин у повністю зручний ДЛЯ ТЕБЕ час відтепер доступна для тебе!\nСкористайся /newstime'))
+                        requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id={}&text={}'.format(TOKEN, text[0], 'Функція надсилання новин у повністю зручний ДЛЯ ТЕБЕ час відтепер доступна для тебе!\nСкористайся /newstime'))
                     elif len(invited.split(', ')) == 1:
-                        requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id={}&text={}'.format(TOKEN, text[0], 'Запроси ще 1 користувача, щоб розблокувати функцію надсилання новин у повністю зручний ДЛЯ ТЕБЕ час!'))
+                        requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id={}&text={}'.format(TOKEN, text[0], 'Запроси ще 1 користувача, щоб розблокувати функцію надсилання новин у повністю зручний ДЛЯ ТЕБЕ час!'))
             else:
                 print(text[0])
                 #send_help(text, chat)
@@ -1276,15 +1276,15 @@ def echo_all(updates):
                         print('blabla')
                         curs.execute("UPDATE users SET command='' WHERE telegram_id='{}'".format(id))
                         conn.commit()
-                        requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'Фідбек! \n' + str(chat) + ' ' + str(name) + ' ' + last_name + '\n' + str(text[0])))
-                        requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=373407132&text={}'.format(TOKEN, 'Фідбек! \n' + str(chat) + ' ' + str(name) + ' ' + last_name + '\n' + str(text[0])))
+                        requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'Фідбек! \n' + str(chat) + ' ' + str(name) + ' ' + last_name + '\n' + str(text[0])))
+                        requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format(TOKEN, 'Фідбек! \n' + str(chat) + ' ' + str(name) + ' ' + last_name + '\n' + str(text[0])))
                         send_message('Я надіслав твій фідбек!', chat)
                         curs.execute("UPDATE users SET last_feedback_send='{}' WHERE telegram_id='{}'".format(str(datetime.now().timestamp()), id))
                         conn.commit()
         elif action == 'feedbackonce':
             print(text)
-            requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'Фідбек! \n' + str(chat) + ' ' + str(name) + ' ' + last_name + '\n' + str(text[0])))
-            requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=373407132&text={}'.format(TOKEN, 'Фідбек! \n' + str(chat) + ' ' + str(name) + ' ' + last_name + '\n' + str(text[0])))
+            requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'Фідбек! \n' + str(chat) + ' ' + str(name) + ' ' + last_name + '\n' + str(text[0])))
+            requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format(TOKEN, 'Фідбек! \n' + str(chat) + ' ' + str(name) + ' ' + last_name + '\n' + str(text[0])))
             try:
                 TelegramBot.editMessageText(msg_identifier=(id, mess_id), text='Дякую за відповідь! Вона дуже важлива для мене!')
             except telepot.exception.TelegramError:
@@ -1344,14 +1344,14 @@ def echo_all(updates):
                                 user = curs.fetchone()
                                 if user:
                                     send_message('Передогляд твого повідомлення до користувача ' + user[2] + ' ' + user[9] + ' (' + user[10] + '):', chat)
-                                    get_json_from_url('https://api.telegram.org/bot{}/sendMessage?chat_id={}&text={}'.format(TOKEN, id, str(text[1])), text[0])
+                                    get_json_from_url('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id={}&text={}'.format(TOKEN, id, str(text[1])), text[0])
                                     send_inline_keyboard([['Так!', '/admin yes'], ['Ні!', '/admin no', 'continue']], chat, 'Надіслати?')
                                     curs.execute("UPDATE static SET value='{}' WHERE id='4'".format(admin_command))
                                     conn.commit()
                                 else:
                                     send_message('Користувача з айді ' + text[0] + ' не існує. Спробуй ще раз!', chat)
                             if send_status == True:
-                                get_json_from_url('https://api.telegram.org/bot{}/sendMessage?chat_id={}&text={}'.format(TOKEN, text[0], str(text[1])), text[0])
+                                get_json_from_url('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id={}&text={}'.format(TOKEN, text[0], str(text[1])), text[0])
                                 send_message('Повідомлення успішно надіслано!', chat)
 
                         elif admin_action == 'keyboard':
@@ -1437,7 +1437,7 @@ def echo_all(updates):
                             print('Send to all users: ',send_text)
                             if send_status == False:
                                 send_message('Передогляд твого повідомлення УСІМ користувачам:', chat)
-                                get_json_from_url('https://api.telegram.org/bot{}/sendMessage?chat_id={}&text={}'.format(TOKEN, id, send_text), id)
+                                get_json_from_url('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id={}&text={}'.format(TOKEN, id, send_text), id)
                                 send_inline_keyboard([['Так!', '/admin yes'], ['Ні!', '/admin no', 'continue']], chat, 'Надіслати?')
                                 curs.execute("UPDATE static SET value='{}' WHERE id='4'".format(admin_command))
                                 conn.commit()
@@ -1446,7 +1446,7 @@ def echo_all(updates):
                                 print(True)
                                 for i in users:
                                     print(i[0], send_text)
-                                    get_json_from_url('https://api.telegram.org/bot{}/sendMessage?chat_id={}&text={}'.format(TOKEN, i[0], send_text), i[0])
+                                    get_json_from_url('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id={}&text={}'.format(TOKEN, i[0], send_text), i[0])
                                 send_message('Повідомлення успішно розіслано всім користувачам!', chat)
 
                         elif admin_action == 'aboutuser':
@@ -1474,8 +1474,8 @@ def echo_all(updates):
                 except Exception as e:
                     send_message('Поганий синтаксис запиту!', chat)
                     print('Error: ' + str(e))
-                    requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'ERROR!!! ' + str(e)))
-                    requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=373407132&text={}'.format(TOKEN, 'ERROR!!! ' + str(e)))
+                    requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'ERROR!!! ' + str(e)))
+                    requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format(TOKEN, 'ERROR!!! ' + str(e)))
                     return
             else:
                 send_message('Для цієї команди необхідно мати вищий пропуск! Ти його, на жаль, не маєш(( Проте не засмучуйся)) Напиши /getlastnews і я потішу тебе останніми новинами!', chat)
@@ -1566,9 +1566,8 @@ def echo_all(updates):
             send_inline_keyboard([['Обрати цікаві теми', '/themes'], ['Відібрати новинні веб-сайти', '/websites'],
                                       ['Вказати час отримання новин', '/setnewstime'], ['Переглянути свої ключові слова', '/keywords']], chat, 'Я тебе не зрозумів 😔 Як щодо:')
             #send_help_big(text, chat)
-            requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'Unexpected request from ' + name + ' ' + last_name + ':' + text[0]))
-            requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=373407132&text={}'.format(TOKEN, 'Unexpected request from ' + name + ' ' + last_name + ':' + text[0]))
-
+            requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'Unexpected request from ' + name + ' ' + last_name + ':' + text))
+            requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format(TOKEN, 'Unexpected request from ' + name + ' ' + last_name + ':' + text))
         else:
             send_message(text, id)
 
@@ -1614,7 +1613,7 @@ def send_inline_keyboard(markup, chat_id, text):
             TelegramBot.sendMessage(chat_id, text, reply_markup=inline_keyboard)
         except telepot.exception.BotWasBlockedError:
             print('trying to remove user '+ str(chat_id))
-            requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'Користувач '+ str(chat_id)+' видалив NewsKit, намагаюсь його видалити'))
+            requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'Користувач '+ str(chat_id)+' видалив NewsKit, намагаюсь його видалити'))
             curs.execute("SELECT * FROM users WHERE telegram_id='{}'".format(chat_id))
             user = curs.fetchone()
             print(user)
@@ -1631,8 +1630,8 @@ def send_inline_keyboard(markup, chat_id, text):
             print('bot blocked!' + str(chat_id))
             curs.execute("SELECT id FROM users")
             users_quan = len(curs.fetchall())
-            requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'Користувач ' + user[2] + ' (' + str(user[1]) + ') видалив NewsKit. Загальна кількість активних юзерів: ' + str(users_quan) + str(user)))
-            requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=373407132&text={}'.format(TOKEN, 'Користувач ' + user[2] + ' (' + str(user[1]) + ') видалив NewsKit. Загальна кількість активних юзерів: ' + str(users_quan)))
+            requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'Користувач ' + user[2] + ' (' + str(user[1]) + ') видалив NewsKit. Загальна кількість активних юзерів: ' + str(users_quan) + str(user)))
+            requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format(TOKEN, 'Користувач ' + user[2] + ' (' + str(user[1]) + ') видалив NewsKit. Загальна кількість активних юзерів: ' + str(users_quan)))
 
             chat_info = TelegramBot.getChat(chat_id)
             try:
@@ -1651,7 +1650,7 @@ def send_inline_keyboard(markup, chat_id, text):
             curs.execute("UPDATE users SET last_name='{}', username='{}' WHERE telegram_id='{}'".format(last_name, username, chat_id))
             conn.commit()
 
-            requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'надіслано з сенд кіборд'))
+            requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'надіслано з сенд кіборд'))
     else:
         return None
 
@@ -1757,13 +1756,14 @@ def main():
                     echo_all(updates)
                 except TypeError:
                     print('Error')
-                    requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'ERROR!!! + TypeError'))
+                    requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format(TOKEN, 'ERROR!!! + TypeError'))
+                    requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'ERROR!!! + TypeError'))
         except Exception as e:
             print('Error: ' + str(e))
             curs.execute("Rollback")
             conn.commit()
-            requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'ERROR!!! ' + str(e)))
-            requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=373407132&text={}'.format(TOKEN, 'ERROR!!! ' + str(e)))
+            requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'ERROR!!! ' + str(e)))
+            requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format(TOKEN, 'ERROR!!! ' + str(e)))
         #time.sleep(0.5)
 
 
