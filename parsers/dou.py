@@ -49,7 +49,7 @@ def dou():
                     print("FIGNYA")
 
             # final_text = extract_keywords(final_words, 'ru')
-            final_text = extract_keywords(final_words, 'en')
+            final_text = extract_keywords(final_words, 'ru')
             # print(final_text)
 
             author = ''

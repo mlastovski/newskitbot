@@ -53,7 +53,7 @@ def wylsa():
                     except UnicodeEncodeError:
                         print("FIGNYA")
 
-                final_text = extract_keywords(final_words, 'en')
+                final_text = extract_keywords(final_words, 'ru')
                 # print(final_text)
 
                 if title_text and link:

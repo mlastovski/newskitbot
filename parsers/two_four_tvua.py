@@ -48,7 +48,7 @@ def parse_24tvua():
                 except UnicodeEncodeError:
                     print("FIGNYA")
 
-            final_text = extract_keywords(final_words, 'en')
+            final_text = extract_keywords(final_words, 'ua')
             # print(final_text)
 
 
