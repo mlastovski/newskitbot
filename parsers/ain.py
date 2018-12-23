@@ -79,7 +79,7 @@ def parse_ainua():
                 final_text = extract_keywords(final_words, 'en')
                 # print(final_text)
 
-                if title_text and link and author and date:
+                if title_text and link:
                     article = {
                         'title': title_text,
                         'words': final_text,

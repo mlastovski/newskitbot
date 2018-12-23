@@ -55,7 +55,7 @@ def androidpolice():
             author = ''
             date = ''
 
-            if title_text and link and final_text and author and date:
+            if title_text and link:
                 article = {
                     'title': title_text,
                     'words': final_text,

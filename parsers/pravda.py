@@ -32,7 +32,7 @@ def pravda():
 
             #print('here',title_text, link, date, author)
 
-            if title_text and link and author and date:
+            if title_text and link:
                 article = {
                     'title': title_text,
                     'words': '',

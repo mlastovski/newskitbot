@@ -53,7 +53,7 @@ def appleinsider():
             date = ''
 
 
-            if title_text and link and author and date and final_text:
+            if title_text and link:
                 article = {
                     'title': title_text,
                     'words': final_text,
