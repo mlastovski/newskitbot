@@ -46,7 +46,7 @@ def onehundredtwelve():
                 except UnicodeEncodeError:
                     print("FIGNYA")
 
-            final_text = extract_keywords(final_words, 'ua')
+            final_text = extract_keywords(final_words, 'en')
             # print(final_text)
 
 
