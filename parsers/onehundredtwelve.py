@@ -69,9 +69,9 @@ def onehundredtwelve():
 
     if len(articles) < 50:
         try:
-            from bot import TOKEN
-            requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'Проблема з парсингом NY Times'))
-            requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=373407132&text={}'.format(TOKEN, 'Проблема з парсингом NY Times'))
+            from bot import TOKEN2
+            requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN2, 'Проблема з парсингом NY Times'))
+            requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=373407132&text={}'.format(TOKEN2, 'Проблема з парсингом NY Times'))
         except ImportError:
             print("Import error (token), can't send message to bot")
 

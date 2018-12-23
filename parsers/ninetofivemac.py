@@ -74,13 +74,15 @@ def ninetofivemac():
     articles = [i for n, i in enumerate(articles) if i not in articles[n + 1:]] #remove repeating
     if len(articles) < 5:
         try:
-            from bot import TOKEN
-            requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'Проблема з парсингом 9to5Mac'))
-            requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=373407132&text={}'.format(TOKEN, 'Проблема з парсингом 9to5Mac'))
+            from bot import TOKEN2
+            requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN2, 'Проблема з парсингом 9to5Mac'))
+            requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=373407132&text={}'.format(TOKEN2, 'Проблема з парсингом 9to5Mac'))
         except ImportError:
             print("Import error (token), can't send message to bot")
 
     print(len(articles),articles)
+
+    return articles
 
 
 if __name__ == '__main__':

@@ -64,8 +64,8 @@ def faktyictv():
 
         except AttributeError:
             try:
-                from bot import TOKEN
-                requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'Проблема з парсингом faktyICTV'))
+                from bot import TOKEN2
+                requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN2, 'Проблема з парсингом faktyICTV'))
             except ImportError:
                 print("Import error (token), can't send message to bot")
                 continue

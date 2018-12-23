@@ -71,8 +71,8 @@ def dou():
 
         except AttributeError:
             try:
-                from bot import TOKEN
-                requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'Проблема з парсингом DOU'))
+                from bot import TOKEN2
+                requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN2, 'Проблема з парсингом DOU'))
             except ImportError:
                 print("Import error (token), can't send message to bot")
                 continue

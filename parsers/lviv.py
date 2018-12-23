@@ -10,7 +10,6 @@ test = True
 
 
 def lviv():
-    print('success')
     # getting data
     data = requests.get("http://lviv1256.com/category/news/", headers={
         "user-agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Mobile Safari/537.36"}).text
@@ -73,17 +72,19 @@ def lviv():
             print('AttributeError')
 
     articles = [i for n, i in enumerate(articles) if i not in articles[n + 1:]]  # remove repeating
-    if len(articles) < 5:
+    if len(articles) < 10:
         try:
-            from bot import TOKEN
-            requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN,
+            from bot import TOKEN2
+            requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN2,
                                                                                                        'Проблема з парсингом Lviv1256'))
-            requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=373407132&text={}'.format(TOKEN,
+            requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=373407132&text={}'.format(TOKEN2,
                                                                                                        'Проблема з парсингом Lviv1256'))
         except ImportError:
             print("Import error (token), can't send message to bot")
 
     print(len(articles), articles)
+
+    return articles
 
 
 if __name__ == '__main__':

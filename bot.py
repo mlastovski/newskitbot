@@ -1569,13 +1569,8 @@ def echo_all(updates):
             send_inline_keyboard([['Обрати цікаві теми', '/themes'], ['Відібрати новинні веб-сайти', '/websites'],
                                       ['Вказати час отримання новин', '/setnewstime'], ['Переглянути свої ключові слова', '/keywords']], chat, 'Я тебе не зрозумів 😔 Можливо, тобі потрібно:')
             #send_help_big(text, chat)
-            try:
-                requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'Unexpected request from ' + name + ' ' + last_name + ':' + text))
-                requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format(TOKEN, 'Unexpected request from ' + name + ' ' + last_name + ':' + text))
-            except:
-                requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'Unexpected request from ' + name + ' ' + last_name + ': ' + 'юзер надіслав нетекстове повідомлення'))
-                requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format(TOKEN, 'Unexpected request from ' + name + ' ' + last_name + ': ' + 'юзер надіслав нетекстове повідомлення'))
-
+            requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Unexpected request from ' + name + ' ' + last_name + ':' + text))
+            requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('Unexpected request from ' + name + ' ' + last_name + ':' + text))
         else:
             send_message(text, id)
 

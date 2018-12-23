@@ -63,8 +63,8 @@ def korrespondent():
 
         except AttributeError:
             try:
-                from bot import TOKEN
-                requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN,
+                from bot import TOKEN2
+                requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN2,
                                                                                                            'Проблема з парсингом Korrespondent'))
             except ImportError:
                 print("Import error (token), can't send message to bot")
