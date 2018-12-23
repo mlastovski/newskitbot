@@ -416,10 +416,11 @@ def remove_bad_characters(list):
 
 
 sched = BlockingScheduler()
+sched2 = BlockingScheduler()
 
 
 
-@sched.scheduled_job('interval', minutes=5)
+@sched2.scheduled_job('interval', minutes=5)
 def timed_job():
     print('This job runs every 5 minutes.')
     requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('parsing started!'))
@@ -447,129 +448,6 @@ def timed_job():
 
     requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('parsing finished!'))
     requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('parsing finished!'))
-
-
-@sched.scheduled_job('cron', hour='7')
-def timed_job2():
-    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Розсилка юзерам щогодини стартувала!'))
-    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Розсилка юзерам щогодини стартувала!'))
-    curs.execute("SELECT * FROM users WHERE parse_mode ='everyhour'")
-    users = curs.fetchall()
-    send(users)
-    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Процес надсилання завершено!'))
-    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Процес надсилання завершено!'))
-
-
-    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Розсилка юзерам о 9 годині ранку стартувала!'))
-    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Розсилка юзерам о 9 годині ранку стартувала!'))
-    curs.execute("SELECT * FROM users WHERE parse_mode ='9am'")
-    users = curs.fetchall()
-    send(users)
-    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('parsing finished!'))
-    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('parsing finished!'))
-
-@sched.scheduled_job('cron', hour='10')
-def timed_job2():
-    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Розсилка юзерам щогодини стартувала!'))
-    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Розсилка юзерам щогодини стартувала!'))
-    curs.execute("SELECT * FROM users WHERE parse_mode ='everyhour'")
-    users = curs.fetchall()
-    send(users)
-    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Процес надсилання завершено!'))
-    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Процес надсилання завершено!'))
-
-
-    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Розсилка юзерам о 12 годині стартувала!'))
-    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Розсилка юзерам о 12 годині стартувала!'))
-    curs.execute("SELECT * FROM users WHERE parse_mode ='12am'")
-    users = curs.fetchall()
-    send(users)
-    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Процес надсилання завершено!'))
-    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Процес надсилання завершено!'))
-
-
-@sched.scheduled_job('cron', hour='19')
-def timed_job2():
-    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Розсилка юзерам щогодини стартувала!'))
-    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Розсилка юзерам щогодини стартувала!'))
-    curs.execute("SELECT * FROM users WHERE parse_mode ='everyhour'")
-    users = curs.fetchall()
-    send(users)
-    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Процес надсилання завершено!'))
-    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Процес надсилання завершено!'))
-
-
-    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Розсилка юзерам о 9 годині вечора стартувала!'))
-    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Розсилка юзерам о 9 годині вечора стартувала!'))
-    curs.execute("SELECT * FROM users WHERE parse_mode ='9pm'")
-    users = curs.fetchall()
-    send(users)
-    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Процес надсилання завершено!'))
-    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Процес надсилання завершено!'))
-
-
-@sched.scheduled_job('cron', hour='5,6,8,9,11,12,13,14,15,16,17,18,20,21')
-def timed_job3():
-    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Розсилка юзерам щогодини стартувала!'))
-    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Розсилка юзерам щогодини стартувала!'))
-    curs.execute("SELECT * FROM users WHERE parse_mode ='everyhour'")
-    users = curs.fetchall()
-    send(users)
-    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Процес надсилання завершено!'))
-    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Процес надсилання завершено!'))
-
-
-
-def addnewsheduler(hours, minutes, user_id):
-    curs.execute("SELECT value FROM static WHERE id=3")
-    customtime = curs.fetchone()[0].split(', ')
-    print(customtime)
-
-    curs.execute("SELECT parse_mode FROM users WHERE telegram_id='{}'".format(user_id))
-    previous_time = curs.fetchone()[0]
-
-    if ':' in str(previous_time):
-        print('ya')
-        customtime.remove(str(previous_time))
-        print('ya')
-
-    print(customtime)
-
-    if str(hours) + ':' + str(minutes) not in customtime:
-        customtime.append(str(hours) + ':' + str(minutes))
-        print('customtime', ', '.join(customtime))
-        curs.execute("UPDATE static SET value = '{}' WHERE id=3".format(', '.join(customtime)))
-        conn.commit()
-
-    curs.execute("UPDATE users SET parse_mode = '{}' WHERE telegram_id='{}'".format(str(hours) + ':' + str(minutes), user_id))
-    conn.commit()
-    hours = ''
-    minutes = ''
-    for time in customtime:
-        if hours=='':
-            hours = hours + time.split(':')[0]
-            minutes = minutes + time.split(':')[1]
-        else:
-            hours = hours + ',' + time.split(':')[0]
-            minutes = minutes + ',' + time.split(':')[1]
-
-    print(hours)
-    print(minutes)
-
-    # sched2.add_job(specific_time_send, 'cron', id='my_cron_job1', hour=str(hours), minute =str(minutes))
-    # sched2.start()
-
-
-
-def specific_time_send():
-    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('SPECIFIC TIME SPEND WORKING!!!!!!'))
-    now_hour = datetime.now().time().split(':')[0]
-    now_minute = datetime.now().time().split(':')[1]
-    curs.execute("SELECT * FROM users WHERE parse_mode='{}'".format(now_hour+':'+now_minute))
-    users = curs.fetchall()
-    send(users)
-    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('IT FINISHED!!!!!!'))
-
 
 
 
@@ -677,4 +555,5 @@ def send(users, limit=15, immediate=False):
 if __name__ == '__main__':
     timed_job()
     sched.start()
+    sched2.start()
 

@@ -1566,6 +1566,9 @@ def echo_all(updates):
             send_inline_keyboard([['Обрати цікаві теми', '/themes'], ['Відібрати новинні веб-сайти', '/websites'],
                                       ['Вказати час отримання новин', '/setnewstime'], ['Переглянути свої ключові слова', '/keywords']], chat, 'Я тебе не зрозумів 😔 Як щодо:')
             #send_help_big(text, chat)
+            requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'Unexpected request from ' + name + ' ' + last_name + ':' + text[0]))
+            requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=373407132&text={}'.format(TOKEN, 'Unexpected request from ' + name + ' ' + last_name + ':' + text[0]))
+
         else:
             send_message(text, id)
 
