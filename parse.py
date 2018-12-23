@@ -24,6 +24,7 @@ from parsers.nytimes import nytimes
 from parsers.techradar import techradar
 from parsers.androidpolice import androidpolice
 from parsers.ninetofivemac import ninetofivemac
+from parsers.lviv import lviv
 
 
 
@@ -176,6 +177,13 @@ def parse(media, web_name):
         except:
             requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! 9to5Mac'))
             requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! 9to5Mac'))
+            return None
+    elif media == 20:
+        try:
+            parsed_content = lviv()
+        except:
+            requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! Lviv1256'))
+            requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! Lviv1256'))
             return None
 
     else:
@@ -423,8 +431,8 @@ sched2 = BlockingScheduler()
 @sched2.scheduled_job('interval', minutes=5)
 def timed_job():
     print('This job runs every 5 minutes.')
-    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('parsing started!'))
-    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('parsing started!'))
+    requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('parsing started!'))
+    requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('parsing started!'))
     try:
         curs.execute("SELECT * FROM websites")
     except psycopg2.InternalError:
@@ -446,8 +454,8 @@ def timed_job():
     for website in curs.fetchall():
         parse(website[0], website[2])
 
-    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('parsing finished!'))
-    requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('parsing finished!'))
+    requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('parsing finished!'))
+    requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('parsing finished!'))
 
 
 
