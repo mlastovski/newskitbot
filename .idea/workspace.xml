@@ -2,32 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="89a244cc-e439-4fbe-95f4-3f54ca74d4c1" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/newskitbot.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/newskitbot.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parse.py" beforeDir="false" afterPath="$PROJECT_DIR$/parse.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parsers/ain.py" beforeDir="false" afterPath="$PROJECT_DIR$/parsers/ain.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parsers/androidpolice.py" beforeDir="false" afterPath="$PROJECT_DIR$/parsers/androidpolice.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parsers/appleinsider.py" beforeDir="false" afterPath="$PROJECT_DIR$/parsers/appleinsider.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parsers/appleinsideren.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/parsers/bbc.py" beforeDir="false" afterPath="$PROJECT_DIR$/parsers/bbc.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parsers/dou.py" beforeDir="false" afterPath="$PROJECT_DIR$/parsers/dou.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parsers/faktyICTV.py" beforeDir="false" afterPath="$PROJECT_DIR$/parsers/faktyICTV.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parsers/guardian.py" beforeDir="false" afterPath="$PROJECT_DIR$/parsers/guardian.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parsers/hromadske.py" beforeDir="false" afterPath="$PROJECT_DIR$/parsers/hromadske.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parsers/isport.py" beforeDir="false" afterPath="$PROJECT_DIR$/parsers/isport.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parsers/korrespondent.py" beforeDir="false" afterPath="$PROJECT_DIR$/parsers/korrespondent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parsers/nytimes.py" beforeDir="false" afterPath="$PROJECT_DIR$/parsers/nytimes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parsers/onehundredtwelve.py" beforeDir="false" afterPath="$PROJECT_DIR$/parsers/onehundredtwelve.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parsers/parse_tool.py" beforeDir="false" afterPath="$PROJECT_DIR$/parsers/parse_tool.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parsers/pravda.py" beforeDir="false" afterPath="$PROJECT_DIR$/parsers/pravda.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parsers/spiegelDeutsch.py" beforeDir="false" afterPath="$PROJECT_DIR$/parsers/spiegelDeutsch.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parsers/stopwords_ru.txt" beforeDir="false" afterPath="$PROJECT_DIR$/parsers/stopwords_ru.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parsers/stopwords_ua.txt" beforeDir="false" afterPath="$PROJECT_DIR$/parsers/stopwords_ua.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parsers/techradar.py" beforeDir="false" afterPath="$PROJECT_DIR$/parsers/techradar.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parsers/two_four_tvua.py" beforeDir="false" afterPath="$PROJECT_DIR$/parsers/two_four_tvua.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parsers/verge.py" beforeDir="false" afterPath="$PROJECT_DIR$/parsers/verge.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parsers/wylsacom.py" beforeDir="false" afterPath="$PROJECT_DIR$/parsers/wylsacom.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Procfile" beforeDir="false" afterPath="$PROJECT_DIR$/Procfile" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -62,6 +37,18 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/parse.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="288">
+              <caret line="177" column="177" selection-start-line="177" selection-start-column="177" selection-end-line="177" selection-end-column="177" />
+              <folding>
+                <element signature="e#23#32#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/parsers/two_four_tvua.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="55">
@@ -73,7 +60,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/parsers/wylsacom.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="81">
@@ -88,8 +75,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/parsers/ninetofivemac.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="651">
-              <caret line="53" selection-start-line="27" selection-end-line="53" />
+            <state relative-caret-position="613">
+              <caret line="80" column="19" lean-forward="true" selection-start-line="80" selection-start-column="19" selection-end-line="80" selection-end-column="19" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Procfile">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="23">
+              <caret line="1" column="21" selection-start-line="1" selection-start-column="21" selection-end-line="1" selection-end-column="21" />
             </state>
           </provider>
         </entry>
@@ -150,6 +146,7 @@
         <option value="$PROJECT_DIR$/parsers/onehundredtwelve.py" />
         <option value="$PROJECT_DIR$/parsers/two_four_tvua.py" />
         <option value="$PROJECT_DIR$/parsers/wylsacom.py" />
+        <option value="$PROJECT_DIR$/Procfile" />
       </list>
     </option>
   </component>
@@ -341,19 +338,19 @@
       <workItem from="1545382724824" duration="3000" />
       <workItem from="1545382752979" duration="1221000" />
       <workItem from="1545518056381" duration="18000" />
-      <workItem from="1545552622262" duration="5325000" />
+      <workItem from="1545552622262" duration="5540000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9157000" />
+    <option name="totallyTimeSpent" value="9372000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="877" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.19770774" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.19770774" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="0" />
       <window_info anchor="bottom" id="Event Log" order="1" side_tool="true" weight="0.3299363" />
@@ -485,16 +482,6 @@
           <caret line="52" lean-forward="true" selection-start-line="52" selection-end-line="52" />
           <folding>
             <element signature="e#16#45#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/parse.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="177" column="177" selection-start-line="177" selection-start-column="177" selection-end-line="177" selection-end-column="177" />
-          <folding>
-            <element signature="e#23#32#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -681,13 +668,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/parsers/ninetofivemac.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="651">
-          <caret line="53" selection-start-line="27" selection-end-line="53" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/parsers/wylsacom.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="81">
@@ -695,6 +675,30 @@
           <folding>
             <element signature="e#0#29#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/parse.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="177" column="177" selection-start-line="177" selection-start-column="177" selection-end-line="177" selection-end-column="177" />
+          <folding>
+            <element signature="e#23#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/parsers/ninetofivemac.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="613">
+          <caret line="80" column="19" lean-forward="true" selection-start-line="80" selection-start-column="19" selection-end-line="80" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Procfile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="23">
+          <caret line="1" column="21" selection-start-line="1" selection-start-column="21" selection-end-line="1" selection-end-column="21" />
         </state>
       </provider>
     </entry>
