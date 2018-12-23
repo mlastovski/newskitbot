@@ -2,40 +2,11 @@
 from bs4 import BeautifulSoup
 import requests
 import lxml
-#import scrapy
 from datetime import datetime
 import re
-from parsers.parse_tool import extract_keywords
-# from ... import bot
+from parsers.parse_tool import extract_keywords, remove_bad_characters
 
-# removing symbols for better understanding words
-def remove_bad_characters(list):
-    list = [s.replace(',', '') for s in list]
-    list = [s.replace(' ', '') for s in list]
-    list = [s.replace(':', '') for s in list]
-    list = [s.replace(";", '') for s in list]
-    list = [s.replace('!', '') for s in list]
-    list = [s.replace("'", '') for s in list]
-    list = [s.replace("[", '') for s in list]
-    list = [s.replace("]", '') for s in list]
-    list = [s.replace("{", '') for s in list]
-    list = [s.replace("}", '') for s in list]
-    list = [s.replace("-", '') for s in list]
-    list = [s.replace("_", '') for s in list]
-    list = [s.replace("=", '') for s in list]
-    list = [s.replace("+", '') for s in list]
-    list = [s.replace("|", '') for s in list]
-    list = [s.replace("(", '') for s in list]
-    list = [s.replace(")", '') for s in list]
-    list = [s.replace("*", '') for s in list]
-    list = [s.replace(".", '') for s in list]
-    list = [s.replace("@", '') for s in list]
-    list = [s.replace("#", '') for s in list]
-    list = [s.replace("$", '') for s in list]
-    list = [s.replace("%", '') for s in list]
-    list = [s.replace("&", '') for s in list]
-    list = [s.lower() for s in list]
-    return list
+
 
 def nytimes():
     data = requests.get("https://www.nytimes.com/section/world", headers={"user-agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Mobile Safari/537.36"}).text
@@ -73,11 +44,12 @@ def nytimes():
                 #print('article_text',article_text)
 
             final_text = extract_keywords(whole_article_text, 'en')
+            # print(final_text)
             
             author = ' '
             date = datetime.now().timestamp()
 
-            if title_text and link:
+            if title_text and link and author and date and final_text:
                 article = {
                     'title': title_text,
                     'words': final_text,
@@ -91,7 +63,7 @@ def nytimes():
         except AttributeError:
             try:
                 from bot import TOKEN
-                requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'Проблема з парсингом isport.ua'))
+                requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'Проблема з парсингом NY Times'))
             except ImportError:
                 print("Import error (token), can't send message to bot")
                 continue

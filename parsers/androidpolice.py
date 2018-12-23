@@ -55,7 +55,7 @@ def androidpolice():
             author = ''
             date = ''
 
-            if title_text and link:
+            if title_text and link and final_text and author and date:
                 article = {
                     'title': title_text,
                     'words': final_text,
@@ -63,7 +63,7 @@ def androidpolice():
                     'author': author,
                     'date': date
                 }
-                #print(article)
+                print(article)
                 articles.append(article)
 
 
@@ -71,7 +71,7 @@ def androidpolice():
         except AttributeError:
             try:
                 from bot import TOKEN
-                requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'Проблема з парсингом BBC'))
+                requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'Проблема з парсингом AndroidPolice'))
             except ImportError:
                 print("Import error (token), can't send message to bot")
                 continue

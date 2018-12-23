@@ -64,7 +64,7 @@ def verge():
             author = ''
             date = ''
 
-            if title_text and link:
+            if title_text and link and author and date and final_text:
                 article = {
                     'title': title_text,
                     'words': final_text,
@@ -76,11 +76,13 @@ def verge():
                 articles.append(article)
 
 
-
-
-
         except AttributeError:
-            continue
+            try:
+                from bot import TOKEN
+                requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'Проблема з парсингом Verge'))
+            except ImportError:
+                print("Import error (token), can't send message to bot")
+                continue
 
     articles = [i for n, i in enumerate(articles) if i not in articles[n + 1:]]  # remove repeating
     return articles

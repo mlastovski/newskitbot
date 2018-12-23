@@ -4,6 +4,7 @@ import requests
 import lxml
 from datetime import datetime
 import re
+from parsers.parse_tool import extract_keywords
 
 
 def pravda():
@@ -16,30 +17,40 @@ def pravda():
     articles = []
 
     for post in soup.find("div", {"class": "block_news"}).find_all("div", {"class": "article"}):
-        #print(post)
-        title_text = post.find("div", {"class": "article__title"}).find("a").get_text()
-        title_text = re.sub('\n', '', title_text)
-        title_text = re.sub('\t', '', title_text)
-        title_text = re.sub('\xa0', ' ', title_text)
-        link = post.find("div", {"class": "article__title"}).find("a").get('href')
-        if not link.startswith('https://'):
-            link = 'https://www.pravda.com.ua' + link
-        author = ' '
-        date = datetime.now().timestamp() #post.find("a").find("div", {"class": "cardWrapper"}).find("div", {"class": "cardTitle"}).find("div").find("p", {"class": "postDate"})
-        #date = datetime.now().replace(hour=int(date[0]), minute=int(date[1]))
+        try:
+            #print(post)
+            title_text = post.find("div", {"class": "article__title"}).find("a").get_text()
+            title_text = re.sub('\n', '', title_text)
+            title_text = re.sub('\t', '', title_text)
+            title_text = re.sub('\xa0', ' ', title_text)
+            link = post.find("div", {"class": "article__title"}).find("a").get('href')
+            if not link.startswith('https://'):
+                link = 'https://www.pravda.com.ua' + link
+            author = ' '
+            date = datetime.now().timestamp() #post.find("a").find("div", {"class": "cardWrapper"}).find("div", {"class": "cardTitle"}).find("div").find("p", {"class": "postDate"})
+            #date = datetime.now().replace(hour=int(date[0]), minute=int(date[1]))
 
-        #print('here',title_text, link, date, author)
+            #print('here',title_text, link, date, author)
 
-        if title_text and link and author and date:
-            article = {
-                'title': title_text,
-                'words': '',
-                'link': link,
-                'author': author,
-                'date': date
-            }
-            print(article)
-            articles.append(article)
+            if title_text and link and author and date:
+                article = {
+                    'title': title_text,
+                    'words': '',
+                    'link': link,
+                    'author': author,
+                    'date': date
+                }
+                print(article)
+                articles.append(article)
+
+        except AttributeError:
+            try:
+                from bot import TOKEN
+                requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'Проблема з парсингом Pravda'))
+            except ImportError:
+                print("Import error (token), can't send message to bot")
+                continue
+
 
     articles = [i for n, i in enumerate(articles) if i not in articles[n + 1:]] #remove repeating
     print(articles)

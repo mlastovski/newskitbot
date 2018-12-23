@@ -1,29 +1,30 @@
+# coding: utf-8
 from bs4 import BeautifulSoup
 import requests
 import lxml
-from datetime import datetime
 import re
 from parsers.parse_tool import extract_keywords
 
-def isport():
-    data = requests.get("https://isport.ua/693219-news", headers={"user-agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Mobile Safari/537.36"}).text
+debug = False
+test = True
+
+
+def ninetofivemac():
+    # print('success')
+    # getting data
+    data = requests.get("https://9to5mac.com/", headers={
+        "user-agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Mobile Safari/537.36"}).text
     # print(data)
-
     soup = BeautifulSoup(data, "lxml")
-
     articles = []
-    i=0
-    for title in soup.find("div", {"class": "block_section_stories"}).find_all("div", {"class": "article_section"}):
-        try:
-            title_text = title.find("div", {"class": "article__subtitle"}).get_text()
-            title_text = re.sub('\n', '', title_text)
-            title_text = re.sub('\t', '', title_text)
-            # print(title_text)
-            link = "http://isport.ua" + title.find("div", {"class": "article__title"}).find("a").get("href")
-            # print(link)
-            author = ' '
-            date = datetime.now().timestamp()
 
+    for title in soup.find('div', {'id': 'content'}).find_all('article'):
+        # print('success')
+        try:
+            title_text = title.find('div', {'class': 'elastic-container'}).find('h1').find('a').get_text()
+            # print(title_text)
+            link = title.find('div', {'class': 'elastic-container'}).find('h1').find('a').get('href')
+            # print(link)
             try:
                 structure = requests.get(link, headers={
                     "user-agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Mobile Safari/537.36"}).text
@@ -48,9 +49,11 @@ def isport():
                 except UnicodeEncodeError:
                     print("FIGNYA")
 
-            final_text = extract_keywords(final_words, 'ua')
-            print(final_text)
+            final_text = extract_keywords(final_words, 'en')
+            # print(final_text)
 
+            author = ''
+            date = ''
 
             if title_text and link and author and date and final_text:
                 article = {
@@ -63,20 +66,20 @@ def isport():
                 print(article)
                 articles.append(article)
 
+
+
         except AttributeError:
             try:
-                i += 1
-                if i > 1:
-                    from bot import TOKEN
-                    requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN,
-                                                                                                           'Проблема з парсингом isport'))
+                from bot import TOKEN
+                requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN,
+                                                                                                           'Проблема з парсингом 9to5Mac'))
             except ImportError:
                 print("Import error (token), can't send message to bot")
+                continue
 
-
-    articles = [i for n, i in enumerate(articles) if i not in articles[n + 1:]] #remove repeating
-
+    articles = [i for n, i in enumerate(articles) if i not in articles[n + 1:]]  # remove repeating
     return articles
 
+
 if __name__ == '__main__':
-    isport()
+    ninetofivemac()

@@ -66,7 +66,7 @@ def bbc():
             author = ''
             date = ''
 
-            if title_text and link:
+            if title_text and link and author and date and final_words:
                 article = {
                     'title': title_text,
                     'words': final_text,

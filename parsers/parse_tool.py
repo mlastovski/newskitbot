@@ -36,3 +36,33 @@ def extract_keywords(article_text, language):
     final_text = ' '.join(final_text)
 
     return final_text
+
+# removing symbols for better understanding words
+def remove_bad_characters(list):
+    list = [s.replace(',', '') for s in list]
+    list = [s.replace(' ', '') for s in list]
+    list = [s.replace(':', '') for s in list]
+    list = [s.replace(";", '') for s in list]
+    list = [s.replace('!', '') for s in list]
+    list = [s.replace("'", '') for s in list]
+    list = [s.replace("[", '') for s in list]
+    list = [s.replace("]", '') for s in list]
+    list = [s.replace("{", '') for s in list]
+    list = [s.replace("}", '') for s in list]
+    list = [s.replace("-", '') for s in list]
+    list = [s.replace("_", '') for s in list]
+    list = [s.replace("=", '') for s in list]
+    list = [s.replace("+", '') for s in list]
+    list = [s.replace("|", '') for s in list]
+    list = [s.replace("(", '') for s in list]
+    list = [s.replace(")", '') for s in list]
+    list = [s.replace("*", '') for s in list]
+    list = [s.replace(".", '') for s in list]
+    list = [s.replace("@", '') for s in list]
+    list = [s.replace("#", '') for s in list]
+    list = [s.replace("$", '') for s in list]
+    list = [s.replace("%", '') for s in list]
+    list = [s.replace("&", '') for s in list]
+    list = [s.lower() for s in list]
+    return list
+

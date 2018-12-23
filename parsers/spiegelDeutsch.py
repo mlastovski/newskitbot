@@ -69,12 +69,13 @@ def spiegelDeutsch():
                 #print(article_text)
 
             final_text = extract_keywords(whole_article_text, 'de')
+            final_text = extract_keywords(whole_article_text, 'en')
             #print(final_text)
 
             author = ' '
             date = datetime.now().timestamp()
 
-            if title_text and link :
+            if title_text and link and author and date and final_text:
                 article = {
                     'title': title_text,
                     'words': final_text,

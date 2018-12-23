@@ -23,6 +23,7 @@ from parsers.guardian import guardian
 from parsers.nytimes import nytimes
 from parsers.techradar import techradar
 from parsers.androidpolice import androidpolice
+from parsers.ninetofivemac import ninetofivemac
 
 
 
@@ -169,6 +170,14 @@ def parse(media, web_name):
             requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! Android Police'))
             requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! Android Police'))
             return None
+    elif media == 19:
+        try:
+            parsed_content = ninetofivemac()
+        except:
+            requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! 9to5Mac'))
+            requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! 9to5Mac'))
+            return None
+
     else:
         return None
 
