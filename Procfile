@@ -1,2 +1,2 @@
-clock: python parse.py
+clock: python timesend.py
 worker: python bot.py
