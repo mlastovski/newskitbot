@@ -69,7 +69,7 @@ def spiegelDeutsch():
                 #print(article_text)
 
             final_text = extract_keywords(whole_article_text, 'de')
-            final_text = extract_keywords(whole_article_text, 'en')
+            # final_text = extract_keywords(whole_article_text, 'en')
             #print(final_text)
 
             author = ' '

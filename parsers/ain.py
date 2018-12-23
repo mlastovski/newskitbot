@@ -77,7 +77,7 @@ def parse_ainua():
                         print("FIGNYA")
 
                 final_text = extract_keywords(final_words, 'ru')
-                print(final_text)
+                # print(final_text)
 
                 if title_text and link and author and date:
                     article = {
@@ -87,7 +87,7 @@ def parse_ainua():
                         'author': author,
                         'date': date
                     }
-                    # print(article)
+                    print(article)
                     articles.append(article)
 
         except AttributeError:
