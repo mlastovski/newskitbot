@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="89a244cc-e439-4fbe-95f4-3f54ca74d4c1" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/bot.py" beforeDir="false" afterPath="$PROJECT_DIR$/bot.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/timesend.py" beforeDir="false" afterPath="$PROJECT_DIR$/timesend.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Procfile" beforeDir="false" afterPath="$PROJECT_DIR$/Procfile" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -53,11 +52,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Procfile">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="23">
-              <caret line="1" column="21" selection-start-line="1" selection-start-column="21" selection-end-line="1" selection-end-column="21" />
+            <state>
+              <caret selection-end-line="2" />
             </state>
           </provider>
         </entry>
@@ -74,11 +73,28 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bot.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="227">
-              <caret line="89" column="64" selection-start-line="89" selection-start-column="59" selection-end-line="89" selection-end-column="64" />
+            <state relative-caret-position="16323">
+              <caret line="25" column="80" selection-start-line="25" selection-start-column="80" selection-end-line="25" selection-end-column="80" />
+              <caret line="52" column="107" selection-start-line="52" selection-start-column="107" selection-end-line="52" selection-end-column="107" />
+              <caret line="69" column="107" selection-start-line="69" selection-start-column="107" selection-end-line="69" selection-end-column="107" />
+              <caret line="70" column="107" selection-start-line="70" selection-start-column="107" selection-end-line="70" selection-end-column="107" />
+              <caret line="89" column="107" selection-start-line="89" selection-start-column="107" selection-end-line="89" selection-end-column="107" />
+              <caret line="349" column="107" selection-start-line="349" selection-start-column="107" selection-end-line="349" selection-end-column="107" />
+              <caret line="350" column="107" selection-start-line="350" selection-start-column="107" selection-end-line="350" selection-end-column="107" />
+              <caret line="352" column="107" selection-start-line="352" selection-start-column="107" selection-end-line="352" selection-end-column="107" />
+              <caret line="354" column="111" selection-start-line="354" selection-start-column="111" selection-end-line="354" selection-end-column="111" />
+              <caret line="356" column="111" selection-start-line="356" selection-start-column="111" selection-end-line="356" selection-end-column="111" />
+              <caret line="1278" column="111" selection-start-line="1278" selection-start-column="111" selection-end-line="1278" selection-end-column="111" />
+              <caret line="1279" column="111" selection-start-line="1279" selection-start-column="111" selection-end-line="1279" selection-end-column="111" />
+              <caret line="1285" column="99" selection-start-line="1285" selection-start-column="99" selection-end-line="1285" selection-end-column="99" />
+              <caret line="1286" column="99" selection-start-line="1286" selection-start-column="99" selection-end-line="1286" selection-end-column="99" />
+              <caret line="1346" column="128" selection-start-line="1346" selection-start-column="128" selection-end-line="1346" selection-end-column="128" />
+              <caret line="1353" column="124" selection-start-line="1353" selection-start-column="124" selection-end-line="1353" selection-end-column="124" />
+              <caret line="1439" column="124" selection-start-line="1439" selection-start-column="124" selection-end-line="1439" selection-end-column="124" />
+              <caret line="1448" column="128" selection-start-line="1448" selection-start-column="128" selection-end-line="1448" selection-end-column="128" />
               <folding>
                 <element signature="e#18#29#0" expanded="true" />
               </folding>
@@ -192,9 +208,9 @@
         <option value="$PROJECT_DIR$/parsers/wylsacom.py" />
         <option value="$PROJECT_DIR$/parsers/pravda.py" />
         <option value="$PROJECT_DIR$/parsers/hromadske.py" />
-        <option value="$PROJECT_DIR$/Procfile" />
         <option value="$PROJECT_DIR$/timesend.py" />
         <option value="$PROJECT_DIR$/bot.py" />
+        <option value="$PROJECT_DIR$/Procfile" />
       </list>
     </option>
   </component>
@@ -391,12 +407,12 @@
       <workItem from="1545562912712" duration="219000" />
       <workItem from="1545563155723" duration="603000" />
       <workItem from="1545566175700" duration="91000" />
-      <workItem from="1545577011906" duration="4817000" />
+      <workItem from="1545577011906" duration="5057000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15878000" />
+    <option name="totallyTimeSpent" value="16118000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="877" extended-state="6" />
@@ -716,13 +732,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Procfile">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23">
-          <caret line="1" column="21" selection-start-line="1" selection-start-column="21" selection-end-line="1" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/timesend.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="347">
@@ -761,11 +770,35 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/bot.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="89" column="64" selection-start-line="89" selection-start-column="59" selection-end-line="89" selection-end-column="64" />
+        <state relative-caret-position="16323">
+          <caret line="25" column="80" selection-start-line="25" selection-start-column="80" selection-end-line="25" selection-end-column="80" />
+          <caret line="52" column="107" selection-start-line="52" selection-start-column="107" selection-end-line="52" selection-end-column="107" />
+          <caret line="69" column="107" selection-start-line="69" selection-start-column="107" selection-end-line="69" selection-end-column="107" />
+          <caret line="70" column="107" selection-start-line="70" selection-start-column="107" selection-end-line="70" selection-end-column="107" />
+          <caret line="89" column="107" selection-start-line="89" selection-start-column="107" selection-end-line="89" selection-end-column="107" />
+          <caret line="349" column="107" selection-start-line="349" selection-start-column="107" selection-end-line="349" selection-end-column="107" />
+          <caret line="350" column="107" selection-start-line="350" selection-start-column="107" selection-end-line="350" selection-end-column="107" />
+          <caret line="352" column="107" selection-start-line="352" selection-start-column="107" selection-end-line="352" selection-end-column="107" />
+          <caret line="354" column="111" selection-start-line="354" selection-start-column="111" selection-end-line="354" selection-end-column="111" />
+          <caret line="356" column="111" selection-start-line="356" selection-start-column="111" selection-end-line="356" selection-end-column="111" />
+          <caret line="1278" column="111" selection-start-line="1278" selection-start-column="111" selection-end-line="1278" selection-end-column="111" />
+          <caret line="1279" column="111" selection-start-line="1279" selection-start-column="111" selection-end-line="1279" selection-end-column="111" />
+          <caret line="1285" column="99" selection-start-line="1285" selection-start-column="99" selection-end-line="1285" selection-end-column="99" />
+          <caret line="1286" column="99" selection-start-line="1286" selection-start-column="99" selection-end-line="1286" selection-end-column="99" />
+          <caret line="1346" column="128" selection-start-line="1346" selection-start-column="128" selection-end-line="1346" selection-end-column="128" />
+          <caret line="1353" column="124" selection-start-line="1353" selection-start-column="124" selection-end-line="1353" selection-end-column="124" />
+          <caret line="1439" column="124" selection-start-line="1439" selection-start-column="124" selection-end-line="1439" selection-end-column="124" />
+          <caret line="1448" column="128" selection-start-line="1448" selection-start-column="128" selection-end-line="1448" selection-end-column="128" />
           <folding>
             <element signature="e#18#29#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Procfile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="2" />
         </state>
       </provider>
     </entry>
