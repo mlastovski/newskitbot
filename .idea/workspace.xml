@@ -2,24 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="89a244cc-e439-4fbe-95f4-3f54ca74d4c1" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/bot.py" afterPath="$PROJECT_DIR$/bot.py" />
       <change beforePath="$PROJECT_DIR$/parse.py" afterPath="$PROJECT_DIR$/parse.py" />
-      <change beforePath="$PROJECT_DIR$/parsers/ain.py" afterPath="$PROJECT_DIR$/parsers/ain.py" />
-      <change beforePath="$PROJECT_DIR$/parsers/androidpolice.py" afterPath="$PROJECT_DIR$/parsers/androidpolice.py" />
-      <change beforePath="$PROJECT_DIR$/parsers/appleinsider.py" afterPath="$PROJECT_DIR$/parsers/appleinsider.py" />
-      <change beforePath="$PROJECT_DIR$/parsers/bbc.py" afterPath="$PROJECT_DIR$/parsers/bbc.py" />
-      <change beforePath="$PROJECT_DIR$/parsers/dou.py" afterPath="$PROJECT_DIR$/parsers/dou.py" />
-      <change beforePath="$PROJECT_DIR$/parsers/faktyICTV.py" afterPath="$PROJECT_DIR$/parsers/faktyICTV.py" />
-      <change beforePath="$PROJECT_DIR$/parsers/guardian.py" afterPath="$PROJECT_DIR$/parsers/guardian.py" />
-      <change beforePath="$PROJECT_DIR$/parsers/hromadske.py" afterPath="$PROJECT_DIR$/parsers/hromadske.py" />
-      <change beforePath="$PROJECT_DIR$/parsers/isport.py" afterPath="$PROJECT_DIR$/parsers/isport.py" />
-      <change beforePath="$PROJECT_DIR$/parsers/korrespondent.py" afterPath="$PROJECT_DIR$/parsers/korrespondent.py" />
-      <change beforePath="$PROJECT_DIR$/parsers/lviv.py" afterPath="$PROJECT_DIR$/parsers/lviv.py" />
-      <change beforePath="$PROJECT_DIR$/parsers/ninetofivemac.py" afterPath="$PROJECT_DIR$/parsers/ninetofivemac.py" />
-      <change beforePath="$PROJECT_DIR$/parsers/nytimes.py" afterPath="$PROJECT_DIR$/parsers/nytimes.py" />
-      <change beforePath="$PROJECT_DIR$/parsers/onehundredtwelve.py" afterPath="$PROJECT_DIR$/parsers/onehundredtwelve.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -46,11 +29,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="parse.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="parse.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/parse.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="261">
-              <caret line="429" column="44" lean-forward="true" selection-start-line="429" selection-start-column="44" selection-end-line="429" selection-end-column="44" />
+            <state relative-caret-position="126">
+              <caret line="428" column="21" lean-forward="false" selection-start-line="428" selection-start-column="21" selection-end-line="428" selection-end-column="21" />
               <folding>
                 <element signature="e#23#32#0" expanded="true" />
               </folding>
@@ -113,18 +96,8 @@
       <file leaf-file-name="lviv.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/parsers/lviv.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="397">
+            <state relative-caret-position="1290">
               <caret line="90" column="10" lean-forward="true" selection-start-line="90" selection-start-column="10" selection-end-line="90" selection-end-column="10" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="base.py" pinned="false" current-in-tab="false">
-        <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/apscheduler/schedulers/base.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-122">
-              <caret line="354" column="8" lean-forward="false" selection-start-line="354" selection-start-column="8" selection-end-line="354" selection-end-column="8" />
               <folding />
             </state>
           </provider>
@@ -143,12 +116,21 @@
       <file leaf-file-name="bot.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bot.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="1572" column="100" lean-forward="true" selection-start-line="1572" selection-start-column="51" selection-end-line="1572" selection-end-column="100" />
-              <caret line="1571" column="100" lean-forward="false" selection-start-line="1571" selection-start-column="51" selection-end-line="1571" selection-end-column="100" />
+            <state relative-caret-position="235">
+              <caret line="1571" column="39" lean-forward="true" selection-start-line="1571" selection-start-column="39" selection-end-line="1571" selection-end-column="39" />
               <folding>
                 <element signature="e#18#29#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Procfile" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Procfile">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="19" lean-forward="false" selection-start-line="0" selection-start-column="14" selection-end-line="0" selection-end-column="19" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -200,7 +182,6 @@
         <option value="$PROJECT_DIR$/parsers/wylsacom.py" />
         <option value="$PROJECT_DIR$/parsers/pravda.py" />
         <option value="$PROJECT_DIR$/timesend.py" />
-        <option value="$PROJECT_DIR$/Procfile" />
         <option value="$PROJECT_DIR$/bot.py" />
         <option value="$PROJECT_DIR$/parsers/ninetofivemac.py" />
         <option value="$PROJECT_DIR$/parsers/lviv.py" />
@@ -217,6 +198,7 @@
         <option value="$PROJECT_DIR$/parsers/nytimes.py" />
         <option value="$PROJECT_DIR$/parsers/onehundredtwelve.py" />
         <option value="$PROJECT_DIR$/parse.py" />
+        <option value="$PROJECT_DIR$/Procfile" />
       </list>
     </option>
   </component>
@@ -574,13 +556,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Procfile">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/parsers/stopwords_ru.txt" />
     <entry file="file://$PROJECT_DIR$/parsers/parse_tool.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -640,25 +615,6 @@
         <state relative-caret-position="3885">
           <caret line="259" column="8" lean-forward="false" selection-start-line="259" selection-start-column="8" selection-end-line="259" selection-end-column="8" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/apscheduler/schedulers/base.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-122">
-          <caret line="354" column="8" lean-forward="false" selection-start-line="354" selection-start-column="8" selection-end-line="354" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bot.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="1572" column="100" lean-forward="true" selection-start-line="1572" selection-start-column="51" selection-end-line="1572" selection-end-column="100" />
-          <caret line="1571" column="100" lean-forward="false" selection-start-line="1571" selection-start-column="51" selection-end-line="1571" selection-end-column="100" />
-          <folding>
-            <element signature="e#18#29#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -766,14 +722,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/parsers/lviv.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="397">
-          <caret line="90" column="10" lean-forward="true" selection-start-line="90" selection-start-column="10" selection-end-line="90" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/timesend.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1755">
@@ -784,13 +732,47 @@
         </state>
       </provider>
     </entry>
+    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/apscheduler/schedulers/base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1231">
+          <caret line="354" column="8" lean-forward="false" selection-start-line="354" selection-start-column="8" selection-end-line="354" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/parsers/lviv.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1290">
+          <caret line="90" column="10" lean-forward="true" selection-start-line="90" selection-start-column="10" selection-end-line="90" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/parse.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="429" column="44" lean-forward="true" selection-start-line="429" selection-start-column="44" selection-end-line="429" selection-end-column="44" />
+        <state relative-caret-position="126">
+          <caret line="428" column="21" lean-forward="false" selection-start-line="428" selection-start-column="21" selection-end-line="428" selection-end-column="21" />
           <folding>
             <element signature="e#23#32#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bot.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="235">
+          <caret line="1571" column="39" lean-forward="true" selection-start-line="1571" selection-start-column="39" selection-end-line="1571" selection-end-column="39" />
+          <folding>
+            <element signature="e#18#29#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Procfile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="19" lean-forward="false" selection-start-line="0" selection-start-column="14" selection-end-line="0" selection-end-column="19" />
+          <folding />
         </state>
       </provider>
     </entry>

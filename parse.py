@@ -423,11 +423,10 @@ def remove_bad_characters(list):
 
 
 sched = BlockingScheduler()
-sched2 = BlockingScheduler()
 
 
 
-@sched2.scheduled_job('interval', minutes=10)
+@sched.scheduled_job('interval', minutes=10)
 def timed_job():
     print('This job runs every 5 minutes.')
     requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('parsing started!'))
@@ -562,5 +561,4 @@ def send(users, limit=15, immediate=False):
 if __name__ == '__main__':
     timed_job()
     sched.start()
-    sched2.start()
 
