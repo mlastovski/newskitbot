@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="89a244cc-e439-4fbe-95f4-3f54ca74d4c1" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/bot.py" afterPath="$PROJECT_DIR$/bot.py" />
+      <change beforePath="$PROJECT_DIR$/bot_add.py" afterPath="$PROJECT_DIR$/bot_add.py" />
       <change beforePath="$PROJECT_DIR$/parse.py" afterPath="$PROJECT_DIR$/parse.py" />
+      <change beforePath="$PROJECT_DIR$/parsers/ninetofivemac.py" afterPath="$PROJECT_DIR$/parsers/ninetofivemac.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -32,72 +35,8 @@
       <file leaf-file-name="parse.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/parse.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="428" column="21" lean-forward="false" selection-start-line="428" selection-start-column="21" selection-end-line="428" selection-end-column="21" />
-              <folding>
-                <element signature="e#23#32#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ninetofivemac.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/parsers/ninetofivemac.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="243">
-              <caret line="77" column="43" lean-forward="true" selection-start-line="77" selection-start-column="43" selection-end-line="77" selection-end-column="43" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="isport.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/parsers/isport.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
-              <caret line="71" column="117" lean-forward="false" selection-start-line="71" selection-start-column="117" selection-end-line="71" selection-end-column="117" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="nytimes.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/parsers/nytimes.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="70" column="109" lean-forward="false" selection-start-line="70" selection-start-column="109" selection-end-line="70" selection-end-column="109" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="onehundredtwelve.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/parsers/onehundredtwelve.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="73" column="109" lean-forward="false" selection-start-line="73" selection-start-column="109" selection-end-line="73" selection-end-column="109" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="timesend.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/timesend.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1755">
-              <caret line="127" column="0" lean-forward="true" selection-start-line="127" selection-start-column="0" selection-end-line="127" selection-end-column="0" />
-              <folding>
-                <element signature="e#23#32#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="lviv.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/parsers/lviv.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1290">
-              <caret line="90" column="10" lean-forward="true" selection-start-line="90" selection-start-column="10" selection-end-line="90" selection-end-column="10" />
+            <state relative-caret-position="-3927">
+              <caret line="29" column="34" lean-forward="false" selection-start-line="29" selection-start-column="34" selection-end-line="29" selection-end-column="34" />
               <folding />
             </state>
           </provider>
@@ -106,18 +45,30 @@
       <file leaf-file-name="hromadske.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/parsers/hromadske.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="259">
-              <caret line="85" column="86" lean-forward="false" selection-start-line="85" selection-start-column="77" selection-end-line="85" selection-end-column="86" />
+            <state relative-caret-position="495">
+              <caret line="83" column="34" lean-forward="true" selection-start-line="85" selection-start-column="77" selection-end-line="85" selection-end-column="86" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="bot.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="fivechannelua.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/parsers/fivechannelua.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="264">
+              <caret line="78" column="0" lean-forward="true" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#29#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="bot.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/bot.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="235">
-              <caret line="1571" column="39" lean-forward="true" selection-start-line="1571" selection-start-column="39" selection-end-line="1571" selection-end-column="39" />
+            <state relative-caret-position="314">
+              <caret line="883" column="26" lean-forward="false" selection-start-line="883" selection-start-column="26" selection-end-line="883" selection-end-column="26" />
               <folding>
                 <element signature="e#18#29#0" expanded="true" />
               </folding>
@@ -125,11 +76,67 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Procfile" pinned="false" current-in-tab="true">
+      <file leaf-file-name="bot_add.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bot_add.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="166">
+              <caret line="71" column="9" lean-forward="false" selection-start-line="71" selection-start-column="9" selection-end-line="71" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="bzberlin.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/parsers/bzberlin.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="207">
+              <caret line="74" column="25" lean-forward="false" selection-start-line="74" selection-start-column="25" selection-end-line="74" selection-end-column="25" />
+              <folding>
+                <element signature="e#0#29#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="unian.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/parsers/unian.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="159">
+              <caret line="73" column="25" lean-forward="false" selection-start-line="73" selection-start-column="25" selection-end-line="73" selection-end-column="25" />
+              <folding>
+                <element signature="e#0#29#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ninetofivemac.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/parsers/ninetofivemac.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="249">
+              <caret line="81" column="0" lean-forward="true" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="timesend.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/timesend.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1905">
+              <caret line="127" column="0" lean-forward="true" selection-start-line="127" selection-start-column="0" selection-end-line="127" selection-end-column="0" />
+              <folding>
+                <element signature="e#23#32#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Procfile" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Procfile">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="19" lean-forward="false" selection-start-line="0" selection-start-column="14" selection-end-line="0" selection-end-column="19" />
+            <state relative-caret-position="30">
+              <caret line="2" column="0" lean-forward="true" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -165,7 +172,6 @@
       <list>
         <option value="$PROJECT_DIR$/еуіе.py" />
         <option value="$PROJECT_DIR$/requirements.txt" />
-        <option value="$PROJECT_DIR$/bot_add.py" />
         <option value="$PROJECT_DIR$/stopwords.txt" />
         <option value="$PROJECT_DIR$/parsers/parsetool.py" />
         <option value="$PROJECT_DIR$/parsers/stopwords_de.txt" />
@@ -182,8 +188,6 @@
         <option value="$PROJECT_DIR$/parsers/wylsacom.py" />
         <option value="$PROJECT_DIR$/parsers/pravda.py" />
         <option value="$PROJECT_DIR$/timesend.py" />
-        <option value="$PROJECT_DIR$/bot.py" />
-        <option value="$PROJECT_DIR$/parsers/ninetofivemac.py" />
         <option value="$PROJECT_DIR$/parsers/lviv.py" />
         <option value="$PROJECT_DIR$/parsers/hromadske.py" />
         <option value="$PROJECT_DIR$/parsers/ain.py" />
@@ -197,8 +201,14 @@
         <option value="$PROJECT_DIR$/parsers/korrespondent.py" />
         <option value="$PROJECT_DIR$/parsers/nytimes.py" />
         <option value="$PROJECT_DIR$/parsers/onehundredtwelve.py" />
-        <option value="$PROJECT_DIR$/parse.py" />
         <option value="$PROJECT_DIR$/Procfile" />
+        <option value="$PROJECT_DIR$/parse.py" />
+        <option value="$PROJECT_DIR$/parsers/unian.py" />
+        <option value="$PROJECT_DIR$/parsers/bzberlin.py" />
+        <option value="$PROJECT_DIR$/parsers/fivechannelua.py" />
+        <option value="$PROJECT_DIR$/parsers/ninetofivemac.py" />
+        <option value="$PROJECT_DIR$/bot_add.py" />
+        <option value="$PROJECT_DIR$/bot.py" />
       </list>
     </option>
   </component>
@@ -259,27 +269,26 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.timesend">
-    <configuration name="korrespondent" type="PythonConfigurationType" factoryName="Python" temporary="true">
+  <component name="RunManager" selected="Python.bot">
+    <configuration name="bot" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/parsers" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="newskitbot" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/parsers/korrespondent.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/bot.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <configuration name="lviv" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="bzberlin" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -291,7 +300,43 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="newskitbot" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/parsers/lviv.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/parsers/bzberlin.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <configuration name="fivechannelua" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/parsers" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="newskitbot" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/parsers/fivechannelua.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <configuration name="hromadske" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/parsers" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="newskitbot" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/parsers/hromadske.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -315,57 +360,20 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <configuration name="parse" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="newskitbot" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/parse.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
-    <configuration name="timesend" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="newskitbot" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/timesend.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="Python.parse" />
-      <item index="1" class="java.lang.String" itemvalue="Python.korrespondent" />
-      <item index="2" class="java.lang.String" itemvalue="Python.lviv" />
-      <item index="3" class="java.lang.String" itemvalue="Python.ninetofivemac" />
-      <item index="4" class="java.lang.String" itemvalue="Python.timesend" />
+      <item index="0" class="java.lang.String" itemvalue="Python.bzberlin" />
+      <item index="1" class="java.lang.String" itemvalue="Python.fivechannelua" />
+      <item index="2" class="java.lang.String" itemvalue="Python.ninetofivemac" />
+      <item index="3" class="java.lang.String" itemvalue="Python.hromadske" />
+      <item index="4" class="java.lang.String" itemvalue="Python.bot" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.timesend" />
-        <item index="1" class="java.lang.String" itemvalue="Python.parse" />
-        <item index="2" class="java.lang.String" itemvalue="Python.lviv" />
-        <item index="3" class="java.lang.String" itemvalue="Python.ninetofivemac" />
-        <item index="4" class="java.lang.String" itemvalue="Python.korrespondent" />
+        <item index="0" class="java.lang.String" itemvalue="Python.bot" />
+        <item index="1" class="java.lang.String" itemvalue="Python.hromadske" />
+        <item index="2" class="java.lang.String" itemvalue="Python.ninetofivemac" />
+        <item index="3" class="java.lang.String" itemvalue="Python.fivechannelua" />
+        <item index="4" class="java.lang.String" itemvalue="Python.bzberlin" />
       </list>
     </recent_temporary>
   </component>
@@ -407,7 +415,7 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2494043" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32849604" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2757256" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3997195" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -431,27 +439,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/parsers/wylsacom.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="825">
-          <caret line="55" column="62" lean-forward="false" selection-start-line="55" selection-start-column="62" selection-end-line="55" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/parsers/spiegelDeutsch.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1065">
-          <caret line="77" column="34" lean-forward="false" selection-start-line="77" selection-start-column="34" selection-end-line="77" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/parsers/pravda.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="34" column="34" lean-forward="false" selection-start-line="34" selection-start-column="34" selection-end-line="34" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/parsers/korrespondent.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="720">
@@ -527,13 +514,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4485">
           <caret line="301" column="19" lean-forward="false" selection-start-line="301" selection-start-column="0" selection-end-line="301" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bot_add.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="41" lean-forward="false" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="41" />
         </state>
       </provider>
     </entry>
@@ -642,14 +622,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/parsers/hromadske.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="259">
-          <caret line="85" column="86" lean-forward="false" selection-start-line="85" selection-start-column="77" selection-end-line="85" selection-end-column="86" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/parsers/bbc.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="174">
@@ -678,14 +650,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
           <caret line="87" column="113" lean-forward="false" selection-start-line="87" selection-start-column="113" selection-end-line="87" selection-end-column="113" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/parsers/ninetofivemac.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="77" column="43" lean-forward="true" selection-start-line="77" selection-start-column="43" selection-end-line="77" selection-end-column="43" />
           <folding />
         </state>
       </provider>
@@ -722,16 +686,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/timesend.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1755">
-          <caret line="127" column="0" lean-forward="true" selection-start-line="127" selection-start-column="0" selection-end-line="127" selection-end-column="0" />
-          <folding>
-            <element signature="e#23#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/apscheduler/schedulers/base.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1231">
@@ -748,31 +702,93 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/parse.py">
+    <entry file="file://$PROJECT_DIR$/Procfile">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="428" column="21" lean-forward="false" selection-start-line="428" selection-start-column="21" selection-end-line="428" selection-end-column="21" />
+        <state relative-caret-position="30">
+          <caret line="2" column="0" lean-forward="true" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/timesend.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1905">
+          <caret line="127" column="0" lean-forward="true" selection-start-line="127" selection-start-column="0" selection-end-line="127" selection-end-column="0" />
           <folding>
             <element signature="e#23#32#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bot.py">
+    <entry file="file://$PROJECT_DIR$/parsers/unian.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="235">
-          <caret line="1571" column="39" lean-forward="true" selection-start-line="1571" selection-start-column="39" selection-end-line="1571" selection-end-column="39" />
+        <state relative-caret-position="159">
+          <caret line="73" column="25" lean-forward="false" selection-start-line="73" selection-start-column="25" selection-end-line="73" selection-end-column="25" />
           <folding>
-            <element signature="e#18#29#0" expanded="true" />
+            <element signature="e#0#29#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Procfile">
+    <entry file="file://$PROJECT_DIR$/parsers/bzberlin.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="19" lean-forward="false" selection-start-line="0" selection-start-column="14" selection-end-line="0" selection-end-column="19" />
+        <state relative-caret-position="207">
+          <caret line="74" column="25" lean-forward="false" selection-start-line="74" selection-start-column="25" selection-end-line="74" selection-end-column="25" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/parsers/ninetofivemac.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="249">
+          <caret line="81" column="0" lean-forward="true" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/parsers/hromadske.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="495">
+          <caret line="83" column="34" lean-forward="true" selection-start-line="85" selection-start-column="77" selection-end-line="85" selection-end-column="86" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/parsers/fivechannelua.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="78" column="0" lean-forward="true" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/parse.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3927">
+          <caret line="29" column="34" lean-forward="false" selection-start-line="29" selection-start-column="34" selection-end-line="29" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bot_add.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="166">
+          <caret line="71" column="9" lean-forward="false" selection-start-line="71" selection-start-column="9" selection-end-line="71" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bot.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="314">
+          <caret line="883" column="26" lean-forward="false" selection-start-line="883" selection-start-column="26" selection-end-line="883" selection-end-column="26" />
+          <folding>
+            <element signature="e#18#29#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

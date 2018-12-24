@@ -25,6 +25,10 @@ from parsers.techradar import techradar
 from parsers.androidpolice import androidpolice
 from parsers.ninetofivemac import ninetofivemac
 from parsers.lviv import lviv
+from parsers.bzberlin import bzberlin
+from parsers.unian import unian
+from parsers.fivechannelua import fivechannelua
+
 
 
 
@@ -184,6 +188,27 @@ def parse(media, web_name):
         except:
             requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! lviv1256'))
             requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! lviv1256'))
+            return None
+    elif media == 21:
+        try:
+            parsed_content = bzberlin()
+        except:
+            requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! BZberlin'))
+            requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! BZberlin'))
+            return None
+    elif media == 22:
+        try:
+            parsed_content = unian()
+        except:
+            requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! Unian'))
+            requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! Unian'))
+            return None
+    elif media == 23:
+        try:
+            parsed_content = fivechannelua()
+        except:
+            requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! 5 channel ua'))
+            requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! 5 channel ua'))
             return None
     else:
         return None

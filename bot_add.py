@@ -74,14 +74,33 @@ def convert_time(list):
     for time in list:
         try:
             hour = int(time[:2])
-            if int(hour) < 22:
-                hour = int(hour) + 3
-            elif int(hour) == 22:
-                hour = 1
+            if int(hour) < 23:
+                hour = int(hour) + 2
             elif int(hour) == 23:
-                hour = 2
+                hour = 1
             elif int(hour) == 24:
-                hour = 3
+                hour = 2
+
+            if int(hour) < 10:
+                hour = '0' + str(hour)
+
+            new_list.append(str(hour) + time[2:])
+        except:
+            continue
+
+    return new_list
+
+def convert_back_time(list):
+    new_list=[]
+    for time in list:
+        try:
+            hour = int(time[:2])
+            if int(hour) > 2:
+                hour = int(hour) - 2
+            elif int(hour) == 2:
+                hour = 24
+            elif int(hour) == 1:
+                hour = 23
 
             if int(hour) < 10:
                 hour = '0' + str(hour)

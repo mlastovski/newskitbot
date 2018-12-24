@@ -1,4 +1,3 @@
-# coding: utf-8
 from bs4 import BeautifulSoup
 import requests
 import lxml
@@ -8,23 +7,25 @@ from parsers.parse_tool import extract_keywords
 debug = False
 test = True
 
-
-def ninetofivemac():
+def unian():
     # print('success')
     # getting data
-    data = requests.get("https://9to5mac.com/", headers={
+    data = requests.get("https://www.unian.net/detail/main_news", headers={
         "user-agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Mobile Safari/537.36"}).text
     # print(data)
     soup = BeautifulSoup(data, "lxml")
     articles = []
 
-    for title in soup.find('div', {'id': 'content'}).find_all('article'):
-        # print('success')
+    for title in soup.find('div', {'class': 'publications-archive'}).find_all('div'):
         try:
-            title_text = title.find('div', {'class': 'elastic-container'}).find('h1').find('a').get_text()
+            # print('success')
+            title_text = title.find('a').get_text()
+            title_text = re.sub('\n', '', title_text)
+            title_text = re.sub('\t', '', title_text)
             # print(title_text)
-            link = title.find('div', {'class': 'elastic-container'}).find('h1').find('a').get('href')
+            link = title.find('a').get('href')
             # print(link)
+
             try:
                 structure = requests.get(link, headers={
                     "user-agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Mobile Safari/537.36"}).text
@@ -49,7 +50,7 @@ def ninetofivemac():
                 except UnicodeEncodeError:
                     print("FIGNYA")
 
-            final_text = extract_keywords(final_words, 'en')
+            final_text = extract_keywords(final_words, 'ru')
             # print(final_text)
 
             author = ''
@@ -66,24 +67,22 @@ def ninetofivemac():
                 print(article)
                 articles.append(article)
 
-
-
         except AttributeError:
             print('AttributeError')
 
     articles = [i for n, i in enumerate(articles) if i not in articles[n + 1:]] #remove repeating
-    if len(articles) < 4:
+    if len(articles) < 20:
         try:
             from bot import TOKEN2
-            requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN2, 'Проблема з парсингом 9to5Mac'))
-            requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=373407132&text={}'.format(TOKEN2, 'Проблема з парсингом 9to5Mac'))
+            requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN2, 'Проблема з парсингом Unian'))
+            requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=373407132&text={}'.format(TOKEN2, 'Проблема з парсингом Unian'))
         except ImportError:
             print("Import error (token), can't send message to bot")
 
-    print(len(articles),articles)
+    print(len(articles), articles)
 
     return articles
 
 
 if __name__ == '__main__':
-    ninetofivemac()
+    unian()

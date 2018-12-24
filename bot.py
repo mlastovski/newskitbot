@@ -8,7 +8,7 @@ import psycopg2
 import os
 import telepot
 from telepot.namedtuple import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, InlineKeyboardButton, ReplyKeyboardRemove
-from bot_add import add_keywords, delete_keywords, convert_time
+from bot_add import add_keywords, delete_keywords, convert_time, convert_back_time
 from parse import send
 from timesend import addnewsheduler
 from timezonefinder import TimezoneFinder
@@ -856,6 +856,7 @@ def echo_all(updates):
             if text in times:
                 times.remove(text)
 
+
             print(times)
             i=0
             markup=[]
@@ -879,7 +880,7 @@ def echo_all(updates):
             else:
                 send_inline_keyboard(markup, chat, 'Ось години, коли ти отримуєш новини. Клікни, щоб видалити час. Команда /newstime щоб додати')
 
-
+            times = convert_back_time(times)
             times = ', '.join(times)
 
             curs.execute("UPDATE users SET parse_mode = '{}' WHERE telegram_id='{}'".format(times, id))
@@ -1116,32 +1117,50 @@ def echo_all(updates):
             send_inline_keyboard([['Більше про мої можливості', '/help'], ['Отримати останні новини!', '/getlastnews']], chat, 'Ура! Відтепер ми з тобою найкращі друзі! Я тобі надсилатиму новини за всіма критеріями, які ти мені вказав ☺️☺️☺️')
         elif action == 'chooseall':
             if text[0] != '':
-                curs.execute("SELECT keywords FROM user2website WHERE website ='{}' and user_id ='{}'".format(text[0], id))
+                print('here', text[0])
+                curs.execute("SELECT id FROM websites WHERE lower(name) ='{}'".format(text[0]))
+                idiha = curs.fetchone()[0]
+                print(idiha)
+                curs.execute("SELECT keywords FROM user2website WHERE website ='{}' and user_id ='{}'".format(idiha, id))
                 try:
                     keywords = curs.fetchone()[0]
                 except TypeError:
                     return
+                print('keywords',keywords)
                 if keywords  == '':
-                    curs.execute("UPDATE user2website SET keywords='*' WHERE website ='{}' and user_id ='{}'".format(text[0], id))
+                    curs.execute("UPDATE user2website SET keywords='*' WHERE website ='{}' and user_id ='{}'".format(idiha, id))
                 else:
-                    curs.execute("UPDATE user2website SET keywords='' WHERE website ='{}' and user_id ='{}'".format(text[0], id))
+                    curs.execute("UPDATE user2website SET keywords='' WHERE website ='{}' and user_id ='{}'".format(idiha, id))
                 conn.commit()
 
                 curs.execute("SELECT website FROM user2website WHERE keywords ='*' and user_id ='{}'".format(id))
                 websites = []
                 for i in curs.fetchall():
-                    websites.append(i[0])
+                    curs.execute("SELECT name FROM websites WHERE id ='{}'".format(i[0]))
+                    websites.append(curs.fetchone()[0])
                 print(websites)
 
-                curs.execute("SELECT name FROM websites")
-                markup=[]
-                for website in curs.fetchall():
-                    if website[0] in websites:
-                        markup.append(['▶️' + website[0] + '◀️', '/chooseall ' + website[0]])
-                    else:
-                        markup.append([website[0], '/chooseall ' + website[0]])
+                curs.execute("SELECT website FROM user2website WHERE user_id ='{}'".format(id))
+                user_web = []
+                for i in curs.fetchall():
+                    curs.execute("SELECT name FROM websites WHERE id ='{}'".format(i[0]))
+                    user_web.append(curs.fetchone()[0])
+                print(user_web)
 
+                markup=[]
+                i=1
+                for website in user_web:
+                    if website in websites:
+                        markup.append(['▶️' + website + '◀️', '/chooseall ' + website])
+                    else:
+                        markup.append([website, '/chooseall ' + website])
+
+                    if i%2==0:
+                        markup[-1].append('continue')
+                    i+=1
+                print(id, mess_id, markup)
                 reply_markup = get_reply_markup(markup)
+                #TelegramBot.editMessageText(msg_identifier=(id, mess_id), text='Якщо хочеш почати/перестати отримувати ВСІ свіжі статті з певного новинного веб-сайту, то обери його нижче️ ⬇️⬇️⬇️', reply_markup=reply_markup)
 
                 if mess_id:
                     try:
@@ -1150,20 +1169,34 @@ def echo_all(updates):
                         send_inline_keyboard(markup, chat, 'Якщо хочеш почати/перестати отримувати ВСІ свіжі статті з певного новинного веб-сайту, то обери його нижче️ ⬇️⬇️⬇️')
                 else:
                     send_inline_keyboard(markup, chat, 'Якщо хочеш почати/перестати отримувати ВСІ свіжі статті з певного новинного веб-сайту, то обери його нижче️ ⬇️⬇️⬇️')
+                print('finished!')
             else:
+                print('here2', text[0])
                 curs.execute("SELECT website FROM user2website WHERE keywords ='*' and user_id ='{}'".format(id))
                 websites = []
                 for i in curs.fetchall():
-                    websites.append(i[0])
+                    curs.execute("SELECT name FROM websites WHERE id ='{}'".format(i[0]))
+                    websites.append(curs.fetchone()[0])
                 print(websites)
 
-                curs.execute("SELECT name FROM websites")
+                curs.execute("SELECT website FROM user2website WHERE user_id ='{}'".format(id))
+                user_web = []
+                for i in curs.fetchall():
+                    curs.execute("SELECT name FROM websites WHERE id ='{}'".format(i[0]))
+                    user_web.append(curs.fetchone()[0])
+                print(user_web)
+
                 markup=[]
-                for website in curs.fetchall():
-                    if website[0] in websites:
-                        markup.append(['▶️' + website[0] + '◀️', '/chooseall ' + website[0]])
+                i=1
+                for website in user_web:
+                    if website in websites:
+                        markup.append(['▶️' + website + '◀️', '/chooseall ' + website])
                     else:
-                        markup.append([website[0], '/chooseall ' + website[0]])
+                        markup.append([website, '/chooseall ' + website])
+
+                    if i%2==0:
+                        markup[-1].append('continue')
+                    i+=1
 
                 send_inline_keyboard(markup, chat, 'Якщо хочеш почати/перестати отримувати ВСІ свіжі статті з певного новинного веб-сайту, то обери його нижче️ ⬇️⬇️⬇️')
         elif action == 'getlastnews':
