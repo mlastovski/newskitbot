@@ -72,7 +72,7 @@ def ninetofivemac():
             print('AttributeError')
 
     articles = [i for n, i in enumerate(articles) if i not in articles[n + 1:]] #remove repeating
-    if len(articles) < 4:
+    if len(articles) < 3:
         try:
             from bot import TOKEN2
             requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN2, 'Проблема з парсингом 9to5Mac'))

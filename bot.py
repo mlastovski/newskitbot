@@ -1113,8 +1113,7 @@ def echo_all(updates):
                 send_inline_keyboard(markup, chat, 'Коли ти хочеш отримувати новини?')
 
         elif action == 'endtour':
-
-            send_inline_keyboard([['Більше про мої можливості', '/help'], ['Отримати останні новини!', '/getlastnews']], chat, 'Ура! Відтепер ми з тобою найкращі друзі! Я тобі надсилатиму новини за всіма критеріями, які ти мені вказав ☺️☺️☺️')
+            send_inline_keyboard([['Більше про мої можливості', '/help'], ['Отримати останні новини!', '/getlastnews']], chat, 'Вітаю! Ти налаштував свого найкращого новинного асистента! Я надсилатиму тобі новини за всіма критеріями, які ти мені вказав 😉✌️️')
         elif action == 'chooseall':
             if text[0] != '':
                 print('here', text[0])
@@ -1335,33 +1334,34 @@ def echo_all(updates):
                     curs.execute("SELECT command FROM users WHERE telegram_id='{}'".format(id))
                     command = curs.fetchone()[0]
                     print('comm', command, text)
-                    admin_command = text[0]
-                    print(admin_command)
-
-                    if text[0].split()[1] == 'yes':
-                        print('yes')
-                        curs.execute("SELECT value FROM static WHERE id='4'")
-
-                        text[0] = curs.fetchone()[0]
-                        if not text[0]:
-                            return
-                        send_status = True
-
-                        command = '/admin'
-
-                        curs.execute("UPDATE static SET value='' WHERE id='4'")
-                        conn.commit()
-                    elif text[0].split()[1] == 'no':
-                        print('no')
-                        send_message('Надсилання скасовано!', chat)
-
-                        curs.execute("UPDATE static SET value='' WHERE id='4'")
-                        conn.commit()
-                        return
-                    else:
-                        send_status = False
 
                     if command:
+                        admin_command = text[0]
+                        print(admin_command)
+
+                        if text[0].split()[1] == 'yes':
+                            print('yes')
+                            curs.execute("SELECT value FROM static WHERE id='4'")
+
+                            text[0] = curs.fetchone()[0]
+                            if not text[0]:
+                                return
+                            send_status = True
+
+                            command = '/admin'
+
+                            curs.execute("UPDATE static SET value='' WHERE id='4'")
+                            conn.commit()
+                        elif text[0].split()[1] == 'no':
+                            print('no')
+                            send_message('Надсилання скасовано!', chat)
+
+                            curs.execute("UPDATE static SET value='' WHERE id='4'")
+                            conn.commit()
+                            return
+                        else:
+                            send_status = False
+
                         text = text[0].split()
                         admin_action = text[0]
                         print('admin_action', admin_action, admin_command)
@@ -1391,35 +1391,40 @@ def echo_all(updates):
                                 send_message('Повідомлення успішно надіслано!', chat)
 
                         elif admin_action == 'keyboard':
-                            buttons = text[1].split(' / ')
-                            touser_text = buttons[0] # header text for keyboard
-                            del buttons[:1]
-                            print(buttons)
+                            try:
+                                buttons = text[1].split(' / ')
+                                touser_text = buttons[0] # header text for keyboard
+                                del buttons[:1]
+                                print(buttons)
 
-                            markup = []
-                            for single_button_info in buttons:
-                                single_button_info = single_button_info.split(', ')
-                                markup.append(single_button_info)
+                                markup = []
+                                for single_button_info in buttons:
+                                    single_button_info = single_button_info.split(', ')
+                                    markup.append(single_button_info)
 
-                            if send_status == False:
-                                curs.execute("SELECT * FROM users WHERE telegram_id = '{}'".format(text[0]))
-                                user = curs.fetchone()
-                                if user:
-                                    send_message('Передогляд твого повідомлення до користувача ' + user[2] + ' ' + user[9] + ' (' + user[10] + '):', chat)
-                                    send_inline_keyboard(markup, id, touser_text)
-                                    send_inline_keyboard([['Так!', '/admin yes'], ['Ні!', '/admin no', 'continue']], chat, 'Надіслати?')
-                                    curs.execute("UPDATE static SET value='{}' WHERE id='4'".format(admin_command))
-                                    conn.commit()
-                                else:
-                                    send_message('Користувача з айді ' + text[0] + ' не існує. Спробуй ще раз!', chat)
-                            if send_status == True:
-                                send_inline_keyboard(markup, user_to_send_id, touser_text)
-                                send_message('Повідомлення успішно надіслано!', chat)
-
+                                if send_status == False:
+                                    curs.execute("SELECT * FROM users WHERE telegram_id = '{}'".format(text[0]))
+                                    user = curs.fetchone()
+                                    if user:
+                                        send_message('Передогляд твого повідомлення до користувача ' + user[2] + ' ' + user[9] + ' (' + user[10] + '):', chat)
+                                        send_inline_keyboard(markup, id, touser_text)
+                                        send_inline_keyboard([['Так!', '/admin yes'], ['Ні!', '/admin no', 'continue']], chat, 'Надіслати?')
+                                        curs.execute("UPDATE static SET value='{}' WHERE id='4'".format(admin_command))
+                                        conn.commit()
+                                    else:
+                                        send_message('Користувача з айді ' + text[0] + ' не існує. Спробуй ще раз!', chat)
+                                if send_status == True:
+                                    send_inline_keyboard(markup, user_to_send_id, touser_text)
+                                    send_message('Повідомлення успішно надіслано!', chat)
+                            except:
+                                send_message('Помилка!\nДля надсилання клавіатури юзеру має бути такий синтаксис запиту:\nkeyboard 1234567 header text / btn1, callback1 / btn2, callback2, continue / btn3, callback3 / btn4, callback4, continue', chat)
 
                         elif admin_action == 'search':
-                            category = admin_command.split(':')[0].split()[1]
-                            value = admin_command.split(':')[1]
+                            try:
+                                category = admin_command.split(':')[0].split()[1]
+                                value = admin_command.split(':')[1]
+                            except:
+                                send_message('Помилка!\nДля пошуку використовуй такий синтаксис:\nПошук юзера: search user:search_word_or_id\nПошук підписників сайту: search web:website_name\nПошук отримувачів новин у певній годині: search time:time_request -- ще не працює', chat)
 
                             if category == 'user':
                                 if value.isnumeric():
@@ -1508,10 +1513,8 @@ def echo_all(updates):
                         conn.commit()
                         send_message('Доступ дозволено! Що мені зробити? \n/cancel, щоб скасувати', id)
                 except Exception as e:
-                    send_message('Поганий синтаксис запиту!', chat)
+                    send_message('В адмін-панелі такої команди не інсує або у тебе поганий синтаксис запиту! Спробуй ще раз або /cancel щоб повернутися до бота', chat)
                     print('Error: ' + str(e))
-                    requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'ERROR!!! ' + str(e)))
-                    requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=373407132&text={}'.format(TOKEN, 'ERROR!!! ' + str(e)))
                     return
             else:
                 send_message('Для цієї команди необхідно мати вищий пропуск! Ти його, на жаль, не маєш(( Проте не засмучуйся)) Напиши /getlastnews і я потішу тебе останніми новинами!', chat)
