@@ -1501,6 +1501,18 @@ def echo_all(updates):
                                 websites = websites + curs.fetchone()[0] + ', '
 
                             send_message(str(user) + '\n\nWebsites: ' + websites, chat)
+                        elif admin_action == 'allusers':
+                            curs.execute("SELECT * FROM users WHERE".format())
+                            users = curs.fetchall()
+                            send_message('Надсилається в SpamBot-і ' + websites, chat)
+                            for person in users:
+                                curs.execute("SELECT website FROM user2website WHERE user_id='{}'".format(person[1]))
+                                websites = ''
+                                for i in curs.fetchall():
+                                    curs.execute("SELECT name FROM websites WHERE id='{}'".format(i[0]))
+                                    websites = websites + curs.fetchone()[0] + ', '
+                                requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id={}&text={}'.format(chat, str(person) + '\n\nWebsites: ' + websites))
+                            send_message('Запит виконано!' + websites, chat)
                         else:
                             send_message('Такої команди в адмін-панелі не існує(( Спробуй ще раз. Або /cancel щоб вийти', chat)
                             onemoretime=True
