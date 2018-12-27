@@ -5,24 +5,37 @@ from datetime import datetime
 import re
 from parsers.parse_tool import extract_keywords
 
-def hromadske():
-    # print('success')
-    # getting data
-    data = requests.get("https://hromadske.ua/news", headers={
+
+def zahidnet():
+    data = requests.get("https://zaxid.net/news/", headers={
         "user-agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Mobile Safari/537.36"}).text
     # print(data)
     soup = BeautifulSoup(data, "lxml")
     articles = []
 
-    for title in soup.find('div', {'class': 'wrapper'}).find_all('div', {'class': 'item-wrapper'}):
+    for title in soup.find('div', {'class': 'news-list'}).find('ul', {'class': 'list'}).find_all('li', {'class': 'default-news-list'}):
         try:
-            # print('success')
-            title_text = title.find('a').find('div', {'class': 'title'}).get_text()
+            title_text1 = title.find('a').find('div', {'class': 'news-title'}).get_text()
+            title_text1 = re.sub('\n', ' ', title_text1)
+            title_text1 = title_text1.split(' ')
+            title_text = []
+            for i in title_text1:
+                if i != '':
+                    title_text.append(i)
+            title_text = ' '.join(title_text)
+            from bot import replace
+            title_text = replace(title_text, [(',', ' і '), (':', ''), (";", ''), ('!', ''), ("'", ''), ("[", ''), ("]", ''),
+                                          ("{", ''), ("}", ''), ("_", ''), ("=", ''), ("+", ''), ("|", ''),
+                                          ("(", ''), (")", ''), ("*", ''), ('  ', ''), (' " ', ';'), (' та ', ';'), (';;', ';')])
             #print(title_text)
             link = title.find('a').get('href')
+
             if not link.startswith('https://'):
-                link = 'https://hromadske.ua' + link
-            #print(link)
+                link = 'https://zaxid.net/' + link
+
+            response = requests.get(link)
+            if response.url.startswith('https://football24.ua') or response.url.startswith('https://auto.24tv.ua'):
+                continue
 
             try:
                 structure = requests.get(link, headers={
@@ -37,7 +50,7 @@ def hromadske():
             final_words = []
 
             try:
-                for eachpage in eachpagesoup.find('div', {'class': 'body-container'}).find_all('p'):
+                for eachpage in eachpagesoup.find('div', {'id': 'newsSummary'}).find_all('p'):
                     try:
                         article_text = eachpage.get_text()
                         #print(article_text)
@@ -53,7 +66,7 @@ def hromadske():
                         print("FIGNYA")
 
                 final_text = extract_keywords(final_words, 'ua')
-                # print(final_text)
+                #print(final_text)
 
                 author = ''
                 date = ''
@@ -70,7 +83,7 @@ def hromadske():
                     articles.append(article)
 
             except AttributeError:
-                print('AttributeError')
+                print('no p found')
 
         except AttributeError:
             print('AttributeError')
@@ -90,4 +103,4 @@ def hromadske():
 
 
 if __name__ == '__main__':
-    hromadske()
+    zahidnet()

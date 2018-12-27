@@ -202,7 +202,7 @@ def define(text, id):
 
 def replace(var, list_from_to):
     for str_from, str_to in list_from_to:
-        print('replace', str_from, str_to)
+        #print('replace', str_from, str_to)
         if isinstance(var, str):
             var = var.replace(str_from, str_to)
         elif isinstance(var, list):
@@ -211,7 +211,7 @@ def replace(var, list_from_to):
                 word = word.replace(str_from, str_to)
                 list_new.append(word)
             var = list_new
-        print('var', var)
+        #print('var', var)
 
     return var
 
@@ -663,8 +663,17 @@ def echo_all(updates):
 
             send_inline_keyboard(markup, chat, 'Обери цікаві тобі веб-сайти! З них тобі будуть надсилатися персоналізовані новини 😉')
         elif action == 'chosenwebsite':
-            curs.execute("SELECT name FROM websites")
-            all_web = curs.fetchall()
+            curs.execute("SELECT news_language FROM users WHERE telegram_id ='{}'".format(id))
+            chosen_languages= curs.fetchone()[0].split(', ')
+
+            curs.execute("SELECT * FROM websites" )
+            fetchall = curs.fetchall()
+            all_web=[]
+            print(fetchall)
+            for website in fetchall:
+                if website[3] in chosen_languages:
+                    all_web.append([website[2]])
+            print('websites', all_web)
             if text[0] == 'everything':
                 print(True)
                 web_variable = all_web
@@ -698,7 +707,7 @@ def echo_all(updates):
                 for website in curs.fetchall():
                     curs.execute("SELECT name FROM websites WHERE id ='{}'".format(website[0]))
                     chosen_websites.append(curs.fetchone()[0].lower())
-                print(websites, chosen_websites)
+                print(websites, chosen_websites, text, text[0])
 
                 #filtring from empties
                 if ' ' in chosen_websites:
@@ -805,6 +814,9 @@ def echo_all(updates):
 
             send_inline_keyboard(markup, chat, 'Коли ти хочеш отримувати новини?\nТвій часовий пояс: GMT '+ user[16]+', '+user[17])
         elif action == 'timemanage':
+            curs.execute("SELECT * FROM users WHERE telegram_id ='{}'".format(id))
+            parse_mode = curs.fetchone()[0]
+
             curs.execute("SELECT parse_mode FROM users WHERE telegram_id ='{}'".format(id))
             parse_mode = curs.fetchone()[0]
 
@@ -1490,6 +1502,52 @@ def echo_all(updates):
                                     get_json_from_url('https://api.telegram.org/bot{}/sendMessage?chat_id={}&text={}'.format(TOKEN, i[0], send_text), i[0])
                                 send_message('Повідомлення успішно розіслано всім користувачам!', chat)
 
+                        elif admin_action == 'add':
+                            text.pop(0)
+                            request = ' '.join(text)
+                            print(request)
+
+                            curs.execute("SELECT value FROM static WHERE id = 5")
+                            additional_info = curs.fetchone()[0]
+
+                            curs.execute("SELECT id, name, last_name, username FROM users WHERE additional_received ='true'")
+                            additional_received = curs.fetchall()
+
+                            if request == 'track':
+                                send_message(str(len(additional_received))+ ' юзерів побачили це повідомлення:\n'+additional_info, chat)
+                                return
+
+                            if additional_info:
+                                print(True)
+                                if send_status == False:
+                                    send_message('Потрібно замінити це повідомлення:\n'+additional_info+'\nЙого побачило '+str(len(additional_received))+' людей. Натомість таке повідомлення прийде всім користувачам під час їхньої розсилки: ', chat)
+                                    get_json_from_url('https://api.telegram.org/bot{}/sendMessage?chat_id={}&text={}'.format(TOKEN, id, request), id)
+                                    send_inline_keyboard([['Так!', '/admin yes'], ['Ні!', '/admin no', 'continue']], chat, 'ОК?')
+                                    curs.execute("UPDATE static SET value='{}' WHERE id='4'".format(admin_command))
+                                    conn.commit()
+                                if send_status == True:
+                                    curs.execute("UPDATE static SET value ='{}' WHERE id='5'".format(request))
+                                    conn.commit()
+                                    curs.execute("UPDATE users SET additional_received ='false'")
+                                    conn.commit()
+                                    send_message('Оновлено!', chat)
+                            else:
+                                print(False)
+                                if send_status == False:
+                                    send_message('Таке повідомлення прийде всім користувачам під час їхньої розсилки: ', chat)
+                                    get_json_from_url('https://api.telegram.org/bot{}/sendMessage?chat_id={}&text={}'.format(TOKEN, id, request), id)
+                                    send_inline_keyboard([['Так!', '/admin yes'], ['Ні!', '/admin no', 'continue']], chat, 'ОК?')
+                                    curs.execute("UPDATE static SET value='{}' WHERE id='4'".format(admin_command))
+                                    conn.commit()
+                                if send_status == True:
+                                    curs.execute("UPDATE static SET value ='{}' WHERE id='5'".format(request))
+                                    conn.commit()
+                                    curs.execute("UPDATE users SET additional_received ='false'")
+                                    conn.commit()
+                                    send_message('Оновлено!', chat)
+
+
+
                         elif admin_action == 'aboutuser':
                             curs.execute("SELECT * FROM users WHERE telegram_id = '{}'".format(text[1]))
                             user = curs.fetchone()
@@ -1502,6 +1560,7 @@ def echo_all(updates):
 
                             send_message(str(user) + '\n\nWebsites: ' + websites, chat)
                         elif admin_action == 'allusers':
+                            print('here')
                             curs.execute("SELECT * FROM users WHERE".format())
                             users = curs.fetchall()
                             send_message('Надсилається в SpamBot-і ' + websites, chat)

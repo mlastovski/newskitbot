@@ -28,7 +28,9 @@ from parsers.lviv import lviv
 from parsers.bzberlin import bzberlin
 from parsers.unian import unian
 from parsers.fivechannelua import fivechannelua
-
+from parsers.zahidnet import zahidnet
+from parsers.texterra import texterra
+from parsers.laba import laba
 
 
 
@@ -209,6 +211,27 @@ def parse(media, web_name):
         except:
             requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! 5 channel ua'))
             requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! 5 channel ua'))
+            return None
+    elif media == 24:
+        try:
+            parsed_content = zahidnet()
+        except:
+            requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! zahidnet'))
+            requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! zahidnet'))
+            return None
+    elif media == 25:
+        try:
+            parsed_content = texterra()
+        except:
+            requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! zahidnet'))
+            requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! zahidnet'))
+            return None
+    elif media == 26:
+        try:
+            parsed_content = laba()
+        except:
+            requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! zahidnet'))
+            requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! zahidnet'))
             return None
     else:
         return None
@@ -495,6 +518,7 @@ def send(users, limit=15, immediate=False):
             chat_id = user[1]
             status = user[5]
             user_keywords = user[3].split(', ')
+            user_news_lang = user[14].split(', ')
 
             if '' in user_keywords:
                 user_keywords = list(filter(lambda a: a != '', user_keywords))
@@ -513,6 +537,12 @@ def send(users, limit=15, immediate=False):
                 curs.execute("SELECT * FROM articles WHERE parse_time > '{}' and website_id='{}' ORDER BY id DESC".format(float(user[4]), web_id))
                 articles = curs.fetchall()
                 print('articles', articles, web_id)
+
+                curs.execute("SELECT * FROM websites WHERE id='{}'".format(web_id))
+                web_info = curs.fetchone()
+                web_name = web_info[2]
+
+                print(web_name, user_news_lang, web_info[3])
 
                 limit=user[13]
                 print('number of limit', limit)
@@ -533,7 +563,7 @@ def send(users, limit=15, immediate=False):
                     print('passed_keywords: ', passed_keywords)
 
 
-                    if int(status) == 0 and passed_keywords != '' and article[2] not in url_send_list:
+                    if int(status) == 0 and passed_keywords != '' and article[2] not in url_send_list and web_info[3] in user_news_lang:
                         print(True)
                         if i == 1 and user[7] != 'everyhour' or i == 1 and user[7] == 'everyhour' and now_hour == '05':
                             passed_keywords = 'Твій одноразовий ліміт новин: ' + str(limit) + '. Щоб змінити, скористайся /limit \nЧас отримання новин: '  + str(user[7]) + '. Щоб змінити, скористайся /newstime\n' + passed_keywords
@@ -544,11 +574,11 @@ def send(users, limit=15, immediate=False):
                         if_nothing=False
                         url_send_list.append(article[2])
                         time.sleep(0.8)
-                    elif int(status) == 0 and website[3] == '*' and article[2] not in url_send_list:
+                    elif int(status) == 0 and website[3] == '*' and article[2] not in url_send_list and web_info[3] in user_news_lang:
                         if i == 1 and user[7] != 'everyhour' or i == 1 and user[7] == 'everyhour' and now_hour == '05':
                             passed_keywords = 'Твій одноразовий ліміт новин: ' + str(limit) + '. Щоб змінити, скористайся /limit \nЧас отримання новин: '  + str(user[7]) + '. Щоб змінити, скористайся /newstime\n' + passed_keywords
                         print(True)
-                        get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, 'Нова стаття з ' + website[2] + '\n' + article[2]), user[1])
+                        get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, 'Нова стаття з ' + web_name + '\n' + article[2]), user[1])
                         curs.execute("UPDATE users SET send_time ='{}' WHERE telegram_id ='{}'".format(datetime.now().timestamp(), user[1]))
                         conn.commit()
                         i+=1
@@ -559,6 +589,16 @@ def send(users, limit=15, immediate=False):
                         if_nothing=False
 
             print('Новин надіслано: ', len(url_send_list), '\nСтатті: ',url_send_list)
+
+            if len(url_send_list) > 0:
+                curs.execute("SELECT value FROM static WHERE id = 5")
+                additional_info = curs.fetchone()[0]
+
+                if user[22] == 'false':
+                    get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, additional_info))
+                    curs.execute("UPDATE users SET additional_received = 'true' WHERE telegram_id = '{}'".format(chat_id))
+                    conn.commit()
+
 
             from bot import send_inline_keyboard
 
