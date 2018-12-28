@@ -28,7 +28,7 @@ from parsers.lviv import lviv
 from parsers.bzberlin import bzberlin
 from parsers.unian import unian
 from parsers.fivechannelua import fivechannelua
-from parsers.zahidnet import zahidnet
+from parsers.zaxidnet import zaxidnet
 from parsers.texterra import texterra
 from parsers.laba import laba
 
@@ -214,24 +214,24 @@ def parse(media, web_name):
             return None
     elif media == 24:
         try:
-            parsed_content = zahidnet()
+            parsed_content = zaxidnet()
         except:
-            requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! zahidnet'))
-            requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! zahidnet'))
+            requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! zaxidnet'))
+            requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! zaxidnet'))
             return None
     elif media == 25:
         try:
             parsed_content = texterra()
         except:
-            requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! zahidnet'))
-            requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! zahidnet'))
+            requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! texterra'))
+            requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! texterra'))
             return None
     elif media == 26:
         try:
             parsed_content = laba()
         except:
-            requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! zahidnet'))
-            requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! zahidnet'))
+            requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! laba'))
+            requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! laba'))
             return None
     else:
         return None
@@ -326,6 +326,12 @@ def parse(media, web_name):
 
             print('i handled an article!')
 
+            curs.execute("SELECT * FROM websites WHERE id='{}'".format(media))
+            web_info = curs.fetchone()
+            web_name = web_info[2]
+
+            print(web_name, web_info[3])
+
             curs.execute("SELECT telegram_id, status, keywords, telegram_id, parse_mode FROM users")
             users = list(curs.fetchall())
             article_keywords = article_keywords.split(', ')
@@ -334,12 +340,13 @@ def parse(media, web_name):
                     print(user)
                     chat_id = user[0]
                     status = user[1]
+                    user_news_lang = user[14].split(', ')
                     user_keywords = user[2].split(', ')
                     if '' in user_keywords:
                         user_keywords = list(filter(lambda a: a != '', user_keywords))
                     print(chat_id, status, user_keywords)
                     passed_keywords = []
-                    for word in user_keywords:
+                    for word in user_keywords or word in new_article['words'].split(', '):
                         if word in article_keywords:
                             passed_keywords.append(word)
                     print(user[3], web_name)
@@ -349,12 +356,12 @@ def parse(media, web_name):
                         passed_keywords = ', '.join(passed_keywords)
                         print('passed_keywords: ', passed_keywords)
                         print('user2website: ', user2website)
-                        if int(status) == 0 and passed_keywords != '' and user[4] == 'immediate':
+                        if int(status) == 0 and passed_keywords != '' and user[4] == 'immediate' and web_info[3] in user_news_lang:
                             print(True, chat_id)
                             get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, passed_keywords + '\n' + new_article['link']), chat_id)
                             curs.execute("UPDATE users SET send_time ='{}' WHERE telegram_id ='{}'".format(datetime.now().timestamp(), user[3]))
                             conn.commit()
-                        elif int(status) == 0 and user2website[3] == '*' and user[4] == 'immediate':
+                        elif int(status) == 0 and user2website[3] == '*' and user[4] == 'immediate' and web_info[3] in user_news_lang:
                             print(True, chat_id)
                             get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, 'Нова стаття з ' + web_name + '\n' + new_article['link']), chat_id)
                             curs.execute("UPDATE users SET send_time ='{}' WHERE telegram_id ='{}'".format(datetime.now().timestamp(), user[3]))
@@ -411,6 +418,10 @@ def parse(media, web_name):
 
             print('i handled an article!')
 
+            curs.execute("SELECT * FROM websites WHERE id='{}'".format(media))
+            web_info = curs.fetchone()
+            web_name = web_info[2]
+
             curs.execute("SELECT telegram_id, status, keywords, telegram_id, parse_mode FROM users WHERE parse_mode='immediate'")
             users = list(curs.fetchall())
             article_keywords = article_keywords.split(', ')
@@ -418,12 +429,13 @@ def parse(media, web_name):
                 for user in users:
                     chat_id = user[0]
                     status = user[1]
+                    user_news_lang = user[14].split(', ')
                     user_keywords = user[2].split(', ')
                     if '' in user_keywords:
                         user_keywords = list(filter(lambda a: a != '', user_keywords))
                     print(chat_id, status, user_keywords)
                     passed_keywords = []
-                    for word in user_keywords:
+                    for word in user_keywords or word in new_article['words'].split(', '):
                         if word in article_keywords:
                             passed_keywords.append(word)
                     print(user[3], web_name)
@@ -433,12 +445,12 @@ def parse(media, web_name):
                         passed_keywords = ', '.join(passed_keywords)
                         print('passed_keywords: ', passed_keywords)
                         print('user2website: ', user2website)
-                        if int(status) == 0 and passed_keywords != '' and user[4] == 'immediate':
+                        if int(status) == 0 and passed_keywords != '' and user[4] == 'immediate' and web_info[3] in user_news_lang:
                             print(True, chat_id)
                             get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, passed_keywords + '\n' + new_article['link']), chat_id)
                             curs.execute("UPDATE users SET send_time ='{}' WHERE telegram_id ='{}'".format(datetime.now().timestamp(), user[3]))
                             conn.commit()
-                        elif int(status) == 0 and user2website[3] == '*' and user[4] == 'immediate':
+                        elif int(status) == 0 and user2website[3] == '*' and user[4] == 'immediate' and web_info[3] in user_news_lang:
                             print(True, chat_id)
                             get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, 'Нова стаття з ' + web_name + '\n' + new_article['link']), chat_id)
                             curs.execute("UPDATE users SET send_time ='{}' WHERE telegram_id ='{}'".format(datetime.now().timestamp(), user[3]))

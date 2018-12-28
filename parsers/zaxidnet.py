@@ -6,7 +6,7 @@ import re
 from parsers.parse_tool import extract_keywords
 
 
-def zahidnet():
+def zaxidnet():
     data = requests.get("https://zaxid.net/news/", headers={
         "user-agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Mobile Safari/537.36"}).text
     # print(data)
@@ -103,4 +103,4 @@ def zahidnet():
 
 
 if __name__ == '__main__':
-    zahidnet()
+    zaxidnet()
