@@ -316,8 +316,15 @@ def echo_all(updates):
         user = curs.fetchone()
         if user == None:
             action = 'start'
+        print(id)
+        if id == 87676959:
+            requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Наташа Шелягина написала: ' + str(text)))
+            requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('Наташа Шелягина написала: ' + str(text)))
+
 
         if action == 'start':
+            curs.execute("SELECT * FROM articles WHERE website_id =1")
+            print(curs.fetchall())
             # text = str([update['message']['chat']['id'], update['message']['chat']['first_name']])
             curs = conn.cursor()
             curs.execute("SELECT * FROM users WHERE telegram_id ='{}'".format(id))

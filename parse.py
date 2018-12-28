@@ -332,7 +332,7 @@ def parse(media, web_name):
 
             print(web_name, web_info[3])
 
-            curs.execute("SELECT telegram_id, status, keywords, telegram_id, parse_mode FROM users")
+            curs.execute("SELECT telegram_id, status, keywords, telegram_id, parse_mode, news_language FROM users")
             users = list(curs.fetchall())
             article_keywords = article_keywords.split(', ')
             if not duplicate:
@@ -340,14 +340,14 @@ def parse(media, web_name):
                     print(user)
                     chat_id = user[0]
                     status = user[1]
-                    user_news_lang = user[14].split(', ')
+                    user_news_lang = user[5].split(', ')
                     user_keywords = user[2].split(', ')
                     if '' in user_keywords:
                         user_keywords = list(filter(lambda a: a != '', user_keywords))
                     print(chat_id, status, user_keywords)
                     passed_keywords = []
-                    for word in user_keywords or word in new_article['words'].split(', '):
-                        if word in article_keywords:
+                    for word in user_keywords:
+                        if word in article_keywords or word in new_article['words'].split(' '):
                             passed_keywords.append(word)
                     print(user[3], web_name)
                     curs.execute("SELECT * FROM user2website WHERE user_id ='{}' and website='{}'".format(user[3], media))
@@ -422,21 +422,21 @@ def parse(media, web_name):
             web_info = curs.fetchone()
             web_name = web_info[2]
 
-            curs.execute("SELECT telegram_id, status, keywords, telegram_id, parse_mode FROM users WHERE parse_mode='immediate'")
+            curs.execute("SELECT telegram_id, status, keywords, telegram_id, parse_mode, news_language FROM users WHERE parse_mode='immediate'")
             users = list(curs.fetchall())
             article_keywords = article_keywords.split(', ')
             if not duplicate:
                 for user in users:
                     chat_id = user[0]
                     status = user[1]
-                    user_news_lang = user[14].split(', ')
+                    user_news_lang = user[5].split(', ')
                     user_keywords = user[2].split(', ')
                     if '' in user_keywords:
                         user_keywords = list(filter(lambda a: a != '', user_keywords))
                     print(chat_id, status, user_keywords)
                     passed_keywords = []
-                    for word in user_keywords or word in new_article['words'].split(', '):
-                        if word in article_keywords:
+                    for word in user_keywords:
+                        if word in article_keywords or word in new_article['words'].split(' '):
                             passed_keywords.append(word)
                     print(user[3], web_name)
                     curs.execute("SELECT * FROM user2website WHERE user_id ='{}' and website='{}'".format(user[3], media))
