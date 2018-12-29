@@ -647,15 +647,15 @@ def extract_news_time(user_id):
         times = convert_time(times)
     else:
         if parse_mode == 'immediate':
-            times = 'Одразу'
+            times = ['Одразу']
         elif parse_mode == '9am':
-            times = '9 ранку'
+            times = ['9 ранку']
         elif parse_mode == '9pm':
-            times = '9 вечора'
+            times = ['9 вечора']
         elif parse_mode == '12am':
-            times = '12 дня'
+            times = ['12 дня']
         else:
-            times = parse_mode
+            times = [parse_mode]
 
     print('times', times)
     times = ', '.join(times)
