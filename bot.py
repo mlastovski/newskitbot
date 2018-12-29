@@ -1231,15 +1231,21 @@ def echo_all(updates):
             curs.execute("SELECT invited FROM users WHERE telegram_id ='{}'".format(id))
             invited = curs.fetchone()[0]
             print(invited, len(invited.split(', ')))
-            if invited == '':
+            curs.execute("SELECT special_offer FROM users WHERE telegram_id='{}'".format(id))
+            special_offer = curs.fetchone()[0]
+            if special_offer == 'true':
+                logic = True
+            else:
+                logic = False
+            if invited == '' and not logic:
                 send_message('Для того, щоб використовувати суперкруту функцію надсилання новин у повністю зручний ДЛЯ ТЕБЕ час (з точністю до 1 хвилини!), потрібно запросити 2 друзів до NewsKit! \n\nТи вже запросив 0 друзів\n\nПоділися з друзями посиланням нижче: \n\nhttps://t.me/newskit_bot?start=' + str(id), id)
-            elif len(invited.split(', ')) < 2:
+            elif len(invited.split(', ')) < 2 and not logic:
                 send_message('Для того, щоб використовувати суперкруту функцію надсилання новин у повністю зручний ДЛЯ ТЕБЕ час (з точністю до 1 хвилини!), потрібно запросити 2 друзів до NewsKit! \n\nТи вже запросив '+ str(len(invited.split(', '))) + ' друга\n\nПоділися з друзями посиланням нижче: \n\nhttps://t.me/newskit_bot?start=' + str(id), id)
             else:
                 if len(text[0]) == 0:
                     curs.execute("UPDATE users SET command='newstime' WHERE telegram_id='{}'".format(id))
                     conn.commit()
-                    send_message('Надішли мені час, коли ти хочеш отримувати новини. Дотримуйся такого формату: \n 10:47 \n /cancel, щоб скасувати', id)
+                    send_message('Надішли мені час, коли ти хочеш отримувати новини. Дотримуйся такого формату: \n10:47, 12:21, 20:19 \n/cancel, щоб скасувати', id)
                 else:
                     print(text[0])
                     input = text[0]
@@ -1275,7 +1281,7 @@ def echo_all(updates):
 
                                 print(hours, minutes)
                                 addnewsheduler(str(hours), minutes, id)
-                                send_message('Час '+str(text)+' встановлено!', id)
+                                send_message('Час '+str(text)+' встановлено! Напиши /timemanage, щоб контролювати твій час отримання новин!', id)
                             else:
                                 send_message('Час '+str(text)+' не підходить. Напиши час у форматі ГГ:ХХ. Наприклад, 09:21. Спробуй ще раз! /newstime', id)
                             curs.execute("UPDATE users SET command='' WHERE telegram_id='{}'".format(id))
@@ -1317,12 +1323,12 @@ def echo_all(updates):
                     curs.execute("SELECT last_feedback_send FROM users WHERE telegram_id ='{}'".format(id))
                     try:
                         last_feedback_send = float(curs.fetchone()[0])
-                    except TypeError:
+                    except:
                         last_feedback_send = 0
                     print(last_feedback_send)
                     if datetime.now().timestamp() - int(last_feedback_send) < 2:
                         return
-                    elif datetime.now().timestamp() - int(last_feedback_send) < 60:
+                    elif datetime.now().timestamp() - int(last_feedback_send) < 5:
                         send_message('Фідбек не надіслано(( Спрацював захист від спаму! Спробуй через хвилину!', chat)
                         curs.execute("UPDATE users SET command='' WHERE telegram_id='{}'".format(id))
                         conn.commit()
@@ -1680,6 +1686,17 @@ def echo_all(updates):
             send_inline_keyboard([['Обрати цікаві теми', '/themes'], ['Відібрати новинні веб-сайти', '/websites'],
                                       ['Вказати час отримання новин', '/setnewstime'], ['Переглянути свої ключові слова', '/keywords'], ['Отримати останні новини', '/getlastnews']], chat, 'Швидкі команди:')
         elif action == 'nomatch':
+            if str(text) == '2019':
+                curs.execute("SELECT special_offer FROM users WHERE telegram_id='{}'".format(id))
+                if curs.fetchone()[0] == '':
+                    curs.execute("UPDATE users SET special_offer='true' WHERE telegram_id='{}'".format(id))
+                    conn.commit()
+                    requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Користувач ' + name + ' ' + last_name + ' заповнив форму-відгук!'))
+                    requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('Користувач ' + name + ' ' + last_name + ' заповнив форму-відгук!'))
+                    send_message('Вухууу! Дякуємо за відгук! Зі святом тебе! Клікай на цю команду: /newstime і насолоджуйся крутими підбірками новин у ще зручніший час!', id)
+                else:
+                    send_message('Доступ до нашого новорічного подарунка тобі вже надано! Клікай на цю команду: /newstime і насолоджуйся крутими підбірками новин у ще зручніший час!', id)
+                return
             send_inline_keyboard([['Обрати цікаві теми', '/themes'], ['Відібрати новинні веб-сайти', '/websites'],
                                       ['Вказати час отримання новин', '/setnewstime'], ['Переглянути свої ключові слова', '/keywords']], chat, 'Я тебе не зрозумів 😔 Можливо, тобі потрібно:')
             #send_help_big(text, chat)

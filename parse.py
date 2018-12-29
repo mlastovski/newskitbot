@@ -574,11 +574,13 @@ def send(users, limit=15, immediate=False):
                     passed_keywords = ', '.join(passed_keywords)
                     print('passed_keywords: ', passed_keywords)
 
+                    news_time = extract_news_time(chat_id)
+
 
                     if int(status) == 0 and passed_keywords != '' and article[2] not in url_send_list and web_info[3] in user_news_lang:
                         print(True)
                         if i == 1 and user[7] != 'everyhour' or i == 1 and user[7] == 'everyhour' and now_hour == '05':
-                            passed_keywords = 'Твій одноразовий ліміт новин: ' + str(limit) + '. Щоб змінити, скористайся /limit \nЧас отримання новин: '  + str(user[7]) + '. Щоб змінити, скористайся /newstime\n' + passed_keywords
+                            passed_keywords = 'Твій одноразовий ліміт новин: ' + str(limit) + '. Щоб змінити, скористайся /limit \nЧас отримання новин: '  + news_time + '. Щоб змінити, скористайся /newstime\n' + passed_keywords
                         get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, passed_keywords + '\n' + article[2]), user[1])
                         curs.execute("UPDATE users SET send_time ='{}' WHERE telegram_id ='{}'".format(datetime.now().timestamp(), user[1]))
                         conn.commit()
@@ -588,7 +590,7 @@ def send(users, limit=15, immediate=False):
                         time.sleep(0.8)
                     elif int(status) == 0 and website[3] == '*' and article[2] not in url_send_list and web_info[3] in user_news_lang:
                         if i == 1 and user[7] != 'everyhour' or i == 1 and user[7] == 'everyhour' and now_hour == '05':
-                            passed_keywords = 'Твій одноразовий ліміт новин: ' + str(limit) + '. Щоб змінити, скористайся /limit \nЧас отримання новин: '  + str(user[7]) + '. Щоб змінити, скористайся /newstime\n' + passed_keywords
+                            passed_keywords = 'Твій одноразовий ліміт новин: ' + str(limit) + '. Щоб змінити, скористайся /limit \nЧас отримання новин: '  + news_time + '. Щоб змінити, скористайся /newstime\n' + passed_keywords
                         print(True)
                         get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, 'Нова стаття з ' + web_name + '\n' + article[2]), user[1])
                         curs.execute("UPDATE users SET send_time ='{}' WHERE telegram_id ='{}'".format(datetime.now().timestamp(), user[1]))
@@ -631,6 +633,35 @@ def send(users, limit=15, immediate=False):
             requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'ERROR!!! ' + str(e)))
             requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=373407132&text={}'.format(TOKEN, 'ERROR!!! ' + str(e)))
 
+def extract_news_time(user_id):
+    curs.execute("SELECT parse_mode FROM users WHERE telegram_id ='{}'".format(user_id))
+    parse_mode = curs.fetchone()[0]
+
+    if ':' in parse_mode:
+        if ',' in parse_mode:
+            times = parse_mode.split(', ')
+        else:
+            times = [parse_mode]
+
+        from bot_add import convert_time
+        times = convert_time(times)
+    else:
+        if parse_mode == 'immediate':
+            times = 'Одразу'
+        elif parse_mode == '9am':
+            times = '9 ранку'
+        elif parse_mode == '9pm':
+            times = '9 вечора'
+        elif parse_mode == '12am':
+            times = '12 дня'
+        else:
+            times = parse_mode
+
+    print('times', times)
+    times = ', '.join(times)
+    print('times', times)
+
+    return times
 
 
 
