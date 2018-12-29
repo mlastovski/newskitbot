@@ -608,7 +608,7 @@ def send(users, limit=15, immediate=False):
                 curs.execute("SELECT value FROM static WHERE id = 5")
                 additional_info = curs.fetchone()[0]
 
-                if user[22] == 'false':
+                if user[21] == 'false':
                     get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, additional_info))
                     curs.execute("UPDATE users SET additional_received = 'true' WHERE telegram_id = '{}'".format(chat_id))
                     conn.commit()
@@ -630,8 +630,8 @@ def send(users, limit=15, immediate=False):
             curs.execute("Rollback")
             conn.commit()
             from bot import TOKEN
-            requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'ERROR!!! ' + str(e)))
-            requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=373407132&text={}'.format(TOKEN, 'ERROR!!! ' + str(e)))
+            requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'ERROR!!! ' + str(e)+ '. Помилка розсилки: ' + str(id)))
+            requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=373407132&text={}'.format(TOKEN, 'ERROR!!! ' + str(e)+ '. Помилка розсилки: ' + str(id)))
 
 def extract_news_time(user_id):
     curs.execute("SELECT parse_mode FROM users WHERE telegram_id ='{}'".format(user_id))

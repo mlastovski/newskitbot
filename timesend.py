@@ -118,6 +118,12 @@ def specific_time_send():
         requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Процес надсилання завершено!'))
         requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('Процес надсилання завершено!'))
 
+    if now_hour == '22' and now_minute == '00':
+        # онулити значення ok в базі даних
+        curs.execute("UPDATE static SET value ='' WHERE name ='9pm'")
+        curs.execute("UPDATE static SET value ='' WHERE name ='9am'")
+        curs.execute("UPDATE static SET value ='' WHERE name ='12am'")
+        conn.commit()
 
 def nine_am():
     print('РОЗСИЛКА ЮЗЕРАМ О 9 РАНКУ')
