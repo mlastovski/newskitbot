@@ -12,7 +12,6 @@ from bot_add import add_keywords, delete_keywords, convert_time, convert_back_ti
 from parse import send
 from timesend import addnewsheduler
 from timezonefinder import TimezoneFinder
-from pytz import timezone
 import pytz
 
 os.environ['DATABASE_URL'] = 'postgres://cgvkxvyosmvmzd:f281ebb6771eaebb9c998d34665c60d917542d6df0ece9fa483da65d62b600e7@ec2-79-125-12-48.eu-west-1.compute.amazonaws.com:5432/dbrvpbkmj63vl8'
@@ -1675,13 +1674,18 @@ def echo_all(updates):
                         returns a location's time zone offset from UTC in minutes.
                         """
                         today = datetime.now()
+
+                        print('heheheh')
+                        from pytz import timezone
                         tz_target = timezone(tf.certain_timezone_at(lat=target['lat'], lng=target['lng']))
                         # ATTENTION: tz_target could be None! handle error case
+                        print('tz_target',tz_target)
                         if tz_target:
                             today_target = tz_target.localize(today)
                             today_utc = utc.localize(today)
+                            print('utktk',today_utc, today_target)
                             result_here = int((today_utc - today_target).total_seconds() / 3600)
-                            print(result_here)
+                            print('result_here',result_here)
                             if result_here < 10 and result_here > -10:
                                 if result_here >=0:
                                     result_here = '+0'+ str(result_here)
@@ -1711,8 +1715,8 @@ def echo_all(updates):
                     curs.execute("UPDATE users SET timezone='{}' WHERE telegram_id='{}'".format(result, id))
                     conn.commit()
 
-                except:
-                    print(id)
+                except Exception as e:
+                    print(id, e)
                     if int(id)< 0:
                         send_message("Надсилання локації у груповому чаті, на жаль, неможливе! Цей розділ буде скоро допрацьовано!", id)
                     else:
