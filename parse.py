@@ -31,6 +31,9 @@ from parsers.fivechannelua import fivechannelua
 from parsers.zaxidnet import zaxidnet
 from parsers.texterra import texterra
 from parsers.laba import laba
+from parsers.lviv032 import zero32lviv
+from parsers.mctoday import mctoday
+from parsers.portallviv import portallviv
 
 
 
@@ -232,6 +235,27 @@ def parse(media, web_name):
         except:
             requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! laba'))
             requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! laba'))
+            return None
+    elif media == 27:
+        try:
+            parsed_content = zero32lviv()
+        except:
+            requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! zero32lviv'))
+            requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! zero32lviv'))
+            return None
+    elif media == 28:
+        try:
+            parsed_content = mctoday()
+        except:
+            requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! mctoday'))
+            requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! mctoday'))
+            return None
+    elif media == 29:
+        try:
+            parsed_content = portallviv()
+        except:
+            requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! portallviv'))
+            requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! portallviv'))
             return None
     else:
         return None
@@ -587,7 +611,7 @@ def send(users, limit=15, immediate=False):
                         i+=1
                         if_nothing=False
                         url_send_list.append(article[2])
-                        time.sleep(0.8)
+                        #time.sleep(0.8)
                     elif int(status) == 0 and website[3] == '*' and article[2] not in url_send_list and web_info[3] in user_news_lang:
                         if i == 1 and user[7] != 'everyhour' or i == 1 and user[7] == 'everyhour' and now_hour == '05':
                             passed_keywords = 'Твій одноразовий ліміт новин: ' + str(limit) + '. Щоб змінити, скористайся /limit \nЧас отримання новин: '  + news_time + '. Щоб змінити, скористайся /newstime\n' + passed_keywords
@@ -598,7 +622,7 @@ def send(users, limit=15, immediate=False):
                         i+=1
                         if_nothing=False
                         url_send_list.append(article[2])
-                        time.sleep(0.8)
+                        #time.sleep(0.8)
                     elif int(status) == 1:
                         if_nothing=False
 
@@ -637,6 +661,9 @@ def extract_news_time(user_id):
     curs.execute("SELECT parse_mode FROM users WHERE telegram_id ='{}'".format(user_id))
     parse_mode = curs.fetchone()[0]
 
+    curs.execute("SELECT timezone FROM users WHERE telegram_id ='{}'".format(user_id))
+    timezone = curs.fetchone()[0]
+
     if ':' in parse_mode:
         if ',' in parse_mode:
             times = parse_mode.split(', ')
@@ -644,7 +671,7 @@ def extract_news_time(user_id):
             times = [parse_mode]
 
         from bot_add import convert_time
-        times = convert_time(times)
+        times = convert_time(times, timezone)
     else:
         if parse_mode == 'immediate':
             times = ['Одразу']

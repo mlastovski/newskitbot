@@ -8,7 +8,7 @@ import psycopg2
 import os
 import telepot
 from telepot.namedtuple import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, InlineKeyboardButton, ReplyKeyboardRemove
-from bot_add import add_keywords, delete_keywords, convert_time, convert_back_time
+from bot_add import add_keywords, delete_keywords, convert_time, convert_back_time, convert_time_from_gmt_to_local
 from parse import send
 from timesend import addnewsheduler
 from timezonefinder import TimezoneFinder
@@ -771,6 +771,7 @@ def echo_all(updates):
 
 
             elif action == 'setnewstime':
+
                 if text[0] != '':
                     mode = text[0]
                     phrase = ' і forward'
@@ -780,6 +781,9 @@ def echo_all(updates):
 
                 curs.execute("SELECT parse_mode FROM users WHERE telegram_id ='{}'".format(id))
                 parse_mode = curs.fetchone()[0]
+
+                curs.execute("SELECT timezone FROM users WHERE telegram_id ='{}'".format(id))
+                timezone = curs.fetchone()[0]
 
                 now_time = str(datetime.now().time()).split(':')[0] +':'+ str(datetime.now().time()).split(':')[1]
 
@@ -791,7 +795,7 @@ def echo_all(updates):
                     markup = []
                     i = 0
                     print('times', times)
-                    times = convert_time(times)
+                    times = convert_time(times, timezone)
                     print(times)
 
                     for time in times:
@@ -805,7 +809,7 @@ def echo_all(updates):
                     print(markup)
 
 
-                    send_inline_keyboard(markup, chat, 'Ось години, коли ти отримуєш новини. Клікни, щоб видалити час. /newstime щоб додати \nТочна година зараз у тебе: '+now_time+'. Якщо я помилився, то використай /changetimezone, щоб змінити часовий пояс')
+                    send_inline_keyboard(markup, chat, 'Ось години, коли ти отримуєш новини. Клікни, щоб видалити час. /newstime щоб додати \nТочна година зараз у тебе: '+ convert_time_from_gmt_to_local(now_time, timezone)+'. Якщо я помилився, то використай /changetimezone, щоб змінити часовий пояс')
                 else:
                     parse_possible = ['immediate', '09:00', 'everyhour', '12:00', '21:00']
                     parse_all = [['Одразу', '/chosentime immediate'], ['О 12 годині', '/chosentime 12:00', 'continue'] ,['Щогодини протягом дня', '/chosentime everyhour'],
@@ -837,12 +841,14 @@ def echo_all(updates):
                     if text[0] == 'newskit':
                         markup.append(['Далі ➡️', '/endtour'])
 
-                    send_inline_keyboard(markup, chat, 'Коли ти хочеш отримувати новини?\nТочна година зараз у тебе: '+now_time+'. Якщо я помилився, то використай /changetimezone, щоб змінити часовий пояс')
+                    send_inline_keyboard(markup, chat, 'Коли ти хочеш отримувати новини?\nТочна година зараз у тебе: '+convert_time_from_gmt_to_local(now_time, timezone)+'. Якщо я помилився, то використай /changetimezone, щоб змінити часовий пояс')
             elif action == 'timemanage':
                 pass
             elif action == 'deletetime':
                 text = text[0]
                 print('deleting ', text)
+                curs.execute("SELECT timezone FROM users WHERE telegram_id ='{}'".format(id))
+                timezone = curs.fetchone()[0]
 
                 curs.execute("SELECT parse_mode FROM users WHERE telegram_id='{}'".format(id))
                 previous_time = curs.fetchone()[0]
@@ -856,7 +862,7 @@ def echo_all(updates):
                         times = [previous_time]
 
                 print(times)
-                times = convert_time(times)
+                times = convert_time(times, timezone)
 
                 if text in times:
                     times.remove(text)
@@ -902,8 +908,22 @@ def echo_all(updates):
                     else:
                         send_inline_keyboard(markup, chat, 'Ось години, коли ти отримуєш новини. Клікни, щоб видалити час. Команда /newstime щоб додати')
 
-                    times = convert_back_time(times)
+                    curs.execute("SELECT timezone FROM users WHERE telegram_id ='{}'".format(id))
+                    timezone = curs.fetchone()[0]
+
+                    print('times)))', times, timezone)
+                    timezone_list = list(timezone)
+                    print(timezone_list)
+                    if timezone_list[0] == '+':
+                        timezone_list[0] = '-'
+                    elif timezone_list[0] == '-':
+                        timezone_list[0] = '+'
+
+                    timezone = ''.join(timezone_list)
+                    print(timezone)
+                    times = convert_time(times, timezone)
                     times = ', '.join(times)
+                    print('times', times)
 
                     curs.execute("UPDATE users SET parse_mode = '{}' WHERE telegram_id='{}'".format(times, id))
                     conn.commit()
@@ -1251,6 +1271,9 @@ def echo_all(updates):
                         conn.commit()
                         send_message('Надішли мені час, коли ти хочеш отримувати новини. Дотримуйся такого формату: \n10:47, 12:21, 20:19 \n/cancel, щоб скасувати', id)
                     else:
+                        curs.execute("SELECT timezone FROM users WHERE telegram_id ='{}'".format(id))
+                        timezone = curs.fetchone()[0]
+
                         print(text[0])
                         input = text[0]
                         if ', ' in input:
@@ -1268,23 +1291,17 @@ def echo_all(updates):
                                 minutes=int(text.split(':')[1])
                                 print(hours, minutes)
                                 if hours <= 24 and hours >= 0 and minutes < 60 and minutes >= 0 or hours == 24 and minutes == 0:
-                                    print('here')
-                                    if int(hours) > 2 and int(hours) <= 23:
-                                        hours = int(hours) - 2
-                                    elif int(hours) == 2:
-                                        hours = 24
-                                    elif int(hours) == 1:
-                                        hours = 23
-                                    elif int(hours) == 0 or int(hours) == 24:
-                                        hours = 22
+                                    timezone_list = list(timezone)
+                                    print(timezone_list)
+                                    if timezone_list[0] == '+':
+                                        timezone_list[0] = '-'
+                                    elif timezone_list[0] == '-':
+                                        timezone_list[0] = '+'
 
-                                    if int(hours) < 10:
-                                        hours = '0' + str(hours)
-                                    if int(minutes) < 10:
-                                        minutes = '0' + str(minutes)
-
-                                    print(hours, minutes)
-                                    addnewsheduler(str(hours), minutes, id)
+                                    timezone = ''.join(timezone_list)
+                                    print('tm changed ',timezone)
+                                    result_time = convert_time([text], timezone)
+                                    addnewsheduler(result_time, id)
                                     send_message('Час '+str(text)+' встановлено! Напиши /setnewstime, щоб контролювати твій час отримання новин!', id)
                                 else:
                                     send_message('Час '+str(text)+' не підходить. Напиши час у форматі ГГ:ХХ. Наприклад, 09:21. Спробуй ще раз! /newstime', id)
@@ -1682,12 +1699,12 @@ def echo_all(updates):
                                         resize_keyboard=True,
                                         selective=True
                                     ))
-                            return 
+                            return
 
                     bergamo = dict({'lat':latitude, 'lng':longitude})
                     result = offset(bergamo)
                     print(mess_id)
-                    TelegramBot.sendMessage(id, 'Твій часовий пояс успішно змінено!\nGMT '+ str(result),
+                    TelegramBot.sendMessage(id, 'Твій часовий пояс успішно змінено!\nGMT '+ str(result + '\nПеревір командою /setnewstime час отримання новин і зміни його, якщо потрібно!'),
                                     reply_markup=ReplyKeyboardRemove(
                                         remove_keyboard=True
                                     ))
@@ -1699,7 +1716,7 @@ def echo_all(updates):
                     if int(id)< 0:
                         send_message("Надсилання локації у груповому чаті, на жаль, неможливе! Цей розділ буде скоро допрацьовано!", id)
                     else:
-                        TelegramBot.sendMessage(id, 'Щоб встановити новий часовий пояс, обери один з варіантів нижче',
+                        TelegramBot.sendMessage(id, 'Щоб встановити новий часовий пояс, обери один з варіантів нижче\nУвага! Зміна часового поясу призведе до зміни часу, коли отримуєш новини!',
                                     reply_markup=ReplyKeyboardMarkup(
                                         keyboard=[
                                             [KeyboardButton(text="Надіслати моє місцезнаходження", request_location=True)], [KeyboardButton(text="Надіслати мою поточну годину")], [KeyboardButton(text="Скасувати")]
@@ -1735,11 +1752,22 @@ def echo_all(updates):
                             print(hour_difference, min_difference)
                             if min_difference < 5 and min_difference > -5:
                                 min_difference = 0
+                                if hour_difference > 12:
+                                    hour_difference = (24 - hour_difference) * -1
+                                if hour_difference < -12:
+                                    hour_difference = 24 + hour_difference
+
                                 if hour_difference < 10 and hour_difference > -10:
                                     if hour_difference >=0:
                                         hour_difference = '+0'+ str(hour_difference)
                                     else:
                                         hour_difference = '-0' + str(abs(hour_difference))
+                                else:
+                                    if hour_difference >=0:
+                                        hour_difference = '+'+ str(hour_difference)
+                                    else:
+                                        hour_difference = '-' + str(abs(hour_difference))
+
                                 result = str(hour_difference) + ':00'
                                 print('result',result)
                             else:
@@ -1748,15 +1776,40 @@ def echo_all(updates):
                                 if min_difference > 0 and hour_difference < 0:
                                     hour_difference = hour_difference + 1
                                     min_difference = 60 - min_difference
+                                    if hour_difference == 0:
+                                        hour_difference = '-00'
+                                        result_special = True
+                                    else:
+                                        result_special = False
                                 elif min_difference < 0 and hour_difference > 0:
                                     hour_difference = hour_difference - 1
                                     min_difference = 60 + min_difference
+                                    result_special = False
+                                else:
+                                    result_special = False
 
-                                if hour_difference < 10 and hour_difference > -10:
-                                    if hour_difference >=0:
-                                        hour_difference = '+0'+ str(hour_difference)
+                                if not result_special:
+                                    if hour_difference > 12:
+                                        hour_difference = (24 - hour_difference - 1) * -1
+                                        min_difference = 60 - min_difference
+                                    if hour_difference < -12:
+                                        hour_difference = 24 + hour_difference -1
+                                        if min_difference < 0:
+                                            min_difference = 60 + min_difference
+                                        else:
+                                            min_difference = 60 - min_difference
+                                            #hour_difference += 1
+
+                                    if hour_difference < 10 and hour_difference > -10:
+                                        if hour_difference >=0:
+                                            hour_difference = '+0'+ str(hour_difference)
+                                        else:
+                                            hour_difference = '-0' + str(abs(hour_difference))
                                     else:
-                                        hour_difference = '-0' + str(abs(hour_difference))
+                                        if hour_difference >=0:
+                                            hour_difference = '+'+ str(hour_difference)
+                                        else:
+                                            hour_difference = '-' + str(abs(hour_difference))
 
                                 if min_difference < 10 and min_difference > -10:
                                     min_difference = '0' + str(abs(min_difference))
@@ -1769,7 +1822,7 @@ def echo_all(updates):
                             conn.commit()
                             curs.execute("UPDATE users SET country='' WHERE telegram_id='{}'".format(id))
                             conn.commit()
-                            TelegramBot.sendMessage(id, 'Твій часовий пояс успішно змінено!\nGMT '+ result,
+                            TelegramBot.sendMessage(id, 'Твій часовий пояс успішно змінено!\nGMT '+ result + '\nПеревір командою /setnewstime час отримання новин і зміни його, якщо потрібно!',
                                     reply_markup=ReplyKeyboardRemove(
                                         remove_keyboard=True
                                     ))

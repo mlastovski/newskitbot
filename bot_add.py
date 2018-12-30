@@ -69,45 +69,83 @@ def delete_keywords(conn, id, name, text, chat):
     conn.commit()
     print('done', present_words_list)
 
-def convert_time(list):
+def convert_time(list, timezone):
     new_list=[]
     for time in list:
         try:
-            hour = int(time[:2])
-            if int(hour) < 23:
-                hour = int(hour) + 2
-            elif int(hour) == 23:
-                hour = 1
-            elif int(hour) == 24:
-                hour = 2
-
-            if int(hour) < 10:
-                hour = '0' + str(hour)
-
-            new_list.append(str(hour) + time[2:])
+            print('Starting to convert time: '+ time)
+            print('Timezone:  ' + timezone)
+            result = convert_time_from_gmt_to_local(time, timezone)
+            print('Result time:  ' + result)
+            new_list.append(result)
         except:
             continue
 
     return new_list
 
-def convert_back_time(list):
+def convert_back_time(list, timezone):
     new_list=[]
+    print(list, timezone)
     for time in list:
+        print(time)
         try:
-            hour = int(time[:2])
-            if int(hour) > 2:
-                hour = int(hour) - 2
-            elif int(hour) == 2:
-                hour = 24
-            elif int(hour) == 1:
-                hour = 23
+            timezone_list = list(timezone)
+            print(timezone_list)
+            if timezone_list[0] == '+':
+                timezone_list[0] = '-'
+            elif timezone_list[0] == '-':
+                timezone_list[0] = '+'
 
-            if int(hour) < 10:
-                hour = '0' + str(hour)
-
-            new_list.append(str(hour) + time[2:])
+            timezone = ''.join(timezone_list)
+            print(timezone)
+            result = convert_time_from_gmt_to_local(time, timezone)
+            print(result)
+            new_list.append(result)
         except:
             continue
 
     return new_list
 
+def convert_time_from_gmt_to_local(time_gmt, timezone):
+    # time_gmt example: 12:24
+    # timezone example: -13:48
+    gmt_hour = int(time_gmt[:2])
+    gmt_min = int(time_gmt[-2:])
+    timezone_hour = int(timezone[:3])
+    timezone_min = int(timezone[-2:])
+    print(gmt_hour, gmt_min, timezone_hour, timezone_min)
+    if timezone_hour < 0:
+        if abs(timezone_hour) <= gmt_hour:
+            hour_result = gmt_hour - abs(timezone_hour)
+        else:
+            hour_result = abs(timezone_hour) - gmt_hour
+            hour_result = 24 - hour_result
+        if timezone_min <= gmt_min:
+            min_result = gmt_min - timezone_min
+        else:
+            min_result = timezone_min - gmt_min
+            min_result = 60 - min_result
+            hour_result -= 1
+    else:
+        hour_result = abs(timezone_hour) + gmt_hour
+        if hour_result > 24:
+            hour_result = hour_result - 24
+
+        min_result = abs(timezone_min) + gmt_min
+        if min_result > 60:
+            min_result = min_result - 60
+            hour_result += 1
+
+    if hour_result < 10:
+        hour_result = '0' + str(hour_result)
+    if min_result < 10:
+        min_result = '0' + str(min_result)
+
+    print(str(hour_result) + ':' + str(min_result))
+
+    return str(hour_result) + ':' + str(min_result)
+
+
+if __name__ == '__main__':
+    pass
+    #convert_time_from_gmt_to_local()
