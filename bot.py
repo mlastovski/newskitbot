@@ -140,7 +140,7 @@ def define(text, id):
 
         for line in range(0, len(system)):
             for expression in system[line][2].split(', '):
-                print('passed loop: ', line, expression)
+                #print('passed loop: ', line, expression)
                 if text.startswith(expression):
                     curs.execute("SELECT action FROM system WHERE id = '{}'".format(int(line) + 1))
                     action = curs.fetchone()[0]
@@ -165,7 +165,7 @@ def define(text, id):
                     if_passed = True
 
                     # let`s extract command from the text
-                    text = replace(text, [(',', ' і '), (':', ''), (";", ''), ('!', ''), ("'", ''), ("[", ''), ("]", ''),
+                    text = replace(text, [(',', ' і '), (";", ''), ('!', ''), ("'", ''), ("[", ''), ("]", ''),
                                           ("{", ''), ("}", ''), ("_", ''), ("=", ''), ("+", ''), ("|", ''),
                                           ("(", ''), (")", ''), ("*", ''), ("з моїх ключових слів", ''),
                                           ("до моїх ключових слів", ''), ("до списку новин", ''), ("в мою базу даних", ''),
@@ -179,7 +179,7 @@ def define(text, id):
                     text = replace(text, [(' і ', ';'), (' й ', ';'), (' та ', ';'), (';;', ';')])
                     text = text.split(';')
                     text = replace(text,
-                                   [(',', ''), (':', ''), (";", ''), ('!', ''), ("'", ''), ("[", ''), ("]", ''),
+                                   [(',', ''), (";", ''), ('!', ''), ("'", ''), ("[", ''), ("]", ''),
                                     ("{", ''), ("}", ''), ("_", ''), ("=", ''), ("+", ''), ("|", ''), ("(", ''),
                                     (")", ''), ("*", '')])
                     print('text', text)
@@ -226,9 +226,7 @@ def echo_all(updates):
                     mess_type = update["message"]["chat"]["type"]
                     print(mess_type)
                     chat = update["message"]["chat"]["id"]
-                    print('here5')
                     id = update["message"]['chat']['id']
-                    print('here5')
                     name = update["message"]['chat']['title']
                     last_name = 'group'
                     username = ''
@@ -240,9 +238,7 @@ def echo_all(updates):
                         mess_type = update['callback_query']["message"]["chat"]["type"]
                         print(mess_type)
                         chat = update['callback_query']["message"]["chat"]["id"]
-                        print('here5')
                         id = update['callback_query']["message"]['chat']['id']
-                        print('here5')
                         name = update['callback_query']["message"]['chat']['title']
                         last_name = 'group'
                         username = ''
@@ -253,9 +249,7 @@ def echo_all(updates):
                         mess_type = update["message"]["chat"]["type"]
                         print(mess_type)
                         chat = update["message"]["chat"]["id"]
-                        print('here5')
                         id = update["message"]['chat']['id']
-                        print('here5')
                         name = update["message"]['chat']['title']
                         last_name = 'group'
                         username = ''
@@ -482,7 +476,7 @@ def echo_all(updates):
             #     conn.commit()
             #
             #     text = 'Ти більше не отримуватимеш щоденних розсилок(( Щоб відновити цю можливість напиши мені /start'
-                send_message(text, chat)
+            #    send_message(text, chat)
             elif action == 'stop':
                 curs = conn.cursor()
                 curs.execute("SELECT status FROM users WHERE telegram_id ='{}'".format(id))
@@ -787,73 +781,67 @@ def echo_all(updates):
                 curs.execute("SELECT parse_mode FROM users WHERE telegram_id ='{}'".format(id))
                 parse_mode = curs.fetchone()[0]
 
-                parse_possible = ['immediate', '9am', 'everyhour', '12am', '9pm']
-                parse_all = [['Одразу', '/chosentime immediate'], ['О 12 годині', '/chosentime 12am', 'continue'] ,['Щогодини протягом дня', '/chosentime everyhour'],
-                                          ['О 9 ранку', '/chosentime 9am'], ['0 9 вечора', '/chosentime 9pm', 'continue']]
-                markup = []
-                i = 1
-                for parse in parse_all:
-                    btn_name = parse[0]
-                    btn_action = parse[1].split()[1]
-                    print('nums',i, i%10)
-                    if parse_mode == btn_action:
-                        if i%10!=1 and i%10==2 and i%10!=4 or i%10!=1 and i%10!=4 and i%10==5:
-                            new = ['✅' + btn_name, '/chosentime ' + btn_action + phrase, 'continue']
-                        else:
-                            print('here 3')
-                            new = ['✅' + btn_name, '/chosentime ' + btn_action + phrase]
-                    else:
-                        if i%10!=1 and i%10==2 and i%10!=4 or i%10!=1 and i%10!=4 and i%10==5:
-                            new = [btn_name, '/chosentime ' + btn_action + phrase, 'continue']
-                        else:
-                            print('here 3')
-                            new = [btn_name, '/chosentime ' + btn_action + phrase]
-                    i+=1
-                    markup.append(new)
-                markup.append(['ВКАЗАТИ СВІЙ ЧАС!', '/newstime'])
-                markup.append(['Змінити часовий пояс!', '/changetimezone newskit'])
-                print(markup)
-
-                if text[0] == 'newskit':
-                    markup.append(['Далі ➡️', '/endtour'])
-
-                send_inline_keyboard(markup, chat, 'Коли ти хочеш отримувати новини?\nТвій часовий пояс: GMT '+ user[16]+', '+user[17])
-            elif action == 'timemanage':
-                curs.execute("SELECT * FROM users WHERE telegram_id ='{}'".format(id))
-                parse_mode = curs.fetchone()[0]
-
-                curs.execute("SELECT parse_mode FROM users WHERE telegram_id ='{}'".format(id))
-                parse_mode = curs.fetchone()[0]
+                now_time = str(datetime.now().time()).split(':')[0] +':'+ str(datetime.now().time()).split(':')[1]
 
                 if ':' in parse_mode:
                     if ',' in parse_mode:
                         times = parse_mode.split(', ')
                     else:
                         times = [parse_mode]
+                    markup = []
+                    i = 0
+                    print('times', times)
+                    times = convert_time(times)
+                    print(times)
+
+                    for time in times:
+                        i+=1
+                        new = [time, '/deletetime ' + time]
+                        if i%3==0 or i%3==2:
+                            new.append('continue')
+
+                        markup.append(new)
+
+                    print(markup)
+
+
+                    send_inline_keyboard(markup, chat, 'Ось години, коли ти отримуєш новини. Клікни, щоб видалити час. /newstime щоб додати \nТочна година зараз у тебе: '+now_time+'. Якщо я помилився, то використай /changetimezone, щоб змінити часовий пояс')
                 else:
-                    send_message('Ця команда буде доступна, якщо ти почнеш використовувати функцію /newstime', id)
-                    break
+                    parse_possible = ['immediate', '09:00', 'everyhour', '12:00', '21:00']
+                    parse_all = [['Одразу', '/chosentime immediate'], ['О 12 годині', '/chosentime 12:00', 'continue'] ,['Щогодини протягом дня', '/chosentime everyhour'],
+                                              ['О 9 ранку', '/chosentime 09:00'], ['0 9 вечора', '/chosentime 21:00', 'continue']]
+                    markup = []
+                    i = 1
+                    for parse in parse_all:
+                        btn_name = parse[0]
+                        btn_action = parse[1].split()[1]
+                        print('nums',i, i%10)
+                        if parse_mode == btn_action:
+                            if i%10!=1 and i%10==2 and i%10!=4 or i%10!=1 and i%10!=4 and i%10==5:
+                                new = ['✅' + btn_name, '/chosentime ' + btn_action + phrase, 'continue']
+                            else:
+                                print('here 3')
+                                new = ['✅' + btn_name, '/chosentime ' + btn_action + phrase]
+                        else:
+                            if i%10!=1 and i%10==2 and i%10!=4 or i%10!=1 and i%10!=4 and i%10==5:
+                                new = [btn_name, '/chosentime ' + btn_action + phrase, 'continue']
+                            else:
+                                print('here 3')
+                                new = [btn_name, '/chosentime ' + btn_action + phrase]
+                        i+=1
+                        markup.append(new)
+                    markup.append(['ВКАЗАТИ СВІЙ ЧАС!', '/newstime'])
+                    markup.append(['Змінити часовий пояс!', '/changetimezone newskit'])
+                    print(markup)
 
-                markup = []
-                i = 0
-                print('times', times)
-                times = convert_time(times)
-                print(times)
+                    if text[0] == 'newskit':
+                        markup.append(['Далі ➡️', '/endtour'])
 
-                for time in times:
-                    i+=1
-                    new = [time, '/deletetime ' + time]
-                    if i%3==0 or i%3==2:
-                        new.append('continue')
-
-                    markup.append(new)
-
-                print(markup)
-
-
-                send_inline_keyboard(markup, chat, 'Ось години, коли ти отримуєш новини. Клікни, щоб видалити час. /newstime щоб додати')
+                    send_inline_keyboard(markup, chat, 'Коли ти хочеш отримувати новини?\nТочна година зараз у тебе: '+now_time+'. Якщо я помилився, то використай /changetimezone, щоб змінити часовий пояс')
+            elif action == 'timemanage':
+                pass
             elif action == 'deletetime':
-                text = text[0][:2] + ':' + text[0][2:]
+                text = text[0]
                 print('deleting ', text)
 
                 curs.execute("SELECT parse_mode FROM users WHERE telegram_id='{}'".format(id))
@@ -889,19 +877,36 @@ def echo_all(updates):
 
                 reply_markup = get_reply_markup(markup)
 
-                if mess_id:
-                    try:
-                        TelegramBot.editMessageText(msg_identifier=(id, mess_id), text='Ось години, коли ти отримуєш новини. Клікни, щоб видалити час. Команда /newstime щоб додати', reply_markup=reply_markup)
-                    except telepot.exception.TelegramError:
-                        send_inline_keyboard(markup, chat, 'Ось години, коли ти отримуєш новини. Клікни, щоб видалити час. Команда /newstime щоб додати')
+                print('times', times)
+
+                if times == []:
+                    print(True)
+                    parse_mode = 'everyhour'
+                    curs.execute("UPDATE users SET parse_mode = 'everyhour' WHERE telegram_id='{}'".format(id))
+                    conn.commit()
+                    markup = [['Одразу', '/chosentime immediate'], ['О 12 годині', '/chosentime 12:00', 'continue'], ['✅Щогодини протягом дня', '/chosentime everyhour'], ['О 9 ранку', '/chosentime 09:00'], ['0 9 вечора', '/chosentime 21:00', 'continue'], ['ВКАЗАТИ СВІЙ ЧАС!', '/newstime'], ['Змінити часовий пояс!', '/changetimezone newskit']]
+                    reply_markup = get_reply_markup(markup)
+                    if mess_id:
+                        try:
+                            TelegramBot.editMessageText(msg_identifier=(id, mess_id), text='Було видалено всі години надсилання новин, тому я тебе автоматично перевів на отримання новин щогодини! Можеш змінити цей час нижче:)', reply_markup=reply_markup)
+                        except telepot.exception.TelegramError:
+                            send_inline_keyboard(markup, chat, 'Було видалено всі години надсилання новин, тому я тебе автоматично перевів на отримання новин щогодини! Можеш змінити цей час нижче:)')
+                    else:
+                        send_inline_keyboard(markup, chat, 'Було видалено всі години надсилання новин, тому я тебе автоматично перевів на отримання новин щогодини! Можеш змінити цей час нижче:)')
                 else:
-                    send_inline_keyboard(markup, chat, 'Ось години, коли ти отримуєш новини. Клікни, щоб видалити час. Команда /newstime щоб додати')
+                    if mess_id:
+                        try:
+                            TelegramBot.editMessageText(msg_identifier=(id, mess_id), text='Ось години, коли ти отримуєш новини. Клікни, щоб видалити час. Команда /newstime щоб додати', reply_markup=reply_markup)
+                        except telepot.exception.TelegramError:
+                            send_inline_keyboard(markup, chat, 'Ось години, коли ти отримуєш новини. Клікни, щоб видалити час. Команда /newstime щоб додати')
+                    else:
+                        send_inline_keyboard(markup, chat, 'Ось години, коли ти отримуєш новини. Клікни, щоб видалити час. Команда /newstime щоб додати')
 
-                times = convert_back_time(times)
-                times = ', '.join(times)
+                    times = convert_back_time(times)
+                    times = ', '.join(times)
 
-                curs.execute("UPDATE users SET parse_mode = '{}' WHERE telegram_id='{}'".format(times, id))
-                conn.commit()
+                    curs.execute("UPDATE users SET parse_mode = '{}' WHERE telegram_id='{}'".format(times, id))
+                    conn.commit()
             elif action == 'news_language':
                 try:
                     mode = text[1]
@@ -1091,9 +1096,12 @@ def echo_all(updates):
                 curs.execute("UPDATE users SET parse_mode = '{}' WHERE telegram_id ='{}'".format(parse_mode, id))
                 conn.commit()
 
-                parse_possible = ['immediate', '9am', 'everyhour', '12am', '9pm']
-                parse_all = [['Одразу', '/chosentime immediate'], ['О 12 годині', '/chosentime 12am', 'continue'] ,['Щогодини протягом дня', '/chosentime everyhour'],
-                                          ['О 9 ранку', '/chosentime 9am'], ['0 9 вечора', '/chosentime 9pm', 'continue']]
+                now_time = str(datetime.now().time()).split(':')[0] +':'+ str(datetime.now().time()).split(':')[1]
+
+
+                parse_possible = ['immediate', '09:00', 'everyhour', '12:00', '21:00']
+                parse_all = [['Одразу', '/chosentime immediate'], ['О 12 годині', '/chosentime 12:00', 'continue'] ,['Щогодини протягом дня', '/chosentime everyhour'],
+                                          ['О 9 ранку', '/chosentime 09:00'], ['0 9 вечора', '/chosentime 21:00', 'continue']]
                 markup = []
                 i = 1
                 for parse in parse_all:
@@ -1119,15 +1127,13 @@ def echo_all(updates):
 
                 reply_markup = get_reply_markup(markup, 'time', mode)
                 print('hereherehere')
-                TelegramBot.editMessageText(msg_identifier=(id, mess_id), text='Коли ти хочеш отримувати новини?', reply_markup=reply_markup)
                 if mess_id:
                     try:
-                        TelegramBot.editMessageText(msg_identifier=(id, mess_id), text='Коли ти хочеш отримувати новини?', reply_markup=reply_markup)
+                        TelegramBot.editMessageText(msg_identifier=(id, mess_id), text='Коли ти хочеш отримувати новини?\nТочна година зараз у тебе: '+now_time+'. Якщо я помилився, то використай /changetimezone, щоб змінити часовий пояс', reply_markup=reply_markup)
                     except telepot.exception.TelegramError:
-                        pass
-                        #send_inline_keyboard(markup, chat, 'Коли ти хочеш отримувати новини?')
+                        send_inline_keyboard(markup, chat, 'Коли ти хочеш отримувати новини?\nТочна година зараз у тебе: '+now_time+'. Якщо я помилився, то використай /changetimezone, щоб змінити часовий пояс')
                 else:
-                    send_inline_keyboard(markup, chat, 'Коли ти хочеш отримувати новини?')
+                    send_inline_keyboard(markup, chat, 'Коли ти хочеш отримувати новини?\nТочна година зараз у тебе: '+now_time+'. Якщо я помилився, то використай /changetimezone, щоб змінити часовий пояс')
 
             elif action == 'endtour':
                 send_inline_keyboard([['Більше про мої можливості', '/help'], ['Отримати останні новини!', '/getlastnews']], chat, 'Вітаю! Ти налаштував свого найкращого новинного асистента! Я надсилатиму тобі новини за всіма критеріями, які ти мені вказав 😉✌️️')
@@ -1261,9 +1267,9 @@ def echo_all(updates):
                                 hours=int(text.split(':')[0])
                                 minutes=int(text.split(':')[1])
                                 print(hours, minutes)
-                                if hours < 24 and hours >= 0 and minutes < 60 and minutes >= 0 or hours == 24 and minutes == 0:
+                                if hours <= 24 and hours >= 0 and minutes < 60 and minutes >= 0 or hours == 24 and minutes == 0:
                                     print('here')
-                                    if int(hours) > 2 and int(hours) < 23:
+                                    if int(hours) > 2 and int(hours) <= 23:
                                         hours = int(hours) - 2
                                     elif int(hours) == 2:
                                         hours = 24
@@ -1279,7 +1285,7 @@ def echo_all(updates):
 
                                     print(hours, minutes)
                                     addnewsheduler(str(hours), minutes, id)
-                                    send_message('Час '+str(text)+' встановлено! Напиши /timemanage, щоб контролювати твій час отримання новин!', id)
+                                    send_message('Час '+str(text)+' встановлено! Напиши /setnewstime, щоб контролювати твій час отримання новин!', id)
                                 else:
                                     send_message('Час '+str(text)+' не підходить. Напиши час у форматі ГГ:ХХ. Наприклад, 09:21. Спробуй ще раз! /newstime', id)
                                 curs.execute("UPDATE users SET command='' WHERE telegram_id='{}'".format(id))
@@ -1654,33 +1660,131 @@ def echo_all(updates):
                         today = datetime.now()
                         tz_target = timezone(tf.certain_timezone_at(lat=target['lat'], lng=target['lng']))
                         # ATTENTION: tz_target could be None! handle error case
-                        today_target = tz_target.localize(today)
-                        today_utc = utc.localize(today)
-                        return int((today_utc - today_target).total_seconds() / 3600)
+                        if tz_target:
+                            today_target = tz_target.localize(today)
+                            today_utc = utc.localize(today)
+                            result_here = int((today_utc - today_target).total_seconds() / 3600)
+                            print(result_here)
+                            if result_here < 10 and result_here > -10:
+                                if result_here >=0:
+                                    result_here = '+0'+ str(result_here)
+                                else:
+                                    result_here = '-0' + str(abs(result_here))
+                            result_here = result_here + ':00'
+                            return result_here
+                        else:
+                            TelegramBot.sendMessage(id, 'Я, на жаль, не можу визначити твій часовий пояс:( Спробуй обрати цей варіант зміни твого часовго поясу:',
+                                    reply_markup=ReplyKeyboardMarkup(
+                                        keyboard=[
+                                            [KeyboardButton(text="Надіслати мою поточну годину")], [KeyboardButton(text="Скасувати")]
+                                        ],
+                                        one_time_keyboard=True,
+                                        resize_keyboard=True,
+                                        selective=True
+                                    ))
+                            return 
 
                     bergamo = dict({'lat':latitude, 'lng':longitude})
                     result = offset(bergamo)
                     print(mess_id)
-                    TelegramBot.sendMessage(id, 'Ця функція ще на стадії розробки, зміни будуть доступні пізніше!\nТвоя часова зона: ' + country + '.Різниця в часі з GMT London: '+ str(result) + 'години',
+                    TelegramBot.sendMessage(id, 'Твій часовий пояс успішно змінено!\nGMT '+ str(result),
                                     reply_markup=ReplyKeyboardRemove(
                                         remove_keyboard=True
                                     ))
+                    curs.execute("UPDATE users SET timezone='{}' WHERE telegram_id='{}'".format(result, id))
+                    conn.commit()
 
                 except:
                     print(id)
                     if int(id)< 0:
                         send_message("Надсилання локації у груповому чаті, на жаль, неможливе! Цей розділ буде скоро допрацьовано!", id)
                     else:
-                        TelegramBot.sendMessage(id, 'Щоб встановити новий час, надішли мені своє місцерозташування',
+                        TelegramBot.sendMessage(id, 'Щоб встановити новий часовий пояс, обери один з варіантів нижче',
                                     reply_markup=ReplyKeyboardMarkup(
                                         keyboard=[
-                                            [KeyboardButton(text="Надіслати моє місцезнаходження", request_location=True), KeyboardButton(text="Скасувати")]
+                                            [KeyboardButton(text="Надіслати моє місцезнаходження", request_location=True)], [KeyboardButton(text="Надіслати мою поточну годину")], [KeyboardButton(text="Скасувати")]
                                         ],
                                         one_time_keyboard=True,
                                         resize_keyboard=True,
                                         selective=True
                                     ))
+            elif action == 'timezone':
+                print(True)
+                print(text)
+                if len(text[0]) == 0:
+                    curs.execute("UPDATE users SET command='timezone' WHERE telegram_id='{}'".format(id))
+                    conn.commit()
+                    TelegramBot.sendMessage(id, 'Надішли мені твою поточну годину у форматі ГГ:ХХ! Наприклад, 20:19 \n/cancel, щоб скасувати',
+                                    reply_markup=ReplyKeyboardRemove(
+                                        remove_keyboard=True
+                                    ))
+                else:
+                    print(text[0])
+                    input = text[0]
 
+                    now_hours = int(str(datetime.now().time()).split(':')[0])
+                    now_min = int(str(datetime.now().time()).split(':')[1])
+                    print(str(now_hours), str(now_min))
+                    try:
+                        hours=int(input.split(':')[0])
+                        minutes=int(input.split(':')[1])
+                        print(hours, minutes)
+                        if hours <= 24 and hours >= 0 and minutes < 60 and minutes >= 0:
+                            hour_difference = hours - now_hours
+                            min_difference = minutes - now_min
+                            print(hour_difference, min_difference)
+                            if min_difference < 5 and min_difference > -5:
+                                min_difference = 0
+                                if hour_difference < 10 and hour_difference > -10:
+                                    if hour_difference >=0:
+                                        hour_difference = '+0'+ str(hour_difference)
+                                    else:
+                                        hour_difference = '-0' + str(abs(hour_difference))
+                                result = str(hour_difference) + ':00'
+                                print('result',result)
+                            else:
+                                # if min_difference < 0 and hour_difference < 0 or  min_difference > 0 and hour_difference > 0:
+                                #     result = str(hour_difference) + ':' + str(abs(min_difference))
+                                if min_difference > 0 and hour_difference < 0:
+                                    hour_difference = hour_difference + 1
+                                    min_difference = 60 - min_difference
+                                elif min_difference < 0 and hour_difference > 0:
+                                    hour_difference = hour_difference - 1
+                                    min_difference = 60 + min_difference
+
+                                if hour_difference < 10 and hour_difference > -10:
+                                    if hour_difference >=0:
+                                        hour_difference = '+0'+ str(hour_difference)
+                                    else:
+                                        hour_difference = '-0' + str(abs(hour_difference))
+
+                                if min_difference < 10 and min_difference > -10:
+                                    min_difference = '0' + str(abs(min_difference))
+                                else:
+                                    min_difference = str(abs(min_difference))
+
+                                result = str(hour_difference) + ':' + min_difference
+                                print('result',result)
+                            curs.execute("UPDATE users SET timezone='{}' WHERE telegram_id='{}'".format(result, id))
+                            conn.commit()
+                            curs.execute("UPDATE users SET country='' WHERE telegram_id='{}'".format(id))
+                            conn.commit()
+                            TelegramBot.sendMessage(id, 'Твій часовий пояс успішно змінено!\nGMT '+ result,
+                                    reply_markup=ReplyKeyboardRemove(
+                                        remove_keyboard=True
+                                    ))
+                            curs.execute("UPDATE users SET command='' WHERE telegram_id='{}'".format(id))
+                            conn.commit()
+                        else:
+                            TelegramBot.sendMessage(id, 'На жаль, я не можу зрозуміти такий формат запису:(\nНадішли мені твою поточну годину у форматі ГГ:ХХ! Наприклад, 20:19. Спробуй ще раз! \n/cancel, щоб скасувати',
+                                    reply_markup=ReplyKeyboardRemove(
+                                        remove_keyboard=True
+                                    ))
+                    except:
+                        TelegramBot.sendMessage(id, 'На жаль, я не можу зрозуміти такий формат запису:(\nНадішли мені твою поточну годину у форматі ГГ:ХХ! Наприклад, 20:19. Спробуй ще раз! \n/cancel, щоб скасувати',
+                                    reply_markup=ReplyKeyboardRemove(
+                                        remove_keyboard=True
+                                    ))
             elif action == 'help':
 
                 send_help_big(text, chat)

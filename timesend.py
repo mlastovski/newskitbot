@@ -40,12 +40,19 @@ def addnewsheduler(hours, minutes, user_id):
     curs.execute("SELECT parse_mode FROM users WHERE telegram_id='{}'".format(user_id))
     previous_time = curs.fetchone()[0]
 
-    print(previous_time)
+    print('previous_time',previous_time)
+
+    if previous_time in ['immediate', 'everyhour']:
+        previous_time = ''
+    else:
+        previous_time = str(previous_time) + ', '
+
+    print('previous_time',previous_time)
 
     # if str(hours) + ':' + str(minutes) not in customtime:
-    new_time = str(previous_time) + ', ' + str(hours) + ':' + str(minutes)
+    new_time = str(hours) + ':' + str(minutes)
 
-    new_time = ', '.join(list(set(new_time.split(', ')))) #removes duplicates from time list
+    new_time = previous_time + ', '.join(list(set(new_time.split(', ')))) #removes duplicates from time list
 
     print('customtime', new_time)
 
@@ -74,15 +81,15 @@ def specific_time_send():
 
             if now_time in time:
                 send([i])
-                requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=138918380&text={}'.format('Надіслано новини користувачу ' +str(i[2]) + ' ' + str(i[9]) + ' ' + str(i[10])))
-                requests.get('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id=373407132&text={}'.format('Надіслано новини користувачу ' +str(i[2]) + ' ' + str(i[9]) + ' ' + str(i[10])))
+                requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Надіслано новини користувачу ' +str(i[2]) + ' ' + str(i[9]) + ' ' + str(i[10]) + '. Час отримання новин: '++ str(i[6])))
+                requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('Надіслано новини користувачу ' +str(i[2]) + ' ' + str(i[9]) + ' ' + str(i[10])))
 
-    if now_hour == '5' and now_minute == '00':
+    if now_hour == '05' and now_minute == '00':
         pass
 
-    if now_hour == '7' and now_minute == '00':
+    if now_hour == '07' and now_minute == '00':
         nine_am()
-    if now_hour == '7' and now_minute == '01':
+    if now_hour == '07' and now_minute == '01':
         curs.execute("SELECT value FROM static WHERE name ='9am'")
         if curs.fetchone()[0] != 'ok':
             requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Розсилка юзерам о 9 ранку не відбулася! Стартую ще раз!'))
