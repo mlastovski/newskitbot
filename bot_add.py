@@ -73,10 +73,10 @@ def convert_time(list, timezone):
     new_list=[]
     for time in list:
         try:
-            print('Starting to convert time: '+ time)
-            print('Timezone:  ' + timezone)
+            #print('Starting to convert time: '+ time)
+            #print('Timezone:  ' + timezone)
             result = convert_time_from_gmt_to_local(time, timezone)
-            print('Result time:  ' + result)
+            #print('Result time:  ' + result)
             new_list.append(result)
         except:
             continue
@@ -113,7 +113,7 @@ def convert_time_from_gmt_to_local(time_gmt, timezone):
     gmt_min = int(time_gmt[-2:])
     timezone_hour = int(timezone[:3])
     timezone_min = int(timezone[-2:])
-    print(gmt_hour, gmt_min, timezone_hour, timezone_min)
+    #print(gmt_hour, gmt_min, timezone_hour, timezone_min)
     if timezone_hour < 0:
         if abs(timezone_hour) <= gmt_hour:
             hour_result = gmt_hour - abs(timezone_hour)
@@ -141,7 +141,7 @@ def convert_time_from_gmt_to_local(time_gmt, timezone):
     if min_result < 10:
         min_result = '0' + str(min_result)
 
-    print(str(hour_result) + ':' + str(min_result))
+    #print(str(hour_result) + ':' + str(min_result))
 
     return str(hour_result) + ':' + str(min_result)
 

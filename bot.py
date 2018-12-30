@@ -1675,7 +1675,6 @@ def echo_all(updates):
                         """
                         today = datetime.now()
 
-                        print('heheheh')
                         from pytz import timezone
                         tz_target = timezone(tf.certain_timezone_at(lat=target['lat'], lng=target['lng']))
                         # ATTENTION: tz_target could be None! handle error case

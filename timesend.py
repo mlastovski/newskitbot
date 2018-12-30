@@ -73,6 +73,7 @@ def specific_time_send():
     curs.execute("SELECT * FROM users")
     users = curs.fetchall()
     for i in users:
+        print('Another user: ' + i[2])
         time_send = i[7]
         timezone = i[16]
         if ':' in time_send:
@@ -83,12 +84,18 @@ def specific_time_send():
                 time=[time_send]
                 time = convert_time(time, timezone)
 
-            if now_time in time:
+            local_time = convert_time([now_time], timezone)
+
+            print(local_time, time)
+
+            if local_time[0] in time:
                 send([i])
                 requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Надіслано новини користувачу ' +str(i[2]) + ' ' + str(i[9]) + ' ' + str(i[10]) + '.\nЧас отримання новин: '+ str(i[7])) + '.\nGMT: '+ str(i[16]))
                 requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('Надіслано новини користувачу ' +str(i[2]) + ' ' + str(i[9]) + ' ' + str(i[10]) + '.\nЧас отримання новин: '+ str(i[7])) + '.\nGMT: '+ str(i[16]))
         elif time_send == 'everyhour':
-            time = convert_time(now_time, timezone)[0]
+            print('everyhour', now_time, timezone)
+            time = convert_time([now_time], timezone)[0]
+            print(time)
             local_hour = time.split(':')[0]
             local_minute = time.split(':')[1]
             if local_minute == '00' and local_hour >= 7 and local_hour <=23:
