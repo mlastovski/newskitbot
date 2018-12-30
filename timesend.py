@@ -96,8 +96,8 @@ def specific_time_send():
             print('everyhour', now_time, timezone)
             time = convert_time([now_time], timezone)[0]
             print(time)
-            local_hour = time.split(':')[0]
-            local_minute = time.split(':')[1]
+            local_hour = int(time.split(':')[0])
+            local_minute = int(time.split(':')[1])
             if local_minute == '00' and local_hour >= 7 and local_hour <=23:
                 send([i])
                 requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Надіслано новини користувачу ' +str(i[2]) + ' ' + str(i[9]) + ' ' + str(i[10]) + '.\nЧас отримання новин: '+ str(i[7])) + '.\nGMT: '+ str(i[16]) + '.\nЛокальний час: '+ time[0])
