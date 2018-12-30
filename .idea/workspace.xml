@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="89a244cc-e439-4fbe-95f4-3f54ca74d4c1" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/parse.py" afterPath="$PROJECT_DIR$/parse.py" />
       <change beforePath="$PROJECT_DIR$/timesend.py" afterPath="$PROJECT_DIR$/timesend.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -29,11 +31,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="parse.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="parse.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/parse.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3705">
-              <caret line="247" column="33" lean-forward="false" selection-start-line="247" selection-start-column="33" selection-end-line="247" selection-end-column="33" />
+            <state relative-caret-position="381">
+              <caret line="403" column="45" lean-forward="false" selection-start-line="403" selection-start-column="45" selection-end-line="403" selection-end-column="45" />
               <folding>
                 <element signature="e#23#32#0" expanded="true" />
               </folding>
@@ -41,14 +43,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="timesend.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="timesend.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/timesend.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="310">
-              <caret line="100" column="67" lean-forward="true" selection-start-line="100" selection-start-column="67" selection-end-line="100" selection-end-column="67" />
+            <state relative-caret-position="573">
+              <caret line="231" column="26" lean-forward="false" selection-start-line="231" selection-start-column="26" selection-end-line="231" selection-end-column="26" />
               <folding>
                 <element signature="e#23#32#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
+        <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/requests/__init__.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -145,11 +157,11 @@
         <option value="$PROJECT_DIR$/parsers/tsn.py" />
         <option value="$PROJECT_DIR$/parsers/facebook_parser.py" />
         <option value="$PROJECT_DIR$/parsers/zaxidnet.py" />
-        <option value="$PROJECT_DIR$/parse.py" />
         <option value="$PROJECT_DIR$/parsers/mctoday.py" />
         <option value="$PROJECT_DIR$/bot_add.py" />
         <option value="$PROJECT_DIR$/bot.py" />
         <option value="$PROJECT_DIR$/timesend.py" />
+        <option value="$PROJECT_DIR$/parse.py" />
       </list>
     </option>
   </component>
@@ -355,7 +367,7 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28038126" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27440634" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27440634" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3997195" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -395,13 +407,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/requirements.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="705">
-          <caret line="47" column="8" lean-forward="false" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/telepot/namedtuple.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4485">
@@ -694,20 +699,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/parse.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3705">
-          <caret line="247" column="33" lean-forward="false" selection-start-line="247" selection-start-column="33" selection-end-line="247" selection-end-column="33" />
-          <folding>
-            <element signature="e#23#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bot_add.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="166">
           <caret line="71" column="14" lean-forward="false" selection-start-line="71" selection-start-column="14" selection-end-line="71" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/requests/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -724,8 +727,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/timesend.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
-          <caret line="100" column="67" lean-forward="true" selection-start-line="100" selection-start-column="67" selection-end-line="100" selection-end-column="67" />
+        <state relative-caret-position="573">
+          <caret line="231" column="26" lean-forward="false" selection-start-line="231" selection-start-column="26" selection-end-line="231" selection-end-column="26" />
+          <folding>
+            <element signature="e#23#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/parse.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="381">
+          <caret line="403" column="45" lean-forward="false" selection-start-line="403" selection-start-column="45" selection-end-line="403" selection-end-column="45" />
           <folding>
             <element signature="e#23#32#0" expanded="true" />
           </folding>

@@ -356,7 +356,7 @@ def parse(media, web_name):
 
             print(web_name, web_info[3])
 
-            curs.execute("SELECT telegram_id, status, keywords, telegram_id, parse_mode, news_language FROM users")
+            curs.execute("SELECT telegram_id, status, keywords, telegram_id, parse_mode, news_language, additional_received FROM users")
             users = list(curs.fetchall())
             article_keywords = article_keywords.split(', ')
             if not duplicate:
@@ -385,11 +385,23 @@ def parse(media, web_name):
                             get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, passed_keywords + '\n' + new_article['link']), chat_id)
                             curs.execute("UPDATE users SET send_time ='{}' WHERE telegram_id ='{}'".format(datetime.now().timestamp(), user[3]))
                             conn.commit()
+                            if user[6] == 'false':
+                                curs.execute("SELECT value FROM static WHERE id = 5")
+                                additional_info = curs.fetchone()[0]
+                                get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, additional_info))
+                                curs.execute("UPDATE users SET additional_received = 'true' WHERE telegram_id = '{}'".format(chat_id))
+                                conn.commit()
                         elif int(status) == 0 and user2website[3] == '*' and user[4] == 'immediate' and web_info[3] in user_news_lang:
                             print(True, chat_id)
                             get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, 'Нова стаття з ' + web_name + '\n' + new_article['link']), chat_id)
                             curs.execute("UPDATE users SET send_time ='{}' WHERE telegram_id ='{}'".format(datetime.now().timestamp(), user[3]))
                             conn.commit()
+                            if user[6] == 'false':
+                                curs.execute("SELECT value FROM static WHERE id = 5")
+                                additional_info = curs.fetchone()[0]
+                                get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, additional_info))
+                                curs.execute("UPDATE users SET additional_received = 'true' WHERE telegram_id = '{}'".format(chat_id))
+                                conn.commit()
     else:
         print("oops, i missed a lot of articles!")
         for new_article_number in range(len(links)-1, -1, -1):

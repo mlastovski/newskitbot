@@ -230,6 +230,5 @@ def specific_time_send():
 
 
 if __name__ == '__main__':
-
     specific_time_send()
     sched2.start()
