@@ -218,6 +218,7 @@ def replace(var, list_from_to):
 def echo_all(updates):
     print(updates)
     for update in updates["result"]:
+        print(update)
         try:
             try: #if its group
                 try:
@@ -279,6 +280,7 @@ def echo_all(updates):
                 mess_id=update["message"]['message_id']
         except KeyError:
             try:
+                print('here4')
                 text = update["callback_query"]["data"]
 
                 chat = update["callback_query"]["from"]["id"]
@@ -843,7 +845,7 @@ def echo_all(updates):
                     if text[0] == 'newskit':
                         markup.append(['Далі ➡️', '/endtour'])
 
-                    send_inline_keyboard(markup, chat, 'Коли ти хочеш отримувати новини?\nТочна година зараз у тебе: '+convert_time_from_gmt_to_local(now_time, timezone)+'. Якщо я помилився, то використай /changetimezone, щоб змінити часовий пояс')
+                    send_inline_keyboard(markup, chat,'Коли ти хочеш отримувати новини?\nТочна година зараз у тебе: '+convert_time_from_gmt_to_local(now_time, timezone)+'. Якщо я помилився, то використай /changetimezone, щоб змінити часовий пояс')
             elif action == 'deletetime':
                 text = text[0]
                 print('deleting ', text)
@@ -908,7 +910,7 @@ def echo_all(updates):
                     if mess_id:
                         try:
                             print('herere')
-                            TelegramBot.editMessageText(msg_identifier=(id, mess_id), text='KKКоли ти хочеш отримувати новини? \nТочна година зараз у тебе: '+ convert_time_from_gmt_to_local(now_time, timezone)+'. Якщо я помилився, то використай /changetimezone, щоб змінити часовий пояс', reply_markup=reply_markup)
+                            TelegramBot.editMessageText(msg_identifier=(id, mess_id), text='Коли ти хочеш отримувати новини? \nТочна година зараз у тебе: '+ convert_time_from_gmt_to_local(now_time, timezone)+'. Якщо я помилився, то використай /changetimezone, щоб змінити часовий пояс', reply_markup=reply_markup)
                         except telepot.exception.TelegramError:
                             send_inline_keyboard(markup, chat, 'Коли ти хочеш отримувати новини? \nТочна година зараз у тебе: '+ convert_time_from_gmt_to_local(now_time, timezone)+'. Якщо я помилився, то використай /changetimezone, щоб змінити часовий пояс')
                     else:
@@ -1394,9 +1396,9 @@ def echo_all(updates):
                                     elif timezone_list[0] == '-':
                                         timezone_list[0] = '+'
 
-                                    timezone = ''.join(timezone_list)
-                                    print('tm changed ',timezone)
-                                    result_time = convert_time([text], timezone)
+                                    timezone_list = ''.join(timezone_list)
+                                    print('tm changed ',timezone_list)
+                                    result_time = convert_time([text], timezone_list)
                                     addnewsheduler(result_time, id)
                                     send_message('Час '+str(text)+' встановлено! Напиши /setnewstime, щоб контролювати твій час отримання новин!', id)
                                 else:
@@ -1562,10 +1564,10 @@ def echo_all(updates):
 
                             elif admin_action == 'search':
                                 try:
-                                    category = admin_command.split(':')[0].split()[1]
-                                    value = admin_command.split(':')[1]
+                                    category = admin_command.split(': ')[0].split()[1]
+                                    value = admin_command.split(': ')[1]
                                 except:
-                                    send_message('Помилка!\nДля пошуку використовуй такий синтаксис:\nПошук юзера: search user:search_word_or_id\nПошук підписників сайту: search web:website_name\nПошук отримувачів новин у певній годині: search time:time_request -- ще не працює', chat)
+                                    send_message('Помилка!\nДля пошуку використовуй такий синтаксис:\nПошук юзера: search user: search_word_or_id\nПошук підписників сайту: search web: website_name\nПошук отримувачів новин у певній годині: search time: time_request', chat)
 
                                 if category == 'user':
                                     if value.isnumeric():
@@ -1608,6 +1610,29 @@ def echo_all(updates):
                                         print(users)
 
                                         send_message('Всі підписники сайту '+ text[1]+ '('+str(len(users))+') : '+users, id)
+                                elif category == 'time':
+                                    curs.execute("SELECT * FROM users")
+                                    users = curs.fetchall()
+                                    result = []
+                                    print(value.lower())
+                                    for i in users:
+                                        print('Another user: ' + i[2])
+                                        time_send = i[7]
+                                        timezone = i[16]
+                                        if ':' in time_send:
+                                            if ',' in time_send:
+                                                time=time_send.split(', ')
+                                                time = convert_time(time, timezone)
+                                            else:
+                                                time=[time_send]
+                                                time = convert_time(time, timezone)
+                                        else:
+                                            time = [time_send]
+                                        print(time)
+                                        if value.lower() in time:
+                                            result.append(str(i[2]) + ' ' + str(i[9]) + ' ' + str(i[10]) + '\n')
+
+                                send_message('Всі отримувачі новин о '+ value.lower() + ' ('+str(len(result))+'):\n'+''.join(result), id)
 
                             elif admin_action == 'toallusers':
                                 curs.execute("SELECT telegram_id FROM users")

@@ -72,36 +72,49 @@ def specific_time_send():
     now_time = now_hour+':'+now_minute
     curs.execute("SELECT * FROM users")
     users = curs.fetchall()
+    send_result = []
     for i in users:
-        print('Another user: ' + i[2])
-        time_send = i[7]
-        timezone = i[16]
-        if ':' in time_send:
-            if ',' in time_send:
-                time=time_send.split(', ')
-                time = convert_time(time, timezone)
-            else:
-                time=[time_send]
-                time = convert_time(time, timezone)
+        try:
+            print('Another user: ' + i[2])
+            time_send = i[7]
+            timezone = i[16]
+            if ':' in time_send:
+                if ',' in time_send:
+                    time=time_send.split(', ')
+                    time = convert_time(time, timezone)
+                else:
+                    time=[time_send]
+                    time = convert_time(time, timezone)
 
-            local_time = convert_time([now_time], timezone)
+                local_time = convert_time([now_time], timezone)
 
-            print(local_time, time)
+                print(local_time, time)
 
-            if local_time[0] in time:
-                send([i])
-                requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Надіслано новини користувачу ' +str(i[2]) + ' ' + str(i[9]) + ' ' + str(i[10]) + '.\nЧас отримання новин: '+ str(i[7])) + '.\nGMT: '+ str(i[16]))
-                requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('Надіслано новини користувачу ' +str(i[2]) + ' ' + str(i[9]) + ' ' + str(i[10]) + '.\nЧас отримання новин: '+ str(i[7])) + '.\nGMT: '+ str(i[16]))
-        elif time_send == 'everyhour':
-            print('everyhour', now_time, timezone)
-            time = convert_time([now_time], timezone)[0]
-            print(time)
-            local_hour = int(time.split(':')[0])
-            local_minute = int(time.split(':')[1])
-            if local_minute == '00' and local_hour >= 7 and local_hour <=23:
-                send([i])
-                requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Надіслано новини користувачу ' +str(i[2]) + ' ' + str(i[9]) + ' ' + str(i[10]) + '.\nЧас отримання новин: '+ str(i[7])) + '.\nGMT: '+ str(i[16]) + '.\nЛокальний час: '+ time[0])
-                requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('Надіслано новини користувачу ' +str(i[2]) + ' ' + str(i[9]) + ' ' + str(i[10]) + '.\nЧас отримання новин: '+ str(i[7])) + '.\nGMT: '+ str(i[16]) + '.\nЛокальний час: '+ time[0])
+                if local_time[0] in time:
+                    length = send([i])
+                    send_result.append(str(i[2]) + ' ' + str(i[9]) + ' ' + str(i[10]))
+                    requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Надіслано '+ str(length) + ' новин користувачу ' +str(i[2]) + ' ' + str(i[9]) + ' ' + str(i[10]) + '.\nЧас отримання новин: '+ str(i[7])) + '.\nGMT: '+ str(i[16]))
+                    requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('Надіслано '+ str(length) + ' новин користувачу ' +str(i[2]) + ' ' + str(i[9]) + ' ' + str(i[10]) + '.\nЧас отримання новин: '+ str(i[7])) + '.\nGMT: '+ str(i[16]))
+            elif time_send == 'everyhour':
+                print('everyhour', now_time, timezone)
+                time = convert_time([now_time], timezone)[0]
+                print(time)
+                local_hour = int(time.split(':')[0])
+                local_minute = int(time.split(':')[1])
+                if local_minute == 0 and local_hour >= 7 and local_hour <=23:
+                    length = send([i])
+                    send_result.append(str(i[2]) + ' ' + str(i[9]) + ' ' + str(i[10]))
+                    requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Надіслано '+ str(length) + ' новин користувачу ' +str(i[2]) + ' ' + str(i[9]) + ' ' + str(i[10]) + '.\nЧас отримання новин: '+ str(i[7])) + '.\nGMT: '+ str(i[16]) + '.\nЛокальний час: '+ time[0])
+                    requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('Надіслано '+ str(length) + ' новин користувачу ' +str(i[2]) + ' ' + str(i[9]) + ' ' + str(i[10]) + '.\nЧас отримання новин: '+ str(i[7])) + '.\nGMT: '+ str(i[16]) + '.\nЛокальний час: '+ time[0])
+        except Exception as e:
+            print('Error sending news to user!')
+            requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Error sending news to user! ' +str(i[2]) + ' ' + str(i[9]) + ' ' + str(i[10]) + '.\nЧас отримання новин: '+ str(i[7])) + '.\nGMT: '+ str(i[16]))
+            requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('Error sending news to user! ' +str(i[2]) + ' ' + str(i[9]) + ' ' + str(i[10]) + '.\nЧас отримання новин: '+ str(i[7])) + '.\nGMT: '+ str(i[16]))
+            continue
+
+    if len(send_result) > 1:
+        requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Підсумок:\nФункція надсилання спрацювала для ' +str(len(send_result)) + ' користувачів'))
+        requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('Підсумок:\nФункція надсилання спрацювала для ' +str(len(send_result)) + ' користувачів'))
 
 
     # if now_hour == '07' and now_minute == '00':

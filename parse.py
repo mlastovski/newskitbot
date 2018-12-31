@@ -37,7 +37,6 @@ from parsers.portallviv import portallviv
 
 
 
-
 os.environ['DATABASE_URL'] = 'postgres://cgvkxvyosmvmzd:f281ebb6771eaebb9c998d34665c60d917542d6df0ece9fa483da65d62b600e7@ec2-79-125-12-48.eu-west-1.compute.amazonaws.com:5432/dbrvpbkmj63vl8'
 
 DATABASE_URL = os.environ['DATABASE_URL']
@@ -47,6 +46,12 @@ curs = conn.cursor()
 
 
 def parse(media, web_name):
+    from bot import TOKEN, TOKEN2
+    if TOKEN == TOKEN2:
+        warning = 'Parsing wont work because you are using SpamBot at the moment! Change TOKEN in bot.py!'
+        print(warning)
+        return
+
     curs.execute("DELETE FROM articles WHERE parse_time < '{}'".format(float(datetime.now().timestamp() - 259200)))
     conn.commit()
     #requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Процес надсилання завершено!'))
@@ -338,7 +343,7 @@ def parse(media, web_name):
             article_keywords = ', '.join(article_keywords)
             print('got an article!')
             try:
-                curs.execute("INSERT INTO articles (website_id, url, keywords, parse_time, words)  VALUES ('{}','{}','{}', '{}', '{}')".format(id, new_article['link'], article_keywords, datetime.now().timestamp(), new_article['words']))
+                curs.execute("INSERT INTO articles (website_id, url, keywords, parse_time, words, title)  VALUES (%s, %s, %s, %s, %s, %s)", (id, new_article['link'], article_keywords, datetime.now().timestamp(), new_article['words'], new_article['title']))
                 conn.commit()
                 duplicate = False
                 print('article inserted!')
@@ -381,8 +386,20 @@ def parse(media, web_name):
                         print('passed_keywords: ', passed_keywords)
                         print('user2website: ', user2website)
                         if int(status) == 0 and passed_keywords != '' and user[4] == 'immediate' and web_info[3] in user_news_lang:
-                            print(True, chat_id)
-                            get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, passed_keywords + '\n' + new_article['link']), chat_id)
+                            print(True)
+
+                            from bot import TelegramBot, telepot
+                            try:
+                                sent = TelegramBot.sendMessage(chat_id=chat_id, text=web_name + ': '+ new_article['title'])
+                                edited = telepot.message_identifier(sent)
+                                TelegramBot.editMessageText(edited, str(passed_keywords + '\n' + new_article['link']))
+                                print('Sent!')
+                                time.sleep(2)
+                            except Exception as e:
+                                requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Стаття не надіслана користувачу! ' + str(chat_id)))
+                                requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('Стаття не надіслана користувачу! ' + str(chat_id)))
+                                get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, passed_keywords + '\n' + new_article['link']), chat_id)
+
                             curs.execute("UPDATE users SET send_time ='{}' WHERE telegram_id ='{}'".format(datetime.now().timestamp(), user[3]))
                             conn.commit()
                             if user[6] == 'false':
@@ -393,7 +410,18 @@ def parse(media, web_name):
                                 conn.commit()
                         elif int(status) == 0 and user2website[3] == '*' and user[4] == 'immediate' and web_info[3] in user_news_lang:
                             print(True, chat_id)
-                            get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, 'Нова стаття з ' + web_name + '\n' + new_article['link']), chat_id)
+
+                            from bot import TelegramBot, telepot
+                            try:
+                                sent = TelegramBot.sendMessage(chat_id, web_name + ': '+ new_article['title'])
+                                edited = telepot.message_identifier(sent)
+                                TelegramBot.editMessageText(edited, str(passed_keywords + '\n' + new_article['link']))
+                                print('Sent!')
+                            except Exception as e:
+                                requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Стаття не надіслана користувачу! ' + str(chat_id)))
+                                requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('Стаття не надіслана користувачу! ' + str(chat_id)))
+                                get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, passed_keywords + '\n' + new_article['link']), chat_id)
+
                             curs.execute("UPDATE users SET send_time ='{}' WHERE telegram_id ='{}'".format(datetime.now().timestamp(), user[3]))
                             conn.commit()
                             if user[6] == 'false':
@@ -442,7 +470,7 @@ def parse(media, web_name):
             article_keywords = ', '.join(article_keywords)
             print('got an article!')
             try:
-                curs.execute("INSERT INTO articles (website_id, url, keywords, parse_time, words)  VALUES ('{}','{}','{}', '{}', '{}')".format(id, new_article['link'], article_keywords, datetime.now().timestamp(), new_article['words']))
+                curs.execute("INSERT INTO articles (website_id, url, keywords, parse_time, words, title)  VALUES (%s, %s, %s, %s, %s, %s)", (id, new_article['link'], article_keywords, datetime.now().timestamp(), new_article['words'], new_article['title']))
                 conn.commit()
                 duplicate = False
                 print('article inserted!')
@@ -483,12 +511,34 @@ def parse(media, web_name):
                         print('user2website: ', user2website)
                         if int(status) == 0 and passed_keywords != '' and user[4] == 'immediate' and web_info[3] in user_news_lang:
                             print(True, chat_id)
-                            get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, passed_keywords + '\n' + new_article['link']), chat_id)
+
+                            from bot import TelegramBot, telepot
+                            try:
+                                sent = TelegramBot.sendMessage(chat_id, web_name + ': '+ new_article['title'])
+                                edited = telepot.message_identifier(sent)
+                                TelegramBot.editMessageText(edited, str(passed_keywords + '\n' + new_article['link']))
+                                print('Sent!')
+                            except Exception as e:
+                                requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Стаття не надіслана користувачу! ' + str(chat_id)))
+                                requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('Стаття не надіслана користувачу! ' + str(chat_id)))
+                                get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, passed_keywords + '\n' + new_article['link']), chat_id)
+
                             curs.execute("UPDATE users SET send_time ='{}' WHERE telegram_id ='{}'".format(datetime.now().timestamp(), user[3]))
                             conn.commit()
                         elif int(status) == 0 and user2website[3] == '*' and user[4] == 'immediate' and web_info[3] in user_news_lang:
                             print(True, chat_id)
-                            get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, 'Нова стаття з ' + web_name + '\n' + new_article['link']), chat_id)
+
+                            from bot import TelegramBot, telepot
+                            try:
+                                sent = TelegramBot.sendMessage(chat_id, web_name + ': '+ new_article['title'])
+                                edited = telepot.message_identifier(sent)
+                                TelegramBot.editMessageText(edited, str(passed_keywords + '\n' + new_article['link']))
+                                print('Sent!')
+                            except Exception as e:
+                                requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Стаття не надіслана користувачу! ' + str(chat_id)))
+                                requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('Стаття не надіслана користувачу! ' + str(chat_id)))
+                                get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, passed_keywords + '\n' + new_article['link']), chat_id)
+
                             curs.execute("UPDATE users SET send_time ='{}' WHERE telegram_id ='{}'".format(datetime.now().timestamp(), user[3]))
                             conn.commit()
     print('Finished!')
@@ -617,7 +667,12 @@ def send(users, limit=15, immediate=False):
                         print(True)
                         if i == 1 and user[7] != 'everyhour' or i == 1 and user[7] == 'everyhour' and now_hour == '05':
                             passed_keywords = 'Твій одноразовий ліміт новин: ' + str(limit) + '. Щоб змінити, скористайся /limit \nЧас отримання новин: '  + news_time + '. Щоб змінити, скористайся /newstime\n' + passed_keywords
-                        get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, passed_keywords + '\n' + article[2]), user[1])
+
+                        from bot import TelegramBot, telepot
+                        sent = TelegramBot.sendMessage(user[1], web_name + ': '+ article[6])
+                        edited = telepot.message_identifier(sent)
+                        TelegramBot.editMessageText(edited, str(passed_keywords + '\n' + article[2]))
+
                         curs.execute("UPDATE users SET send_time ='{}' WHERE telegram_id ='{}'".format(datetime.now().timestamp(), user[1]))
                         conn.commit()
                         i+=1
@@ -628,7 +683,12 @@ def send(users, limit=15, immediate=False):
                         if i == 1 and user[7] != 'everyhour' or i == 1 and user[7] == 'everyhour' and now_hour == '05':
                             passed_keywords = 'Твій одноразовий ліміт новин: ' + str(limit) + '. Щоб змінити, скористайся /limit \nЧас отримання новин: '  + news_time + '. Щоб змінити, скористайся /newstime\n' + passed_keywords
                         print(True)
-                        get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, 'Нова стаття з ' + web_name + '\n' + article[2]), user[1])
+
+                        from bot import TelegramBot, telepot
+                        sent = TelegramBot.sendMessage(user[1], web_name + ': '+ article[6])
+                        edited = telepot.message_identifier(sent)
+                        TelegramBot.editMessageText(edited, str(passed_keywords + '\n' + article[2]))
+
                         curs.execute("UPDATE users SET send_time ='{}' WHERE telegram_id ='{}'".format(datetime.now().timestamp(), user[1]))
                         conn.commit()
                         i+=1
@@ -654,13 +714,18 @@ def send(users, limit=15, immediate=False):
 
             if int(status) == 0:
                 if if_nothing:
+                    print('НЕ надсилаю опитувалку')
                     if immediate:
                         send_inline_keyboard([['Обрати інші теми', '/themes'], ['Відібрати інші веб-сайти', '/websites'], ['Переглянути свої ключові слова', '/keywords']], user[1], 'На жаль, останніх новин за твоїми параметрами не знайдено 😔 \nЗачекай трішки або спробуй наступне:')
                     else:
                         pass
                         #send_inline_keyboard([['Обрати інші теми', '/themes'], ['Відібрати інші веб-сайти', '/websites'], ['Переглянути свої ключові слова', '/keywords']], user[1], 'На жаль, останніх новин за твоїми параметрами не знайдено 😔 \nЗачекай трішки або спробуй наступне:')
                 elif user[7] != 'everyhour':
+                    print('Ще надсилаю опитувалку')
                     send_inline_keyboard([['Так, дуже!', '/feedbackonce так, все супер'], ['Мені сподобались декілька новин!', '/feedbackonce декілька новин'], ['Було мало корисного((', '/feedbackonce було мало корисного'], ['Маю пропозицію щодо покращення', '/feedback offer']], user[1], 'Чи сподобалась тобі підбірка новин?')
+
+            if len(users) == 1:
+                return len(url_send_list)
         except Exception as e:
             print('Error_' + str(e))
             curs.execute("Rollback")
@@ -668,6 +733,8 @@ def send(users, limit=15, immediate=False):
             from bot import TOKEN
             requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'ERROR!!! ' + str(e)+ '. Помилка розсилки: ' + str(id)))
             requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=373407132&text={}'.format(TOKEN, 'ERROR!!! ' + str(e)+ '. Помилка розсилки: ' + str(id)))
+
+
 
 def extract_news_time(user_id):
     curs.execute("SELECT parse_mode FROM users WHERE telegram_id ='{}'".format(user_id))
