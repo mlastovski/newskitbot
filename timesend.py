@@ -93,19 +93,19 @@ def specific_time_send():
                 if local_time[0] in time:
                     length = send([i])
                     send_result.append(str(i[2]) + ' ' + str(i[9]) + ' ' + str(i[10]))
-                    requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Надіслано '+ str(length) + ' новин користувачу ' +str(i[2]) + ' ' + str(i[9]) + ' ' + str(i[10]) + '.\nЧас отримання новин: '+ str(i[7])) + '.\nGMT: '+ str(i[16]))
-                    requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('Надіслано '+ str(length) + ' новин користувачу ' +str(i[2]) + ' ' + str(i[9]) + ' ' + str(i[10]) + '.\nЧас отримання новин: '+ str(i[7])) + '.\nGMT: '+ str(i[16]))
+                    requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Надіслано '+ str(length) + ' новин користувачу ' +str(i[2]) + ' ' + str(i[9]) + ' ' + str(i[10]) + '.\nЧас отримання новин: '+ str(i[7])) + '.\nGMT: '+ str(i[16]) + '.\nЛокальний час: '+ str(local_time[0]))
+                    requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('Надіслано '+ str(length) + ' новин користувачу ' +str(i[2]) + ' ' + str(i[9]) + ' ' + str(i[10]) + '.\nЧас отримання новин: '+ str(i[7])) + '.\nGMT: '+ str(i[16]) + '.\nЛокальний час: '+ str(local_time[0]))
             elif time_send == 'everyhour':
                 print('everyhour', now_time, timezone)
                 time = convert_time([now_time], timezone)[0]
-                print(time)
+                print(str(time))
                 local_hour = int(time.split(':')[0])
                 local_minute = int(time.split(':')[1])
                 if local_minute == 0 and local_hour >= 7 and local_hour <=23:
                     length = send([i])
                     send_result.append(str(i[2]) + ' ' + str(i[9]) + ' ' + str(i[10]))
-                    requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Надіслано '+ str(length) + ' новин користувачу ' +str(i[2]) + ' ' + str(i[9]) + ' ' + str(i[10]) + '.\nЧас отримання новин: '+ str(i[7])) + '.\nGMT: '+ str(i[16]) + '.\nЛокальний час: '+ time[0])
-                    requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('Надіслано '+ str(length) + ' новин користувачу ' +str(i[2]) + ' ' + str(i[9]) + ' ' + str(i[10]) + '.\nЧас отримання новин: '+ str(i[7])) + '.\nGMT: '+ str(i[16]) + '.\nЛокальний час: '+ time[0])
+                    requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Надіслано '+ str(length) + ' новин користувачу ' +str(i[2]) + ' ' + str(i[9]) + ' ' + str(i[10]) + '.\nЧас отримання новин: '+ str(i[7])) + '.\nGMT: '+ str(i[16]) + '.\nЛокальний час: '+ str(time))
+                    requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('Надіслано '+ str(length) + ' новин користувачу ' +str(i[2]) + ' ' + str(i[9]) + ' ' + str(i[10]) + '.\nЧас отримання новин: '+ str(i[7])) + '.\nGMT: '+ str(i[16]) + '.\nЛокальний час: '+ str(time))
         except Exception as e:
             print('Error sending news to user!')
             requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Error sending news to user! ' +str(i[2]) + ' ' + str(i[9]) + ' ' + str(i[10]) + '.\nЧас отримання новин: '+ str(i[7])) + '.\nGMT: '+ str(i[16]))

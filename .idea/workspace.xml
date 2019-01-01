@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="89a244cc-e439-4fbe-95f4-3f54ca74d4c1" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/bot.py" afterPath="$PROJECT_DIR$/bot.py" />
       <change beforePath="$PROJECT_DIR$/parse.py" afterPath="$PROJECT_DIR$/parse.py" />
       <change beforePath="$PROJECT_DIR$/timesend.py" afterPath="$PROJECT_DIR$/timesend.py" />
@@ -36,8 +34,8 @@
       <file leaf-file-name="parse.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/parse.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-4682">
-              <caret line="67" column="23" lean-forward="true" selection-start-line="67" selection-start-column="23" selection-end-line="67" selection-end-column="23" />
+            <state relative-caret-position="319">
+              <caret line="278" column="23" lean-forward="true" selection-start-line="278" selection-start-column="23" selection-end-line="278" selection-end-column="23" />
               <folding>
                 <element signature="e#23#32#0" expanded="true" />
               </folding>
@@ -65,11 +63,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="timesend.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="timesend.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/timesend.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="211">
-              <caret line="97" column="12" lean-forward="false" selection-start-line="95" selection-start-column="20" selection-end-line="97" selection-end-column="12" />
+            <state relative-caret-position="179">
+              <caret line="104" column="38" lean-forward="true" selection-start-line="104" selection-start-column="38" selection-end-line="104" selection-end-column="38" />
               <folding>
                 <element signature="e#23#32#0" expanded="true" />
               </folding>
@@ -87,11 +85,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="bot.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="bot.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bot.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-446">
-              <caret line="21" column="44" lean-forward="false" selection-start-line="21" selection-start-column="44" selection-end-line="21" selection-end-column="44" />
+            <state relative-caret-position="-31917">
+              <caret line="21" column="49" lean-forward="false" selection-start-line="21" selection-start-column="49" selection-end-line="21" selection-end-column="49" />
               <folding>
                 <element signature="e#18#29#0" expanded="true" />
               </folding>
@@ -99,10 +97,40 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="lbua.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/parsers/lbua.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="89">
+              <caret line="86" column="21" lean-forward="true" selection-start-line="85" selection-start-column="12" selection-end-line="86" selection-end-column="21" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="zaxidnet.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/parsers/zaxidnet.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="195">
+              <caret line="18" column="12" lean-forward="false" selection-start-line="18" selection-start-column="12" selection-end-line="18" selection-end-column="56" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="rbcua.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/parsers/rbcua.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="195">
+              <caret line="17" column="17" lean-forward="true" selection-start-line="17" selection-start-column="17" selection-end-line="17" selection-end-column="17" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="bot_add.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bot_add.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1065">
+            <state relative-caret-position="-362">
               <caret line="71" column="14" lean-forward="false" selection-start-line="71" selection-start-column="14" selection-end-line="71" selection-end-column="14" />
               <folding />
             </state>
@@ -181,9 +209,12 @@
         <option value="$PROJECT_DIR$/parsers/zaxidnet.py" />
         <option value="$PROJECT_DIR$/parsers/mctoday.py" />
         <option value="$PROJECT_DIR$/bot_add.py" />
-        <option value="$PROJECT_DIR$/timesend.py" />
-        <option value="$PROJECT_DIR$/parse.py" />
+        <option value="$PROJECT_DIR$/boost.py" />
         <option value="$PROJECT_DIR$/bot.py" />
+        <option value="$PROJECT_DIR$/parsers/lbua.py" />
+        <option value="$PROJECT_DIR$/parse.py" />
+        <option value="$PROJECT_DIR$/parsers/rbcua.py" />
+        <option value="$PROJECT_DIR$/timesend.py" />
       </list>
     </option>
   </component>
@@ -243,7 +274,25 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.parse">
+  <component name="RunManager" selected="Python.timesend">
+    <configuration name="boost" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="newskitbot" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/boost.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
     <configuration name="bot" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -262,7 +311,7 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <configuration name="mctoday" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="lbua" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -274,31 +323,13 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="newskitbot" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/parsers/mctoday.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/parsers/lbua.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <configuration name="parse" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="newskitbot" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/parse.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
-    <configuration name="portallviv" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="rbcua" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -310,7 +341,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="newskitbot" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/parsers/portallviv.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/parsers/rbcua.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -336,18 +367,18 @@
     </configuration>
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Python.bot" />
-      <item index="1" class="java.lang.String" itemvalue="Python.timesend" />
-      <item index="2" class="java.lang.String" itemvalue="Python.mctoday" />
-      <item index="3" class="java.lang.String" itemvalue="Python.portallviv" />
-      <item index="4" class="java.lang.String" itemvalue="Python.parse" />
+      <item index="1" class="java.lang.String" itemvalue="Python.boost" />
+      <item index="2" class="java.lang.String" itemvalue="Python.lbua" />
+      <item index="3" class="java.lang.String" itemvalue="Python.rbcua" />
+      <item index="4" class="java.lang.String" itemvalue="Python.timesend" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.parse" />
-        <item index="1" class="java.lang.String" itemvalue="Python.bot" />
-        <item index="2" class="java.lang.String" itemvalue="Python.timesend" />
-        <item index="3" class="java.lang.String" itemvalue="Python.portallviv" />
-        <item index="4" class="java.lang.String" itemvalue="Python.mctoday" />
+        <item index="0" class="java.lang.String" itemvalue="Python.timesend" />
+        <item index="1" class="java.lang.String" itemvalue="Python.rbcua" />
+        <item index="2" class="java.lang.String" itemvalue="Python.lbua" />
+        <item index="3" class="java.lang.String" itemvalue="Python.bot" />
+        <item index="4" class="java.lang.String" itemvalue="Python.boost" />
       </list>
     </recent_temporary>
   </component>
@@ -389,7 +420,7 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28038126" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27440634" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28496042" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3997195" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -429,15 +460,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/parsers/stopwords.txt" />
-    <entry file="file://$PROJECT_DIR$/parsers/stopwords_de.txt" />
-    <entry file="file://$PROJECT_DIR$/parsers/spiegelDeutsch.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1065">
-          <caret line="77" column="34" lean-forward="false" selection-start-line="77" selection-start-column="34" selection-end-line="77" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/parsers/wylsacom.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
@@ -552,13 +574,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/parsers/nytimes.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="70" column="109" lean-forward="false" selection-start-line="70" selection-start-column="109" selection-end-line="70" selection-end-column="109" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/parsers/onehundredtwelve.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="234">
@@ -646,13 +661,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/parsers/zaxidnet.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1470">
-          <caret line="103" column="0" lean-forward="false" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/parsers/fivechannelua.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="469">
@@ -696,14 +704,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bot_add.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1065">
-          <caret line="71" column="14" lean-forward="false" selection-start-line="71" selection-start-column="14" selection-end-line="71" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/Library/Caches/PyCharmEdu2017.3/python_stubs/1437855905/builtins.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3390">
@@ -720,22 +720,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/timesend.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="211">
-          <caret line="97" column="12" lean-forward="false" selection-start-line="95" selection-start-column="20" selection-end-line="97" selection-end-column="12" />
-          <folding>
-            <element signature="e#23#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/telepot/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="324">
           <caret line="514" column="45" lean-forward="false" selection-start-line="514" selection-start-column="45" selection-end-line="514" selection-end-column="45" />
           <folding>
-            <element signature="e#0#10#0" expanded="true" />
+            <element signature="e#0#10#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -748,22 +738,80 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/bot_add.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-362">
+          <caret line="71" column="14" lean-forward="false" selection-start-line="71" selection-start-column="14" selection-end-line="71" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/boost.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="15" lean-forward="false" selection-start-line="1" selection-start-column="15" selection-end-line="1" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bot.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-31917">
+          <caret line="21" column="49" lean-forward="false" selection-start-line="21" selection-start-column="49" selection-end-line="21" selection-end-column="49" />
+          <folding>
+            <element signature="e#18#29#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/parsers/nytimes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="975">
+          <caret line="70" column="109" lean-forward="false" selection-start-line="70" selection-start-column="109" selection-end-line="70" selection-end-column="109" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/parse.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4682">
-          <caret line="67" column="23" lean-forward="true" selection-start-line="67" selection-start-column="23" selection-end-line="67" selection-end-column="23" />
+        <state relative-caret-position="319">
+          <caret line="278" column="23" lean-forward="true" selection-start-line="278" selection-start-column="23" selection-end-line="278" selection-end-column="23" />
           <folding>
             <element signature="e#23#32#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bot.py">
+    <entry file="file://$PROJECT_DIR$/parsers/zaxidnet.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-446">
-          <caret line="21" column="44" lean-forward="false" selection-start-line="21" selection-start-column="44" selection-end-line="21" selection-end-column="44" />
+        <state relative-caret-position="195">
+          <caret line="18" column="12" lean-forward="false" selection-start-line="18" selection-start-column="12" selection-end-line="18" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/parsers/lbua.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="89">
+          <caret line="86" column="21" lean-forward="true" selection-start-line="85" selection-start-column="12" selection-end-line="86" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/parsers/rbcua.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="17" column="17" lean-forward="true" selection-start-line="17" selection-start-column="17" selection-end-line="17" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/timesend.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="179">
+          <caret line="104" column="38" lean-forward="true" selection-start-line="104" selection-start-column="38" selection-end-line="104" selection-end-column="38" />
           <folding>
-            <element signature="e#18#29#0" expanded="true" />
+            <element signature="e#23#32#0" expanded="true" />
           </folding>
         </state>
       </provider>

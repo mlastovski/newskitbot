@@ -52,7 +52,6 @@ def get_json_from_url(url, user_id=None):
                 print(user)
                 if user:
                     print('trying to remove user2 '+ str(user_id))
-                    requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'Користувач '+ str(user_id)+' видалив NewsKit, намагаюсь його видалити'))
                     curs.execute("SELECT * FROM users WHERE telegram_id='{}'".format(user_id))
                     user = curs.fetchone()
                     print(user)
@@ -70,7 +69,7 @@ def get_json_from_url(url, user_id=None):
                     curs.execute("SELECT id FROM users")
                     users_quan = len(curs.fetchall())
                     requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'Користувач ' + user[2] + ' (' + str(user[1]) + ') видалив NewsKit. Загальна кількість активних юзерів: ' + str(users_quan) + str(user)))
-                    requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=373407132&text={}'.format(TOKEN, 'Користувач ' + user[2] + ' (' + str(user[1]) + ') видалив NewsKit. Загальна кількість активних юзерів: ' + str(users_quan)))
+                    requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=373407132&text={}'.format(TOKEN, 'Користувач ' + user[2] + ' (' + str(user[1]) + ') видалив NewsKit. Загальна кількість активних юзерів: ' + str(users_quan) + str(user)))
 
                     chat_info = TelegramBot.getChat(user_id)
                     try:

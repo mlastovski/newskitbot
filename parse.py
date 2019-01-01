@@ -34,7 +34,8 @@ from parsers.laba import laba
 from parsers.lviv032 import zero32lviv
 from parsers.mctoday import mctoday
 from parsers.portallviv import portallviv
-
+from parsers.lbua import lbua
+from parsers.rbcua import rbcua
 
 
 os.environ['DATABASE_URL'] = 'postgres://cgvkxvyosmvmzd:f281ebb6771eaebb9c998d34665c60d917542d6df0ece9fa483da65d62b600e7@ec2-79-125-12-48.eu-west-1.compute.amazonaws.com:5432/dbrvpbkmj63vl8'
@@ -262,6 +263,20 @@ def parse(media, web_name):
             requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! portallviv'))
             requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! portallviv'))
             return None
+    elif media == 30:
+        try:
+            parsed_content = lbua()
+        except:
+            requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! lbua'))
+            requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! lbua'))
+            return None
+    elif media == 31:
+        try:
+            parsed_content = rbcua()
+        except:
+            requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! rbcua'))
+            requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! rbcua'))
+            return None
     else:
         return None
 
@@ -394,7 +409,6 @@ def parse(media, web_name):
                                 edited = telepot.message_identifier(sent)
                                 TelegramBot.editMessageText(edited, str(passed_keywords + '\n' + new_article['link']))
                                 print('Sent!')
-                                time.sleep(2)
                             except Exception as e:
                                 requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Стаття не надіслана користувачу! ' + str(chat_id)))
                                 requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('Стаття не надіслана користувачу! ' + str(chat_id)))
