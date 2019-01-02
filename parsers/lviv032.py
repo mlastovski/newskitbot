@@ -25,7 +25,7 @@ def zero32lviv():
             # print(title_text)
             link = title.find('div', {'class': 'c-news-card__head'}).find('a').get('href')
             if not link.startswith('https://'):
-                link = 'https://www.032.ua/news' + link
+                link = 'https://www.032.ua' + link
             # print(link)
 
             try:

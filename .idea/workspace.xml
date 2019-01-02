@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="89a244cc-e439-4fbe-95f4-3f54ca74d4c1" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/bot.py" afterPath="$PROJECT_DIR$/bot.py" />
-      <change beforePath="$PROJECT_DIR$/parse.py" afterPath="$PROJECT_DIR$/parse.py" />
-      <change beforePath="$PROJECT_DIR$/timesend.py" afterPath="$PROJECT_DIR$/timesend.py" />
+      <change beforePath="$PROJECT_DIR$/parsers/lviv032.py" afterPath="$PROJECT_DIR$/parsers/lviv032.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -34,11 +32,21 @@
       <file leaf-file-name="parse.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/parse.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="319">
-              <caret line="278" column="23" lean-forward="true" selection-start-line="278" selection-start-column="23" selection-end-line="278" selection-end-column="23" />
+            <state relative-caret-position="304">
+              <caret line="735" column="37" lean-forward="false" selection-start-line="735" selection-start-column="37" selection-end-line="735" selection-end-column="37" />
               <folding>
                 <element signature="e#23#32#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="lviv032.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/parsers/lviv032.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="234">
+              <caret line="27" column="42" lean-forward="false" selection-start-line="27" selection-start-column="42" selection-end-line="27" selection-end-column="42" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -63,7 +71,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="timesend.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="timesend.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/timesend.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="179">
@@ -71,16 +79,6 @@
               <folding>
                 <element signature="e#23#32#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
-        <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/requests/__init__.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -215,6 +213,7 @@
         <option value="$PROJECT_DIR$/parse.py" />
         <option value="$PROJECT_DIR$/parsers/rbcua.py" />
         <option value="$PROJECT_DIR$/timesend.py" />
+        <option value="$PROJECT_DIR$/parsers/lviv032.py" />
       </list>
     </option>
   </component>
@@ -274,25 +273,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.timesend">
-    <configuration name="boost" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="newskitbot" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/boost.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
+  <component name="RunManager" selected="Python.lviv032">
     <configuration name="bot" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -324,6 +305,24 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="newskitbot" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/parsers/lbua.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <configuration name="lviv032" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/parsers" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="newskitbot" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/parsers/lviv032.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -367,18 +366,18 @@
     </configuration>
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Python.bot" />
-      <item index="1" class="java.lang.String" itemvalue="Python.boost" />
-      <item index="2" class="java.lang.String" itemvalue="Python.lbua" />
-      <item index="3" class="java.lang.String" itemvalue="Python.rbcua" />
-      <item index="4" class="java.lang.String" itemvalue="Python.timesend" />
+      <item index="1" class="java.lang.String" itemvalue="Python.lbua" />
+      <item index="2" class="java.lang.String" itemvalue="Python.rbcua" />
+      <item index="3" class="java.lang.String" itemvalue="Python.timesend" />
+      <item index="4" class="java.lang.String" itemvalue="Python.lviv032" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.timesend" />
-        <item index="1" class="java.lang.String" itemvalue="Python.rbcua" />
-        <item index="2" class="java.lang.String" itemvalue="Python.lbua" />
-        <item index="3" class="java.lang.String" itemvalue="Python.bot" />
-        <item index="4" class="java.lang.String" itemvalue="Python.boost" />
+        <item index="0" class="java.lang.String" itemvalue="Python.lviv032" />
+        <item index="1" class="java.lang.String" itemvalue="Python.timesend" />
+        <item index="2" class="java.lang.String" itemvalue="Python.rbcua" />
+        <item index="3" class="java.lang.String" itemvalue="Python.lbua" />
+        <item index="4" class="java.lang.String" itemvalue="Python.bot" />
       </list>
     </recent_temporary>
   </component>
@@ -420,7 +419,7 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28038126" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28496042" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28496042" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3997195" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -682,13 +681,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/parsers/lviv032.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-775">
-          <caret line="14" column="48" lean-forward="false" selection-start-line="14" selection-start-column="25" selection-end-line="14" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/pytz/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="70">
@@ -772,16 +764,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/parse.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="319">
-          <caret line="278" column="23" lean-forward="true" selection-start-line="278" selection-start-column="23" selection-end-line="278" selection-end-column="23" />
-          <folding>
-            <element signature="e#23#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/parsers/zaxidnet.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
@@ -813,6 +795,24 @@
           <folding>
             <element signature="e#23#32#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/parse.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="735" column="37" lean-forward="false" selection-start-line="735" selection-start-column="37" selection-end-line="735" selection-end-column="37" />
+          <folding>
+            <element signature="e#23#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/parsers/lviv032.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="27" column="42" lean-forward="false" selection-start-line="27" selection-start-column="42" selection-end-line="27" selection-end-column="42" />
+          <folding />
         </state>
       </provider>
     </entry>
