@@ -70,8 +70,22 @@ def specific_time_send():
     now_minute = str(datetime.now().time()).split(':')[1]
     print(now_hour, now_minute)
     now_time = now_hour+':'+now_minute
-    curs.execute("SELECT * FROM users")
-    users = curs.fetchall()
+
+    try:
+        curs.execute("SELECT * FROM users")
+        users = curs.fetchall()
+    except:
+        requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Сталася проблема комунікації з базою даних. Пробую відновити зв\'язок!'))
+        requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('Сталася проблема комунікації з базою даних. Пробую відновити зв\'язок!'))
+        curs.execute("Rollback")
+        conn.commit()
+        curs.execute("SELECT * FROM users")
+        users = curs.fetchall()
+        if users:
+            requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Проблему вирішено! Стабільну роботу відновлено!'))
+            requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('Проблему вирішено! Стабільну роботу відновлено!'))
+
+
     send_result = []
     for i in users:
         try:
@@ -92,6 +106,7 @@ def specific_time_send():
 
                 if local_time[0] in time:
                     length = send([i])
+                    updateNewsSent(length, i)
                     send_result.append(str(i[2]) + ' ' + str(i[9]) + ' ' + str(i[10]))
                     requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Надіслано '+ str(length) + ' новин користувачу ' +str(i[2]) + ' ' + str(i[9]) + ' ' + str(i[10]) + '.\nЧас отримання новин: '+ str(i[7])) + '.\nGMT: '+ str(i[16]) + '.\nЛокальний час: '+ str(local_time[0]))
                     requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('Надіслано '+ str(length) + ' новин користувачу ' +str(i[2]) + ' ' + str(i[9]) + ' ' + str(i[10]) + '.\nЧас отримання новин: '+ str(i[7])) + '.\nGMT: '+ str(i[16]) + '.\nЛокальний час: '+ str(local_time[0]))
@@ -103,6 +118,7 @@ def specific_time_send():
                 local_minute = int(time.split(':')[1])
                 if local_minute == 0 and local_hour >= 7 and local_hour <=23:
                     length = send([i])
+                    updateNewsSent(length, i)
                     send_result.append(str(i[2]) + ' ' + str(i[9]) + ' ' + str(i[10]))
                     requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Надіслано '+ str(length) + ' новин користувачу ' +str(i[2]) + ' ' + str(i[9]) + ' ' + str(i[10]) + '.\nЧас отримання новин: '+ str(i[7])) + '.\nGMT: '+ str(i[16]) + '.\nЛокальний час: '+ str(time))
                     requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('Надіслано '+ str(length) + ' новин користувачу ' +str(i[2]) + ' ' + str(i[9]) + ' ' + str(i[10]) + '.\nЧас отримання новин: '+ str(i[7])) + '.\nGMT: '+ str(i[16]) + '.\nЛокальний час: '+ str(time))
@@ -117,8 +133,32 @@ def specific_time_send():
         requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('Підсумок:\nФункція надсилання спрацювала для ' +str(len(send_result)) + ' користувачів'))
 
 
-    # if now_hour == '07' and now_minute == '00':
-    #     nine_am()
+    if now_hour == '23' and now_minute == '37':
+        requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Час підбити підсумки дня!'))
+        requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('Час підбити підсумки дня!'))
+
+        sum = 0
+        users_received_today = 0
+        not_received = 0
+        for i in users:
+            if int(i[24] == 0):
+                curs.execute("SELECT website FROM user2website WHERE user_id='{}'".format(i[1]))
+                websites = ''
+                for b in curs.fetchall():
+                    curs.execute("SELECT name FROM websites WHERE id='{}'".format(b[0]))
+                    websites = websites + curs.fetchone()[0] + ', '
+                requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Користувачу '+ i[2] + i[9] + i[10] + ' (' + str(i[1]) +')' +'сьогодні не надіслано новини. Його теми: ' +str(i[6]) + '. Сайти: '+ websites))
+                requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('Користувачу '+ i[2] + i[9] + i[10] + ' (' + str(i[1]) +')' +'сьогодні не надіслано новини. Його теми: ' +str(i[6]) + '. Сайти: '+ websites))
+                not_received += 1
+            else:
+                users_received_today += 1
+            sum += int(i[24])
+
+        requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Сьогодні було надіслано ' + str(sum) + '\nНовини отримали '+ str(users_received_today) + ' користувачів\nНовини не отримали '+ str(not_received)+ ' користувачів'))
+        requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('Сьогодні було надіслано ' + str(sum) + '\nНовини отримали '+ str(users_received_today) + ' користувачів\nНовини не отримали '+ str(not_received)+ ' користувачів'))
+
+        curs.execute("UPDATE users SET news_sent_today = 0")
+        conn.commit()
     # if now_hour == '07' and now_minute == '01':
     #     curs.execute("SELECT value FROM static WHERE name ='9am'")
     #     if curs.fetchone()[0] != 'ok':
@@ -240,7 +280,17 @@ def specific_time_send():
 #     curs.execute("UPDATE static SET value ='ok' WHERE name ='9pm'")
 #     conn.commit()
 
-
+def updateNewsSent(length, i):
+    print('started', i)
+    try:
+        news_sent = int(i[23]) + int(length)
+        news_sent_today = int(i[24]) + int(length)
+        print(news_sent, news_sent_today)
+        curs.execute("UPDATE users SET news_sent='{}', news_sent_today ='{}' WHERE telegram_id='{}'".format(news_sent, news_sent_today, i[1]))
+        conn.commit()
+    except TypeError:
+        pass
+    print('finished!')
 
 if __name__ == '__main__':
     specific_time_send()

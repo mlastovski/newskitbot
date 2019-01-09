@@ -38,6 +38,7 @@ from parsers.lbua import lbua
 from parsers.rbcua import rbcua
 
 
+
 os.environ['DATABASE_URL'] = 'postgres://cgvkxvyosmvmzd:f281ebb6771eaebb9c998d34665c60d917542d6df0ece9fa483da65d62b600e7@ec2-79-125-12-48.eu-west-1.compute.amazonaws.com:5432/dbrvpbkmj63vl8'
 
 DATABASE_URL = os.environ['DATABASE_URL']
@@ -47,6 +48,7 @@ curs = conn.cursor()
 
 
 def parse(media, web_name):
+    from timesend import updateNewsSent
     from bot import TOKEN, TOKEN2
     if TOKEN == TOKEN2:
         warning = 'Parsing wont work because you are using SpamBot at the moment! Change TOKEN in bot.py!'
@@ -422,6 +424,7 @@ def parse(media, web_name):
                                 get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, additional_info))
                                 curs.execute("UPDATE users SET additional_received = 'true' WHERE telegram_id = '{}'".format(chat_id))
                                 conn.commit()
+                            updateNewsSent(1, user)
                         elif int(status) == 0 and user2website[3] == '*' and user[4] == 'immediate' and web_info[3] in user_news_lang:
                             print(True, chat_id)
 
@@ -444,6 +447,7 @@ def parse(media, web_name):
                                 get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, additional_info))
                                 curs.execute("UPDATE users SET additional_received = 'true' WHERE telegram_id = '{}'".format(chat_id))
                                 conn.commit()
+                            updateNewsSent(1, user)
     else:
         print("oops, i missed a lot of articles!")
         for new_article_number in range(len(links)-1, -1, -1):
@@ -539,6 +543,7 @@ def parse(media, web_name):
 
                             curs.execute("UPDATE users SET send_time ='{}' WHERE telegram_id ='{}'".format(datetime.now().timestamp(), user[3]))
                             conn.commit()
+                            updateNewsSent(1, user)
                         elif int(status) == 0 and user2website[3] == '*' and user[4] == 'immediate' and web_info[3] in user_news_lang:
                             print(True, chat_id)
 
@@ -555,6 +560,7 @@ def parse(media, web_name):
 
                             curs.execute("UPDATE users SET send_time ='{}' WHERE telegram_id ='{}'".format(datetime.now().timestamp(), user[3]))
                             conn.commit()
+                            updateNewsSent(1, user)
     print('Finished!')
 
 
@@ -682,10 +688,22 @@ def send(users, limit=15, immediate=False):
                         if i == 1 and user[7] != 'everyhour' or i == 1 and user[7] == 'everyhour' and now_hour == '05':
                             passed_keywords = 'Твій одноразовий ліміт новин: ' + str(limit) + '. Щоб змінити, скористайся /limit \nЧас отримання новин: '  + news_time + '. Щоб змінити, скористайся /newstime\n' + passed_keywords
 
-                        from bot import TelegramBot, telepot
-                        sent = TelegramBot.sendMessage(user[1], web_name + ': '+ article[6])
-                        edited = telepot.message_identifier(sent)
-                        TelegramBot.editMessageText(edited, str(passed_keywords + '\n' + article[2]))
+                        from bot import TelegramBot, telepot, TOKEN
+                        try:
+                            sent = TelegramBot.sendMessage(user[1], web_name + ': '+ article[6])
+                        except:
+                            get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, passed_keywords + '\n' + article[2]), chat_id)
+
+                        try:
+                            edited = telepot.message_identifier(sent)
+                            TelegramBot.editMessageText(edited, str(passed_keywords + '\n' + article[2]))
+                        except:
+                            time.sleep(1)
+                            try:
+                                edited = telepot.message_identifier(sent)
+                            except:
+                                return 0
+                            TelegramBot.editMessageText(edited, str(passed_keywords + '\n' + article[2]))
 
                         curs.execute("UPDATE users SET send_time ='{}' WHERE telegram_id ='{}'".format(datetime.now().timestamp(), user[1]))
                         conn.commit()
@@ -698,10 +716,22 @@ def send(users, limit=15, immediate=False):
                             passed_keywords = 'Твій одноразовий ліміт новин: ' + str(limit) + '. Щоб змінити, скористайся /limit \nЧас отримання новин: '  + news_time + '. Щоб змінити, скористайся /newstime\n' + passed_keywords
                         print(True)
 
-                        from bot import TelegramBot, telepot
-                        sent = TelegramBot.sendMessage(user[1], web_name + ': '+ article[6])
-                        edited = telepot.message_identifier(sent)
-                        TelegramBot.editMessageText(edited, str(passed_keywords + '\n' + article[2]))
+                        from bot import TelegramBot, telepot, TOKEN
+                        try:
+                            sent = TelegramBot.sendMessage(user[1], web_name + ': '+ article[6])
+                        except:
+                            get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, passed_keywords + '\n' + article[2]), chat_id)
+
+                        try:
+                            edited = telepot.message_identifier(sent)
+                            TelegramBot.editMessageText(edited, str(passed_keywords + '\n' + article[2]))
+                        except:
+                            time.sleep(1)
+                            try:
+                                edited = telepot.message_identifier(sent)
+                            except:
+                                return 0
+                            TelegramBot.editMessageText(edited, str(passed_keywords + '\n' + article[2]))
 
                         curs.execute("UPDATE users SET send_time ='{}' WHERE telegram_id ='{}'".format(datetime.now().timestamp(), user[1]))
                         conn.commit()

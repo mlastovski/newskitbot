@@ -3,7 +3,7 @@ import re
 # importing stopwords and converting them to the list
 
 
-def extract_keywords(article_text, language):
+def extract_keywords(article_text, language, limit=4):
     if language == 'en':
         file_name = 'stopwords.txt'
     elif language == 'de':
@@ -26,7 +26,7 @@ def extract_keywords(article_text, language):
         final_words.remove('')
 
     final_words = {i:final_words.count(i) for i in final_words}
-    search_num = 4 #minimum number of times that the word should appear in the article
+    search_num = limit #minimum number of times that the word should appear in the article
     final_text = []
     for word, num in final_words.items():
         if num >= search_num:

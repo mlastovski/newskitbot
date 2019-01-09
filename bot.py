@@ -816,7 +816,7 @@ def echo_all(updates):
                 else:
                     parse_possible = ['immediate', '09:00', 'everyhour', '12:00', '21:00']
                     parse_all = [['Одразу', '/chosentime immediate'], ['О 12 годині', '/chosentime 12:00', 'continue'] ,['Щогодини протягом дня', '/chosentime everyhour'],
-                                              ['О 9 ранку', '/chosentime 09:00'], ['0 9 вечора', '/chosentime 21:00', 'continue']]
+                                              ['О 9 ранку', '/chosentime 09:00'], ['О 9 вечора', '/chosentime 21:00', 'continue']]
                     markup = []
                     i = 1
                     for parse in parse_all:
@@ -895,7 +895,7 @@ def echo_all(updates):
                     parse_mode = 'everyhour'
                     curs.execute("UPDATE users SET parse_mode = 'everyhour' WHERE telegram_id='{}'".format(id))
                     conn.commit()
-                    markup = [['Одразу', '/chosentime immediate'], ['О 12 годині', '/chosentime 12:00', 'continue'], ['✅Щогодини протягом дня', '/chosentime everyhour'], ['О 9 ранку', '/chosentime 09:00'], ['0 9 вечора', '/chosentime 21:00', 'continue'], ['ВКАЗАТИ СВІЙ ЧАС!', '/newstime'], ['Змінити часовий пояс!', '/changetimezone newskit']]
+                    markup = [['Одразу', '/chosentime immediate'], ['О 12 годині', '/chosentime 12:00', 'continue'], ['✅Щогодини протягом дня', '/chosentime everyhour'], ['О 9 ранку', '/chosentime 09:00'], ['О 9 вечора', '/chosentime 21:00', 'continue'], ['ВКАЗАТИ СВІЙ ЧАС!', '/newstime'], ['Змінити часовий пояс!', '/changetimezone newskit']]
                     reply_markup = get_reply_markup(markup)
                     if mess_id:
                         try:
