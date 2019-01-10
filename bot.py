@@ -1729,6 +1729,39 @@ def echo_all(updates):
                                         websites = websites + curs.fetchone()[0] + ', '
                                     requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id={}&text={}'.format(chat, str(person) + '\n\nWebsites: ' + websites))
                                 send_message('Запит виконано!' + websites, chat)
+                            elif admin_action == 'statistic':
+                                curs.execute("SELECT * FROM users")
+                                users = curs.fetchall()
+                                sum = 0
+                                users_received_today = 0
+                                not_received = 0
+                                for i in users:
+                                    if int(i[24]) == 0:
+                                        curs.execute("SELECT website FROM user2website WHERE user_id='{}'".format(i[1]))
+                                        websites = ''
+                                        for b in curs.fetchall():
+                                            curs.execute("SELECT name FROM websites WHERE id='{}'".format(b[0]))
+                                            websites = websites + curs.fetchone()[0] + ', '
+
+                                        timezone = i[16]
+                                        parse_mode = i[7]
+
+                                        if ':' in parse_mode:
+                                            print(parse_mode)
+                                            if ',' in parse_mode:
+                                                times = convert_time(parse_mode.split(', '), timezone)
+                                                times = ', '.join(times)
+                                            else:
+                                                times = convert_time([parse_mode], timezone)[0]
+                                        else:
+                                            times = parse_mode
+
+                                        requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id={}&text={}'.format(chat, 'Користувачу '+ i[2] + ' ' + i[9] + ' ' + i[10] + ' (' + str(i[1]) +')' +' сьогодні не надіслано новини. Теми юзера: ' +str(i[6]) + '. Сайти: '+ websites + '. Час: '+ times))
+                                        not_received += 1
+                                    else:
+                                        users_received_today += 1
+                                    sum += int(i[24])
+                                requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id={}&text={}'.format(chat,'Сьогодні було надіслано ' + str(sum) + ' статей\nНовини отримали '+ str(users_received_today) + ' користувачів\nНовини не отримали '+ str(not_received)+ ' користувачів'))
                             else:
                                 send_message('Такої команди в адмін-панелі не існує(( Спробуй ще раз. Або /cancel щоб вийти', chat)
                                 onemoretime=True

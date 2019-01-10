@@ -378,11 +378,13 @@ def parse(media, web_name):
 
             print(web_name, web_info[3])
 
-            curs.execute("SELECT telegram_id, status, keywords, telegram_id, parse_mode, news_language, additional_received FROM users")
+            curs.execute("SELECT telegram_id, status, keywords, telegram_id, parse_mode, news_language, additional_received FROM users WHERE parse_mode='immediate'")
             users = list(curs.fetchall())
             article_keywords = article_keywords.split(', ')
             if not duplicate:
                 for user in users:
+                    curs.execute("SELECT * FROM users WHERE telegram_id='{}'".format(user[0]))
+                    user_normalnyy = curs.fetchone()
                     print(user)
                     chat_id = user[0]
                     status = user[1]
@@ -424,7 +426,7 @@ def parse(media, web_name):
                                 get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, additional_info))
                                 curs.execute("UPDATE users SET additional_received = 'true' WHERE telegram_id = '{}'".format(chat_id))
                                 conn.commit()
-                            updateNewsSent(1, user)
+                            updateNewsSent(1, user_normalnyy)
                         elif int(status) == 0 and user2website[3] == '*' and user[4] == 'immediate' and web_info[3] in user_news_lang:
                             print(True, chat_id)
 
@@ -447,7 +449,7 @@ def parse(media, web_name):
                                 get_json_from_url('https://api.telegram.org/bot577877864:AAF5nOap1NlsD6UNHUVHbeMkjNkxHIJo7zE/sendMessage?chat_id={}&text={}'.format(chat_id, additional_info))
                                 curs.execute("UPDATE users SET additional_received = 'true' WHERE telegram_id = '{}'".format(chat_id))
                                 conn.commit()
-                            updateNewsSent(1, user)
+                            updateNewsSent(1, user_normalnyy)
     else:
         print("oops, i missed a lot of articles!")
         for new_article_number in range(len(links)-1, -1, -1):
@@ -509,6 +511,8 @@ def parse(media, web_name):
             article_keywords = article_keywords.split(', ')
             if not duplicate:
                 for user in users:
+                    curs.execute("SELECT * FROM users WHERE telegram_id='{}'".format(user[0]))
+                    user_normalnyy = curs.fetchone()
                     chat_id = user[0]
                     status = user[1]
                     user_news_lang = user[5].split(', ')
@@ -543,7 +547,7 @@ def parse(media, web_name):
 
                             curs.execute("UPDATE users SET send_time ='{}' WHERE telegram_id ='{}'".format(datetime.now().timestamp(), user[3]))
                             conn.commit()
-                            updateNewsSent(1, user)
+                            updateNewsSent(1, user_normalnyy)
                         elif int(status) == 0 and user2website[3] == '*' and user[4] == 'immediate' and web_info[3] in user_news_lang:
                             print(True, chat_id)
 
@@ -560,7 +564,7 @@ def parse(media, web_name):
 
                             curs.execute("UPDATE users SET send_time ='{}' WHERE telegram_id ='{}'".format(datetime.now().timestamp(), user[3]))
                             conn.commit()
-                            updateNewsSent(1, user)
+                            updateNewsSent(1, user_normalnyy)
     print('Finished!')
 
 
