@@ -50,6 +50,7 @@ def androidpolice():
                     print("FIGNYA")
 
             final_text = extract_keywords(final_words, 'en')
+            final_text += ' technology'
             #print(final_text)
 
             author = ''

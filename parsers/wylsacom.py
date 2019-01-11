@@ -54,6 +54,7 @@ def wylsa():
                         print("FIGNYA")
 
                 final_text = extract_keywords(final_words, 'ru')
+                final_text += ' техно'
                 # print(final_text)
 
                 if title_text and link:

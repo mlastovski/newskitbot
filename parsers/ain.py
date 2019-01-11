@@ -77,6 +77,7 @@ def parse_ainua():
                         print("FIGNYA")
 
                 final_text = extract_keywords(final_words, 'ua')
+                final_text += ' технології'
                 # print(final_text)
 
                 if title_text and link:

@@ -50,6 +50,7 @@ def ninetofivemac():
                     print("FIGNYA")
 
             final_text = extract_keywords(final_words, 'en')
+            final_text += ' apple technology'
             # print(final_text)
 
             author = ''

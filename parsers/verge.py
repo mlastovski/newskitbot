@@ -58,7 +58,7 @@ def verge():
             #print(whole_article_text)
 
             final_text = extract_keywords(whole_article_text, 'en')
-
+            final_text += ' technology'
             #print(final_text)
 
             author = ''

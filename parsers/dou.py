@@ -50,6 +50,7 @@ def dou():
 
             # final_text = extract_keywords(final_words, 'ru')
             final_text = extract_keywords(final_words, 'ru')
+            final_text += ' техно'
             # print(final_text)
 
             author = ''

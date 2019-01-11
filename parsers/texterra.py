@@ -77,6 +77,7 @@ def texterra():
                         print("FIGNYA")
 
                 final_text = extract_keywords(final_words, 'ru')
+                final_text += ' IT'
                 #print(final_text)
 
                 author = ''

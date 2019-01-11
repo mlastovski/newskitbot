@@ -147,15 +147,29 @@ def specific_time_send():
                 for b in curs.fetchall():
                     curs.execute("SELECT name FROM websites WHERE id='{}'".format(b[0]))
                     websites = websites + curs.fetchone()[0] + ', '
-                requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Користувачу '+ i[2] + i[9] + i[10] + ' (' + str(i[1]) +')' +'сьогодні не надіслано новини. Його теми: ' +str(i[6]) + '. Сайти: '+ websites))
-                requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('Користувачу '+ i[2] + i[9] + i[10] + ' (' + str(i[1]) +')' +'сьогодні не надіслано новини. Його теми: ' +str(i[6]) + '. Сайти: '+ websites))
+
+                timezone = i[16]
+                parse_mode = i[7]
+
+                if ':' in parse_mode:
+                    print(parse_mode)
+                    if ',' in parse_mode:
+                        times = convert_time(parse_mode.split(', '), timezone)
+                        times = ', '.join(times)
+                    else:
+                        times = convert_time([parse_mode], timezone)[0]
+                else:
+                    times = parse_mode
+
+                requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Користувачу '+ i[2] + ' ' + i[9] + ' ' + i[10] + ' (' + str(i[1]) +')' +' сьогодні не надіслано новини. Теми юзера: ' +str(i[6]) + '. Сайти: '+ websites + '. Час: '+ times))
+                requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('Користувачу '+ i[2] + ' ' + i[9] + ' ' + i[10] + ' (' + str(i[1]) +')' +' сьогодні не надіслано новини. Теми юзера: ' +str(i[6]) + '. Сайти: '+ websites + '. Час: '+ times))
                 not_received += 1
             else:
                 users_received_today += 1
             sum += int(i[24])
 
-        requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Сьогодні було надіслано ' + str(sum) + 'статей\nНовини отримали '+ str(users_received_today) + ' користувачів\nНовини не отримали '+ str(not_received)+ ' користувачів'))
-        requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('Сьогодні було надіслано ' + str(sum) + 'статей\nНовини отримали '+ str(users_received_today) + ' користувачів\nНовини не отримали '+ str(not_received)+ ' користувачів'))
+        requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Сьогодні було надіслано ' + str(sum) + ' статей\nНовини отримали '+ str(users_received_today) + ' користувачів\nНовини не отримали '+ str(not_received)+ ' користувачів'))
+        requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('Сьогодні було надіслано ' + str(sum) + ' статей\nНовини отримали '+ str(users_received_today) + ' користувачів\nНовини не отримали '+ str(not_received)+ ' користувачів'))
 
         curs.execute("UPDATE users SET news_sent_today = 0")
         conn.commit()

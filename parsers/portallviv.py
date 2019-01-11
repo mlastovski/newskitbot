@@ -54,6 +54,7 @@ def portallviv():
                     pass
 
             final_text = extract_keywords(final_words, 'ua')
+            final_text += ' львів'
             # print(final_text)
 
             author = ''
