@@ -40,8 +40,9 @@ sudo docker run -p 8000:8000 -v `pwd`:/newskit --rm -it python python app.py
 
 We are open to new opportunities so feel free to get in touch with us!
 
+* [Mark Lastovski](https://www.facebook.com/mlastovski) - Front-End & Back-End Developer
 * [Dmytro Lopushanskyy](https://www.facebook.com/profile.php?id=100007359646680) - Front-End & Back-End Developer
-* [Mark Lastovski](https://www.facebook.com/mlastovski) - Designer & Back-End Developer
+
 
 
 
