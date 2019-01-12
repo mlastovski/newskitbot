@@ -91,17 +91,24 @@ def parse_ainua():
                     print(article)
                     articles.append(article)
 
+                if len(articles) > 5:
+                    break
+
         except AttributeError:
-            try:
-                from bot import TOKEN2
-                requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN2, 'Проблема з парсингом Ain'))
-                requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=373407132&text={}'.format(TOKEN2, 'Проблема з парсингом Ain'))
-            except ImportError:
-                print("Import error (token), can't send message to bot")
-                continue
+            print('AttributeError')
 
     articles = [i for n, i in enumerate(articles) if i not in articles[n + 1:]]  # remove repeating
 
+    if len(articles) < 7:
+        try:
+            from bot import TOKEN2
+            requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN2, 'Проблема з парсингом Ain'))
+            requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=373407132&text={}'.format(TOKEN2, 'Проблема з парсингом Ain'))
+        except ImportError:
+            print("Import error (token), can't send message to bot")
+
+
+    print(len(articles), articles)
     return articles
 
 

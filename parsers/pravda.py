@@ -71,17 +71,25 @@ def pravda():
                 print(article)
                 articles.append(article)
 
+            # to parse not more than 5 articles every 5 minutes
+            if len(articles) > 4:
+                break
+
         except AttributeError:
-            try:
-                from bot import TOKEN
-                requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN, 'Проблема з парсингом Pravda'))
-            except ImportError:
-                print("Import error (token), can't send message to bot")
-                continue
+            print('AttributeError')
 
 
     articles = [i for n, i in enumerate(articles) if i not in articles[n + 1:]] #remove repeating
-    print(articles)
+
+    if len(articles) < 6:
+        try:
+            from bot import TOKEN2
+            requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN2, 'Проблема з парсингом Pravda'))
+            requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=373407132&text={}'.format(TOKEN2, 'Проблема з парсингом Pravda'))
+        except ImportError:
+            print("Import error (token), can't send message to bot")
+
+    print(len(articles), articles)
     return articles
 
 if __name__ == '__main__':

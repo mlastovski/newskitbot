@@ -77,13 +77,14 @@ def bbc():
                 print(article)
                 articles.append(article)
 
-
+            if len(articles) > 5:
+                break
 
         except AttributeError:
             print('AttributeError')
 
     articles = [i for n, i in enumerate(articles) if i not in articles[n + 1:]] #remove repeating
-    if len(articles) < 9:
+    if len(articles) < 6:
         try:
             from bot import TOKEN2
             requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN2, 'Проблема з парсингом BBC'))
@@ -91,12 +92,8 @@ def bbc():
         except ImportError:
             print("Import error (token), can't send message to bot")
 
-    print(len(articles),articles)
-
+    print(len(articles), articles)
     return articles
-
-
-
 
 if __name__ == "__main__":
     bbc()

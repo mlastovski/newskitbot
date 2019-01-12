@@ -36,6 +36,7 @@ from parsers.mctoday import mctoday
 from parsers.portallviv import portallviv
 from parsers.lbua import lbua
 from parsers.rbcua import rbcua
+from parsers.medialab import medialab
 
 
 
@@ -278,6 +279,13 @@ def parse(media, web_name):
         except:
             requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! rbcua'))
             requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! rbcua'))
+            return None
+    elif media == 32:
+        try:
+            parsed_content = medialab()
+        except:
+            requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=138918380&text={}'.format('Помилка парсингу!!!!!! MediaLab'))
+            requests.get('https://api.telegram.org/bot613708092:AAEYN4KQHf_MinZAtAqQqkREdBNvYPk8yYM/sendMessage?chat_id=373407132&text={}'.format('Помилка парсингу!!!!!! MediaLab'))
             return None
     else:
         return None

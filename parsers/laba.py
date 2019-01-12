@@ -79,6 +79,9 @@ def laba():
                     print(article)
                     articles.append(article)
 
+                if len(articles) > 5:
+                    break
+
             except AttributeError:
                 print('AttributeError')
 
@@ -86,16 +89,15 @@ def laba():
             print('AttributeError')
 
     articles = [i for n, i in enumerate(articles) if i not in articles[n + 1:]] #remove repeating
-    if len(articles) < 10:
+    if len(articles) < 6:
         try:
             from bot import TOKEN2
-            requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN2, 'Проблема з парсингом Hromadske'))
-            requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=373407132&text={}'.format(TOKEN2, 'Проблема з парсингом Hromadske'))
+            requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN2, 'Проблема з парсингом Laba'))
+            requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=373407132&text={}'.format(TOKEN2, 'Проблема з парсингом Laba'))
         except ImportError:
             print("Import error (token), can't send message to bot")
 
-    print(len(articles),articles)
-
+    print(len(articles), articles)
     return articles
 
 

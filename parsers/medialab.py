@@ -1,4 +1,4 @@
-# coding: utf-8
+# coding: utf8
 from bs4 import BeautifulSoup
 import requests
 import lxml
@@ -8,27 +8,27 @@ from parsers.parse_tool import extract_keywords
 debug = False
 test = True
 
-
-def lviv():
+def medialab():
+    # print('success')
     # getting data
-    data = requests.get("http://lviv1256.com/category/news/", headers={
+    data = requests.get("http://medialab.online/category/news/", headers={
         "user-agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Mobile Safari/537.36"}).text
     # print(data)
     soup = BeautifulSoup(data, "lxml")
     articles = []
 
-    for title in soup.find('div', {'class': 'main-content'}).find('div', {'class': 'listing'}).find_all('div', {
-        'class': 'column'}):
-        # print('yap')
+    for title in soup.find('div', {'class': 'nlg-col-wrap'}).find_all('div', {'class': 'nlg-col'}):
         try:
-            title_text = title.find('article').find('a').get('title')
+            title_text = title.find('article').find('div', {'class': 'nlg-entry-body'}).find('header').find('h3').find('a').get_text()
             # print(title_text)
-            link = title.find('article').find('a').get('href')
+            link = title.find('article').find('div', {'class': 'nlg-entry-body'}).find('header').find('h3').find('a').get('href')
             # print(link)
 
             try:
+                # link = 'https://www.032.ua/news' + link
                 structure = requests.get(link, headers={
                     "user-agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Mobile Safari/537.36"}).text
+                # print(structure)
             except:
                 print('Pass through error!')
 
@@ -73,12 +73,12 @@ def lviv():
         except AttributeError:
             print('AttributeError')
 
-    articles = [i for n, i in enumerate(articles) if i not in articles[n + 1:]]  # remove repeating
+    articles = [i for n, i in enumerate(articles) if i not in articles[n + 1:]] #remove repeating
     if len(articles) < 6:
         try:
             from bot import TOKEN2
-            requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN2, 'Проблема з парсингом Lviv1256'))
-            requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=373407132&text={}'.format(TOKEN2, 'Проблема з парсингом Lviv1256'))
+            requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=138918380&text={}'.format(TOKEN2, 'Проблема з парсингом MediaLab'))
+            requests.get('https://api.telegram.org/bot{}/sendMessage?chat_id=373407132&text={}'.format(TOKEN2, 'Проблема з парсингом MediaLab'))
         except ImportError:
             print("Import error (token), can't send message to bot")
 
@@ -87,4 +87,4 @@ def lviv():
 
 
 if __name__ == '__main__':
-    lviv()
+    medialab()
